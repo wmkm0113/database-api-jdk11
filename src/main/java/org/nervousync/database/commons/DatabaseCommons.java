@@ -12,12 +12,12 @@ import java.math.BigDecimal;
 import java.sql.Types;
 import java.util.*;
 
-public final class CerebrateCommons {
+public final class DatabaseCommons {
 
 	/**
 	 * The constant LOGGER.
 	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(CerebrateCommons.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseCommons.class);
 
 	/**
 	 * The constant DATA_CONVERT_MAPPING.
@@ -125,7 +125,7 @@ public final class CerebrateCommons {
 		return Optional.ofNullable(EntityManager.getInstance().retrieveTableConfig(defineClass))
 				.map(tableConfig -> {
 					TreeMap<String, Object> cacheKeyMap = new TreeMap<>(queryParameters);
-					cacheKeyMap.put(CerebrateCommons.CONTENT_MAP_KEY_TABLE_NAME.toUpperCase(),
+					cacheKeyMap.put(DatabaseCommons.CONTENT_MAP_KEY_TABLE_NAME.toUpperCase(),
 							tableConfig.getTableName().toUpperCase());
 					return ConvertUtils.byteToHex(SecurityUtils.SHA256(cacheKeyMap));
 				})

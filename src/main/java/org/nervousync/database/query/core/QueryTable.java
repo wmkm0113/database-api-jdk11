@@ -44,9 +44,9 @@ public final class QueryTable {
      */
     private final Class<?> entityClass;
     /**
-     * The Entity class name.
+     * The Entity schema name
      */
-    private final String databaseAlias;
+    private final String schemaName;
     /**
      * The Query join list.
      */
@@ -74,7 +74,7 @@ public final class QueryTable {
         this.aliasName = StringUtils.isEmpty(aliasName) ? StringUtils.randomString(4) : aliasName;
         this.tableName = tableConfig.getTableName();
         this.entityClass = tableConfig.getDefineClass();
-        this.databaseAlias = tableConfig.getAliasName();
+        this.schemaName = tableConfig.getSchemaName();
         this.queryJoinList = queryJoinList;
         this.queryItemList = queryItemList;
         this.queryConditionList = queryConditionList;
@@ -94,8 +94,8 @@ public final class QueryTable {
      *
      * @return the database alias
      */
-    public String getDatabaseAlias() {
-        return databaseAlias;
+    public String getSchemaName() {
+        return schemaName;
     }
 
     /**
@@ -182,7 +182,7 @@ public final class QueryTable {
         SortedMap<String, Object> cacheMap = new TreeMap<>();
 
         cacheMap.put("TableName", this.tableName);
-        cacheMap.put("DatabaseAlias", this.databaseAlias);
+        cacheMap.put("SchemaName", this.schemaName);
 
         Map<String, String> joinMap = new HashMap<>();
         this.queryJoinList.forEach(queryJoin ->
@@ -414,11 +414,11 @@ public final class QueryTable {
         /**
          * Match boolean.
          *
-         * @param databaseName the database name
+         * @param schemaName the database schema name
          * @return the boolean
          */
-        public boolean match(final String databaseName) {
-            return Objects.equals(this.tableConfig.getAliasName(), databaseName);
+        public boolean match(final String schemaName) {
+            return Objects.equals(this.tableConfig.getSchemaName(), schemaName);
         }
 
         /**
@@ -449,7 +449,8 @@ public final class QueryTable {
          */
         boolean analyzeCheck(final Class<?> referenceClass) {
             return Optional.ofNullable(EntityManager.getInstance().retrieveTableConfig(referenceClass))
-                    .map(referenceTable -> Objects.equals(this.tableConfig.getAliasName(), referenceTable.getAliasName()))
+                    .map(referenceTable ->
+                            Objects.equals(this.tableConfig.getSchemaName(), referenceTable.getSchemaName()))
                     .orElse(Boolean.FALSE);
         }
 

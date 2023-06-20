@@ -1,0 +1,7 @@
+数据库通用接口
+[06/01/2023]
+[Add] 实体类定义与标注分析
+[Add] 数据库查询的定义与构建器
+[Add] 查询结果的统一返回定义
+[Add] ResultMap继承扩展HashMap，添加unwrap方法用于转换ResultMap对象为指定的目标对象
+[Add] 全局定义接口DatabaseManager/DatabaseClient

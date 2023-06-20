@@ -11,7 +11,7 @@ import jakarta.persistence.*;
 import org.nervousync.commons.core.Globals;
 import org.nervousync.database.annotations.table.DataParser;
 import org.nervousync.database.beans.configs.generator.GeneratorConfig;
-import org.nervousync.database.commons.CerebrateCommons;
+import org.nervousync.database.commons.DatabaseCommons;
 import org.nervousync.database.beans.parser.AbstractDataParser;
 import org.nervousync.utils.ConvertUtils;
 import org.nervousync.utils.ReflectionUtils;
@@ -140,7 +140,7 @@ public final class ColumnConfig implements Serializable {
 				this.jdbcType = Types.BLOB;
 			}
 		} else {
-			this.jdbcType = CerebrateCommons.retrieveJdbcType(this.fieldType);
+			this.jdbcType = DatabaseCommons.retrieveJdbcType(this.fieldType);
 		}
 		switch (this.jdbcType) {
 			case Types.CHAR:

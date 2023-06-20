@@ -13,7 +13,7 @@ import org.nervousync.database.annotations.table.Options;
 import org.nervousync.database.beans.configs.column.ColumnConfig;
 import org.nervousync.database.beans.configs.generator.GeneratorConfig;
 import org.nervousync.database.beans.configs.reference.ReferenceConfig;
-import org.nervousync.database.commons.CerebrateCommons;
+import org.nervousync.database.commons.DatabaseCommons;
 import org.nervousync.database.dialects.Converter;
 import org.nervousync.database.entity.core.BaseObject;
 import org.nervousync.database.enumerations.drop.DropOption;
@@ -53,9 +53,9 @@ public final class TableConfig implements Serializable {
     private static final Logger LOGGER = LoggerFactory.getLogger(TableConfig.class);
 
     /**
-     * Database alias name
+     * Database schema name
      */
-    private final String aliasName;
+    private final String schemaName;
     /**
      * Table Name
      */
@@ -101,7 +101,7 @@ public final class TableConfig implements Serializable {
 
         Table table = clazz.getAnnotation(Table.class);
 
-        this.aliasName = StringUtils.isEmpty(table.catalog()) ? CerebrateCommons.DEFAULT_DATABASE_ALIAS : table.catalog();
+        this.schemaName = StringUtils.isEmpty(table.schema()) ? DatabaseCommons.DEFAULT_DATABASE_ALIAS : table.schema();
         this.cacheable = clazz.isAnnotationPresent(Cacheable.class)
                 ? clazz.getAnnotation(Cacheable.class).value()
                 : Boolean.FALSE;
@@ -280,8 +280,8 @@ public final class TableConfig implements Serializable {
      *
      * @return the database name
      */
-    public String getAliasName() {
-        return aliasName;
+    public String getSchemaName() {
+        return schemaName;
     }
 
     /**
@@ -372,10 +372,10 @@ public final class TableConfig implements Serializable {
                     .forEach(columnConfig ->
                             dataMap.put(columnConfig.getColumnName().toUpperCase(),
                                     ReflectionUtils.getFieldValue(columnConfig.getFieldName(), object)));
-            dataMap.put(CerebrateCommons.CONTENT_MAP_KEY_DATABASE_NAME.toUpperCase(), this.aliasName.toUpperCase());
-            dataMap.put(CerebrateCommons.CONTENT_MAP_KEY_TABLE_NAME.toUpperCase(), this.tableName.toUpperCase());
+            dataMap.put(DatabaseCommons.CONTENT_MAP_KEY_DATABASE_NAME.toUpperCase(), this.schemaName.toUpperCase());
+            dataMap.put(DatabaseCommons.CONTENT_MAP_KEY_TABLE_NAME.toUpperCase(), this.tableName.toUpperCase());
             if (StringUtils.notBlank(itemKey)) {
-                dataMap.put(CerebrateCommons.CONTENT_MAP_KEY_ITEM.toUpperCase(),
+                dataMap.put(DatabaseCommons.CONTENT_MAP_KEY_ITEM.toUpperCase(),
                         Optional.ofNullable(this.getColumnConfig(itemKey))
                                 .filter(ColumnConfig::isLazyLoad)
                                 .map(columnConfig -> columnConfig.getColumnName().toUpperCase())
@@ -400,10 +400,10 @@ public final class TableConfig implements Serializable {
                 .filter(ColumnConfig::isLazyLoad)
                 .forEach(columnConfig -> {
                     TreeMap<String, Object> keyMap = new TreeMap<>(primaryKeyMap);
-                    keyMap.put(CerebrateCommons.CONTENT_MAP_KEY_ITEM.toUpperCase(), columnConfig.getColumnName());
-                    cacheKeys.add(CerebrateCommons.cacheKey(this.defineClass.getName(), keyMap));
+                    keyMap.put(DatabaseCommons.CONTENT_MAP_KEY_ITEM.toUpperCase(), columnConfig.getColumnName());
+                    cacheKeys.add(DatabaseCommons.cacheKey(this.defineClass.getName(), keyMap));
                 });
-        cacheKeys.add(CerebrateCommons.cacheKey(this.defineClass.getName(), primaryKeyMap));
+        cacheKeys.add(DatabaseCommons.cacheKey(this.defineClass.getName(), primaryKeyMap));
         return cacheKeys;
     }
 
@@ -418,15 +418,15 @@ public final class TableConfig implements Serializable {
         return Optional.ofNullable(this.getColumnConfig(fieldName))
                 .map(columnConfig -> {
                     SortedMap<String, Object> keyMap = this.generatePrimaryKeyMap(object);
-                    keyMap.put(CerebrateCommons.CONTENT_MAP_KEY_ITEM.toUpperCase(), columnConfig.getColumnName());
+                    keyMap.put(DatabaseCommons.CONTENT_MAP_KEY_ITEM.toUpperCase(), columnConfig.getColumnName());
                     return this.cacheKey(keyMap);
                 })
                 .orElse(Globals.DEFAULT_VALUE_STRING);
     }
 
     public String cacheKey(final SortedMap<String, Object> primaryKey) {
-		primaryKey.put(CerebrateCommons.CONTENT_MAP_KEY_DATABASE_NAME.toUpperCase(), this.aliasName);
-		primaryKey.put(CerebrateCommons.CONTENT_MAP_KEY_TABLE_NAME.toUpperCase(), this.tableName);
+		primaryKey.put(DatabaseCommons.CONTENT_MAP_KEY_DATABASE_NAME.toUpperCase(), this.schemaName);
+		primaryKey.put(DatabaseCommons.CONTENT_MAP_KEY_TABLE_NAME.toUpperCase(), this.tableName);
 		String jsonKey = StringUtils.objectToString(primaryKey, StringUtils.StringType.JSON, Boolean.FALSE);
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("Cache key map: {}", jsonKey);

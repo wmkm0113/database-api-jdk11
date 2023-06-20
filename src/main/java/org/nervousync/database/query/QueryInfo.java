@@ -8,7 +8,7 @@
 package org.nervousync.database.query;
 
 import org.nervousync.commons.core.Globals;
-import org.nervousync.database.commons.CerebrateCommons;
+import org.nervousync.database.commons.DatabaseCommons;
 import org.nervousync.database.enumerations.join.JoinType;
 import org.nervousync.database.enumerations.lock.LockOption;
 import org.nervousync.database.exceptions.entity.EntityStatusException;
@@ -833,11 +833,11 @@ public final class QueryInfo {
 	}
 
 	private static int queryOffset(final int pageNo, final int pageLimit) {
-		int currentPage = (pageNo <= 0) ? CerebrateCommons.DEFAULT_PAGE_NO : pageNo;
+		int currentPage = (pageNo <= 0) ? DatabaseCommons.DEFAULT_PAGE_NO : pageNo;
 		return (currentPage - 1) * queryLimit(pageLimit);
 	}
 
 	private static int queryLimit(final int pageLimit) {
-		return pageLimit <= 0 ? CerebrateCommons.DEFAULT_PAGE_LIMIT : pageLimit;
+		return pageLimit <= 0 ? DatabaseCommons.DEFAULT_PAGE_LIMIT : pageLimit;
 	}
 }

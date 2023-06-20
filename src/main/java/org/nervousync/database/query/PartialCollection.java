@@ -8,7 +8,7 @@
 package org.nervousync.database.query;
 
 import org.nervousync.commons.core.Globals;
-import org.nervousync.database.commons.CerebrateCommons;
+import org.nervousync.database.commons.DatabaseCommons;
 import org.nervousync.database.exceptions.entity.EntityStatusException;
 import org.nervousync.database.exceptions.security.DataModifiedException;
 import org.nervousync.database.query.result.ResultMap;
@@ -182,7 +182,7 @@ public final class PartialCollection implements Serializable {
 				Globals.DEFAULT_ENCODING, String.class);
 
 		List<ResultMap> objectList = new ArrayList<>();
-		dataList.forEach(dataInfo -> objectList.add(new ResultMap(CerebrateCommons.cacheDataToMap(dataInfo))));
+		dataList.forEach(dataInfo -> objectList.add(new ResultMap(DatabaseCommons.cacheDataToMap(dataInfo))));
 
 		return new PartialCollection(objectList, totalCount);
 	}

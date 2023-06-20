@@ -2,17 +2,19 @@ package org.nervousync.database.api;
 
 public interface DatabaseManager {
 
-	boolean initialize(final String basePath);
+	boolean initialize();
 
-	void registerTable(final Class<?> entityClass, final String moduleBundle);
+	int registerTable(final Class<?>... entityClasses);
+
+	void removeTable(final Class<?>... entityClasses);
+
+	int dropTable(final Class<?>... entityClass);
 
 	DatabaseClient readOnlyClient();
 
 	DatabaseClient generateClient();
 
 	DatabaseClient generateClient(final Class<?> clazz, final String methodName);
-
-	void disableModule(final String moduleBundle);
 
 	void destroy();
 }
