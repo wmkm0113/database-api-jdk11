@@ -1,533 +1,561 @@
 /*
- * Copyright © 2003 Nervousync® Studio, Inc. All rights reserved.
- * This software is the confidential and proprietary information of
- * Nervousync Studio, Inc. You shall not disclose such Confidential
- * Information and shall use it only in accordance with the terms of the
- * license agreement you entered into with Nervousync Studio.
+ * Licensed to the Nervousync Studio (NSYC) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.nervousync.database.beans.configs.table;
 
+import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
-import org.nervousync.commons.core.Globals;
+import jakarta.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import org.nervousync.beans.converter.impl.basic.ClassStringAdapter;
+import org.nervousync.beans.core.BeanObject;
+import org.nervousync.commons.Globals;
 import org.nervousync.database.annotations.table.Options;
 import org.nervousync.database.beans.configs.column.ColumnConfig;
-import org.nervousync.database.beans.configs.generator.GeneratorConfig;
 import org.nervousync.database.beans.configs.reference.ReferenceConfig;
 import org.nervousync.database.commons.DatabaseCommons;
-import org.nervousync.database.dialects.Converter;
-import org.nervousync.database.entity.core.BaseObject;
 import org.nervousync.database.enumerations.drop.DropOption;
-import org.nervousync.database.enumerations.generation.GenerationOption;
 import org.nervousync.database.enumerations.lock.LockOption;
-import org.nervousync.database.exceptions.entity.TableConfigException;
-import org.nervousync.database.exceptions.security.DataModifiedException;
-import org.nervousync.database.provider.VerifyProvider;
-import org.nervousync.database.provider.factory.ProviderFactory;
-import org.nervousync.utils.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.nervousync.utils.ClassUtils;
+import org.nervousync.utils.ObjectUtils;
+import org.nervousync.utils.ReflectionUtils;
+import org.nervousync.utils.StringUtils;
 
-import java.io.Serializable;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
+import java.lang.reflect.Member;
 import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.*;
 
 /**
- * Table config
+ * <h2 class="en-US">Table configure information</h2>
+ * <h2 class="zh-CN">数据表配置信息</h2>
  *
  * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
- * @version $Revision : 1.0 $ $Date: Mar 23, 2010 10:13:02 AM $
+ * @version $Revision: 1.0.0 $ $Date: Mar 23, 2010 10:13:02 $
  */
-public final class TableConfig implements Serializable {
-
+@XmlRootElement(name = "table_config")
+@XmlAccessorType(XmlAccessType.NONE)
+public final class TableConfig extends BeanObject {
     /**
-     * The constant serialVersionUID.
+     * <span class="en-US">Serial version UID</span>
+     * <span class="zh-CN">序列化UID</span>
      */
     private static final long serialVersionUID = -6261205588355266688L;
+    /**
+     * <span class="en-US">Private constant value of reference annotation list</span>
+     * <span class="zh-CN">外键注解列表的私有常量值</span>
+     */
+    private static final List<Class<? extends Annotation>> REFERENCE_ANNOTATIONS =
+            Arrays.asList(ManyToMany.class, ManyToOne.class, OneToMany.class, OneToOne.class);
+    /**
+     * <span class="en-US">Private constant value of join column annotation list</span>
+     * <span class="zh-CN">关联注解列表的私有常量值</span>
+     */
+    private static final List<Class<? extends Annotation>> JOIN_ANNOTATIONS =
+            Arrays.asList(JoinColumn.class, JoinColumns.class);
+    /**
+     * <span class="en-US">Database schema name</span>
+     * <span class="zh-CN">数据库名称</span>
+     */
+    @XmlElement(name = "schema_name")
+    private String schemaName;
+    /**
+     * <span class="en-US">Table name</span>
+     * <span class="zh-CN">数据表名称</span>
+     */
+    @XmlElement(name = "table_name")
+    private String tableName;
+    /**
+     * <span class="en-US">Cacheable data record</span>
+     * <span class="zh-CN">缓存数据表记录</span>
+     */
+    @XmlElement
+    private boolean cacheable;
+    /**
+     * <span class="en-US">Composite ID</span>
+     * <span class="zh-CN">联合主键</span>
+     */
+    @XmlElement(name = "composite_id")
+    private boolean compositeId;
+    /**
+     * <span class="en-US">Entity class</span>
+     * <span class="zh-CN">实体类</span>
+     */
+    @XmlElement(name = "define_class")
+    @XmlJavaTypeAdapter(ClassStringAdapter.class)
+    private Class<?> defineClass;
+    /**
+     * <span class="en-US">Record lock option</span>
+     * <span class="zh-CN">数据记录锁定选项</span>
+     */
+    @XmlElement(name = "lock_option")
+    private LockOption lockOption;
+    /**
+     * <span class="en-US">Record drop option</span>
+     * <span class="zh-CN">数据记录删除选项</span>
+     */
+    @XmlElement(name = "drop_option")
+    private DropOption dropOption;
+    /**
+     * <span class="en-US">Column configure information list</span>
+     * <span class="zh-CN">数据列配置信息列表</span>
+     */
+    @XmlElement(name = "column_config")
+    @XmlElementWrapper(name = "column_config_list")
+    private List<ColumnConfig> columnConfigs;
+    /**
+     * <span class="en-US">Reference configure information list</span>
+     * <span class="zh-CN">外键配置信息列表</span>
+     */
+    @XmlElement(name = "reference_config")
+    @XmlElementWrapper(name = "reference_config_list")
+    private List<ReferenceConfig> referenceConfigs;
 
     /**
-     * The constant LOGGER.
+     * <h3 class="en-US">Constructor method for table configure information</h3>
+     * <h3 class="zh-CN">数据表配置信息的构造方法</h3>
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(TableConfig.class);
+    public TableConfig() {
+    }
 
     /**
-     * Database schema name
-     */
-    private final String schemaName;
-    /**
-     * Table Name
-     */
-    private final String tableName;
-    /**
-     * Data cache: Y/N
-     */
-    private final boolean cacheable;
-    /**
-     * Mapping class name
-     */
-    private final Class<?> defineClass;
-    /**
-     * Mapping column List
-     */
-    private final List<ColumnConfig> columnConfigList;
-    /**
-     * Define search index
-     */
-    private final Index[] indexes;
-    /**
-     * Table lock option
-     */
-    private final LockOption lockOption;
-    /**
-     * Table drop option
-     */
-    private final DropOption dropOption;
-    /**
-     * Lazy load method mapping
-     */
-    private final Hashtable<String, ReferenceConfig> referenceConfigs;
-
-    /**
-     * Instantiates a new Table config.
+     * <h3 class="en-US">Generate table configure information instance by given entity class</h3>
+     * <h3 class="zh-CN">根据给定的实体类生成数据表配置信息实例对象</h3>
      *
-     * @param clazz the clazz
-     * @throws TableConfigException the table config exception
+     * @param clazz <span class="en-US">Entity class</span>
+     *              <span class="zh-CN">实体类</span>
+     * @return <span class="en-US">Generated table configure information instance</span>
+     * <span class="zh-CN">生成的数据表配置信息实例对象</span>
      */
-    private TableConfig(final Class<?> clazz) throws TableConfigException {
-        this.columnConfigList = new ArrayList<>();
-        this.referenceConfigs = new Hashtable<>();
+    public static TableConfig newInstance(@Nonnull final Class<?> clazz) {
+        if (!clazz.isAnnotationPresent(Table.class)) {
+            return null;
+        }
+
+        LockOption lockOption;
+        DropOption dropOption;
+        if (clazz.isAnnotationPresent(Options.class)) {
+            Options options = clazz.getAnnotation(Options.class);
+            lockOption = options.lockOption();
+            dropOption = options.dropOption();
+        } else {
+            lockOption = LockOption.NONE;
+            dropOption = DropOption.NONE;
+        }
+
+        List<ColumnConfig> columnConfigs = new ArrayList<>();
+        List<ReferenceConfig> referenceConfigs = new ArrayList<>();
+
+        final Object object = ObjectUtils.newInstance(clazz);
+        ReflectionUtils.getAllDeclaredFields(clazz, Boolean.TRUE,
+                        parentClass -> parentClass.isAnnotationPresent(MappedSuperclass.class),
+                        TableConfig::annotationMember)
+                .forEach(field -> {
+                    if (field.isAnnotationPresent(Column.class)) {
+                        ColumnConfig.newInstance(field, ReflectionUtils.getFieldValue(field, object), lockOption)
+                                .ifPresent(columnConfigs::add);
+                    } else if (REFERENCE_ANNOTATIONS.stream().anyMatch(field::isAnnotationPresent)
+                            && JOIN_ANNOTATIONS.stream().anyMatch(field::isAnnotationPresent)) {
+                        String fieldName = field.getName();
+                        Class<?> referenceClass = null;
+                        CascadeType[] cascadeType;
+                        boolean lazyLoad = Boolean.FALSE;
+
+                        if (field.isAnnotationPresent(OneToMany.class)) {
+                            OneToMany oneToMany = field.getAnnotation(OneToMany.class);
+                            referenceClass = oneToMany.targetEntity();
+                            lazyLoad = FetchType.LAZY.equals(oneToMany.fetch());
+                            cascadeType = oneToMany.cascade();
+                        } else if (field.isAnnotationPresent(ManyToOne.class)) {
+                            ManyToOne manyToOne = field.getAnnotation(ManyToOne.class);
+                            referenceClass = manyToOne.targetEntity();
+                            lazyLoad = FetchType.LAZY.equals(manyToOne.fetch());
+                            cascadeType = manyToOne.cascade();
+                        } else if (field.isAnnotationPresent(OneToOne.class)) {
+                            OneToOne oneToOne = field.getAnnotation(OneToOne.class);
+                            referenceClass = oneToOne.targetEntity();
+                            lazyLoad = FetchType.LAZY.equals(oneToOne.fetch());
+                            cascadeType = oneToOne.cascade();
+                        } else {
+                            cascadeType = new CascadeType[0];
+                        }
+
+                        boolean returnArray = (List.class.isAssignableFrom(field.getType()) || field.getType().isArray());
+
+                        if (void.class.equals(referenceClass)) {
+                            if (returnArray) {
+                                referenceClass = ClassUtils.componentType(field.getType());
+                            } else {
+                                referenceClass = field.getType();
+                            }
+                        }
+
+                        if (referenceClass != null) {
+                            Optional.ofNullable(ReferenceConfig.newInstance(referenceClass, fieldName,
+                                            lazyLoad, returnArray, cascadeType, joinColumns(field)))
+                                    .ifPresent(referenceConfigs::add);
+                        }
+                    }
+                });
+
+        ReflectionUtils.getAllDeclaredMethods(clazz, TableConfig::annotationMember)
+                .forEach(method -> {
+                    Class<?> referenceClass = null;
+                    CascadeType[] cascadeType;
+                    boolean lazyLoad = false;
+
+                    if (method.isAnnotationPresent(OneToMany.class)) {
+                        OneToMany oneToMany = method.getAnnotation(OneToMany.class);
+                        referenceClass = oneToMany.targetEntity();
+                        lazyLoad = FetchType.LAZY.equals(oneToMany.fetch());
+                        cascadeType = oneToMany.cascade();
+                    } else if (method.isAnnotationPresent(ManyToOne.class)) {
+                        ManyToOne manyToOne = method.getAnnotation(ManyToOne.class);
+                        referenceClass = manyToOne.targetEntity();
+                        lazyLoad = FetchType.LAZY.equals(manyToOne.fetch());
+                        cascadeType = manyToOne.cascade();
+                    } else {
+                        cascadeType = new CascadeType[0];
+                    }
+
+                    if (referenceClass != null) {
+                        boolean returnArray = List.class.isAssignableFrom(method.getReturnType())
+                                || method.getReturnType().isArray();
+
+                        Optional.ofNullable(ReferenceConfig.newInstance(referenceClass,
+                                        ReflectionUtils.fieldName(method.getName()),
+                                        lazyLoad, returnArray, cascadeType, joinColumns(method)))
+                                .ifPresent(referenceConfigs::add);
+                    }
+                });
 
         Table table = clazz.getAnnotation(Table.class);
 
-        this.schemaName = StringUtils.isEmpty(table.schema()) ? DatabaseCommons.DEFAULT_DATABASE_ALIAS : table.schema();
-        this.cacheable = clazz.isAnnotationPresent(Cacheable.class)
-                ? clazz.getAnnotation(Cacheable.class).value()
-                : Boolean.FALSE;
-        if (clazz.isAnnotationPresent(Options.class)) {
-            Options options = clazz.getAnnotation(Options.class);
-            this.lockOption = options.lockOption();
-            this.dropOption = options.dropOption();
-        } else {
-            this.lockOption = LockOption.NONE;
-            this.dropOption = DropOption.NONE;
-        }
-        this.indexes = table.indexes();
+        TableConfig tableConfig = new TableConfig();
 
-        this.tableName = StringUtils.notBlank(table.name()) ? table.name() : clazz.getSimpleName();
-        this.defineClass = clazz;
+        tableConfig.setSchemaName(StringUtils.isEmpty(table.schema())
+                ? DatabaseCommons.DEFAULT_DATABASE_ALIAS
+                : table.schema());
+        tableConfig.setCacheable(Optional.ofNullable(clazz.getAnnotation(Cacheable.class))
+                .map(Cacheable::value)
+                .orElse(Boolean.FALSE));
+        tableConfig.setLockOption(lockOption);
+        tableConfig.setDropOption(dropOption);
+        tableConfig.setTableName(StringUtils.notBlank(table.name()) ? table.name() : clazz.getSimpleName());
+        tableConfig.setDefineClass(clazz);
+        tableConfig.setColumnConfigs(columnConfigs);
+        tableConfig.setReferenceConfigs(referenceConfigs);
+        tableConfig.setCompositeId(columnConfigs.stream().filter(ColumnConfig::isPrimaryKey).count() > 1);
 
-        List<Field> fieldList = this.retrieveDeclaredFields(this.defineClass);
-
-        Object object = ObjectUtils.newInstance(this.defineClass);
-
-        for (Field field : fieldList) {
-            if (field.isAnnotationPresent(Column.class)) {
-                this.parseColumnField(field, object, field.isAnnotationPresent(Id.class))
-                        .ifPresent(this.columnConfigList::add);
-            } else if (lazyLoadField(field)) {
-                String fieldName = field.getName();
-                Class<?> referenceClass = null;
-                CascadeType[] cascadeType;
-                boolean lazyLoad = false;
-
-                if (field.isAnnotationPresent(OneToMany.class)) {
-                    OneToMany oneToMany = field.getAnnotation(OneToMany.class);
-                    referenceClass = oneToMany.targetEntity();
-                    lazyLoad = FetchType.LAZY.equals(oneToMany.fetch());
-                    cascadeType = oneToMany.cascade();
-                } else if (field.isAnnotationPresent(ManyToOne.class)) {
-                    ManyToOne manyToOne = field.getAnnotation(ManyToOne.class);
-                    referenceClass = manyToOne.targetEntity();
-                    lazyLoad = FetchType.LAZY.equals(manyToOne.fetch());
-                    cascadeType = manyToOne.cascade();
-                } else if (field.isAnnotationPresent(OneToOne.class)) {
-                    OneToOne oneToOne = field.getAnnotation(OneToOne.class);
-                    referenceClass = oneToOne.targetEntity();
-                    lazyLoad = FetchType.LAZY.equals(oneToOne.fetch());
-                    cascadeType = oneToOne.cascade();
-                } else {
-                    cascadeType = new CascadeType[0];
-                }
-
-                boolean returnArray = (List.class.isAssignableFrom(field.getType()) || field.getType().isArray());
-
-                if (void.class.equals(referenceClass)) {
-                    if (returnArray) {
-                        Type type = field.getGenericType();
-                        if (type instanceof ParameterizedType) {
-                            Type[] fieldTypes = ((ParameterizedType) type).getActualTypeArguments();
-                            if (fieldTypes.length == 1) {
-                                referenceClass = (Class<?>) fieldTypes[0];
-                            } else {
-                                throw new TableConfigException("Reference configure error! Cannot found target entity class...");
-                            }
-                        }
-                    } else {
-                        referenceClass = field.getType();
-                    }
-                }
-
-                if (referenceClass != null) {
-                    JoinColumn[] joinColumns = null;
-
-                    if (field.isAnnotationPresent(JoinColumns.class)) {
-                        JoinColumns annotationColumns = field.getAnnotation(JoinColumns.class);
-                        joinColumns = annotationColumns.value();
-                    } else if (field.isAnnotationPresent(JoinColumn.class)) {
-                        joinColumns = new JoinColumn[]{field.getAnnotation(JoinColumn.class)};
-                    }
-
-                    ReferenceConfig referenceConfig = ReferenceConfig.initialize(referenceClass, fieldName, lazyLoad,
-                            returnArray, cascadeType, joinColumns);
-
-                    if (referenceConfig != null) {
-                        this.referenceConfigs.put(fieldName, referenceConfig);
-                    }
-                }
-            }
-        }
-
-        Method[] methods = ReflectionUtils.getAllDeclaredMethods(clazz);
-
-        for (Method method : methods) {
-            String methodName = method.getName();
-            if ((method.isAnnotationPresent(OneToMany.class) || method.isAnnotationPresent(ManyToOne.class))
-                    && (method.isAnnotationPresent(JoinColumns.class) || method.isAnnotationPresent(JoinColumn.class))
-                    && (methodName.startsWith("get") || methodName.startsWith("is"))) {
-                Class<?> referenceClass = null;
-                CascadeType[] cascadeType;
-                boolean lazyLoad = false;
-
-                if (method.isAnnotationPresent(OneToMany.class)) {
-                    OneToMany oneToMany = method.getAnnotation(OneToMany.class);
-                    referenceClass = oneToMany.targetEntity();
-                    lazyLoad = FetchType.LAZY.equals(oneToMany.fetch());
-                    cascadeType = oneToMany.cascade();
-                } else if (method.isAnnotationPresent(ManyToOne.class)) {
-                    ManyToOne manyToOne = method.getAnnotation(ManyToOne.class);
-                    referenceClass = manyToOne.targetEntity();
-                    lazyLoad = FetchType.LAZY.equals(manyToOne.fetch());
-                    cascadeType = manyToOne.cascade();
-                } else {
-                    cascadeType = new CascadeType[0];
-                }
-
-                if (referenceClass != null) {
-                    boolean returnArray = List.class.isAssignableFrom(method.getReturnType())
-                            || method.getReturnType().isArray();
-
-                    JoinColumn[] joinColumns = null;
-
-                    if (method.isAnnotationPresent(JoinColumns.class)) {
-                        JoinColumns annotationColumns = method.getAnnotation(JoinColumns.class);
-                        joinColumns = annotationColumns.value();
-                    } else if (method.isAnnotationPresent(JoinColumn.class)) {
-                        joinColumns = new JoinColumn[]{method.getAnnotation(JoinColumn.class)};
-                    }
-
-                    ReferenceConfig referenceConfig = ReferenceConfig.initialize(referenceClass,
-                            ReflectionUtils.fieldName(methodName), lazyLoad, returnArray, cascadeType, joinColumns);
-
-                    if (referenceConfig != null) {
-                        this.referenceConfigs.put(methodName, referenceConfig);
-                    }
-                }
-            }
-        }
-    }
-
-    public static boolean lazyLoadField(final Field field) {
-        if (field == null) {
-            return Boolean.FALSE;
-        }
-        return (field.isAnnotationPresent(OneToMany.class) || field.isAnnotationPresent(ManyToOne.class) || field.isAnnotationPresent(OneToOne.class))
-                && (field.isAnnotationPresent(JoinColumns.class) || field.isAnnotationPresent(JoinColumn.class));
+        return tableConfig;
     }
 
     /**
-     * Generate TableConfig object by given class
+     * <h3 class="en-US">Getter method for database schema name</h3>
+     * <h3 class="zh-CN">数据库名称的Getter方法</h3>
      *
-     * @param clazz Entity class define
-     * @return TableConfig object or null if class is invalid
-     */
-    public static Optional<TableConfig> newInstance(final Class<?> clazz) {
-        TableConfig tableConfig = null;
-        if (clazz.isAnnotationPresent(Table.class)) {
-            try {
-                tableConfig = new TableConfig(clazz);
-            } catch (Exception e) {
-                if (LOGGER.isDebugEnabled()) {
-                    LOGGER.debug("Generate table config error! ", e);
-                }
-            }
-        }
-        return Optional.ofNullable(tableConfig);
-    }
-
-    /**
-     * Gets serial version uid.
-     *
-     * @return the serialVersionUID
-     */
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    /**
-     * Gets database name.
-     *
-     * @return the database name
+     * @return <span class="en-US">Database schema name</span>
+     * <span class="zh-CN">数据库名称</span>
      */
     public String getSchemaName() {
         return schemaName;
     }
 
     /**
-     * Gets table name.
+     * <h3 class="en-US">Setter method for database schema name</h3>
+     * <h3 class="zh-CN">数据库名称的Setter方法</h3>
      *
-     * @return the tableName
+     * @param schemaName <span class="en-US">Database schema name</span>
+     *                   <span class="zh-CN">数据库名称</span>
+     */
+    public void setSchemaName(String schemaName) {
+        this.schemaName = schemaName;
+    }
+
+    /**
+     * <h3 class="en-US">Getter method for table name</h3>
+     * <h3 class="zh-CN">数据表名称的Getter方法</h3>
+     *
+     * @return <span class="en-US">Table name</span>
+     * <span class="zh-CN">数据表名称</span>
      */
     public String getTableName() {
         return tableName;
     }
 
     /**
-     * Is cacheable boolean.
+     * <h3 class="en-US">Setter method for table name</h3>
+     * <h3 class="zh-CN">数据表名称的Setter方法</h3>
      *
-     * @return the boolean
+     * @param tableName <span class="en-US">Table name</span>
+     *                  <span class="zh-CN">数据表名称</span>
+     */
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
+
+    /**
+     * <h3 class="en-US">Getter method for cacheable data record</h3>
+     * <h3 class="zh-CN">缓存数据表记录的Getter方法</h3>
+     *
+     * @return <span class="en-US">Cacheable data record</span>
+     * <span class="zh-CN">缓存数据表记录</span>
      */
     public boolean isCacheable() {
         return cacheable;
     }
 
     /**
-     * Gets define class.
+     * <h3 class="en-US">Setter method for cacheable data record</h3>
+     * <h3 class="zh-CN">缓存数据表记录的Setter方法</h3>
      *
-     * @return the defineClass
+     * @param cacheable <span class="en-US">Cacheable data record</span>
+     *                  <span class="zh-CN">缓存数据表记录</span>
+     */
+    public void setCacheable(boolean cacheable) {
+        this.cacheable = cacheable;
+    }
+
+    /**
+     * <h3 class="en-US">Getter method for composite ID</h3>
+     * <h3 class="zh-CN">联合主键的Getter方法</h3>
+     *
+     * @return <span class="en-US">Composite ID</span>
+     * <span class="zh-CN">联合主键</span>
+     */
+    public boolean isCompositeId() {
+        return compositeId;
+    }
+
+    /**
+     * <h3 class="en-US">Setter method for composite ID</h3>
+     * <h3 class="zh-CN">联合主键的Setter方法</h3>
+     *
+     * @param compositeId <span class="en-US">Composite ID</span>
+     *                    <span class="zh-CN">联合主键</span>
+     */
+    public void setCompositeId(boolean compositeId) {
+        this.compositeId = compositeId;
+    }
+
+    /**
+     * <h3 class="en-US">Getter method for entity class</h3>
+     * <h3 class="zh-CN">实体类的Getter方法</h3>
+     *
+     * @return <span class="en-US">Entity class</span>
+     * <span class="zh-CN">实体类</span>
      */
     public Class<?> getDefineClass() {
         return defineClass;
     }
 
     /**
-     * Gets column config list.
+     * <h3 class="en-US">Setter method for entity class</h3>
+     * <h3 class="zh-CN">实体类的Setter方法</h3>
      *
-     * @return the columnConfigList
+     * @param defineClass <span class="en-US">Entity class</span>
+     *                    <span class="zh-CN">实体类</span>
      */
-    public List<ColumnConfig> getColumnConfigList() {
-        return columnConfigList;
+    public void setDefineClass(Class<?> defineClass) {
+        this.defineClass = defineClass;
     }
 
     /**
-     * Get indexes search index [ ].
+     * <h3 class="en-US">Getter method for record lock option</h3>
+     * <h3 class="zh-CN">数据记录锁定选项的Getter方法</h3>
      *
-     * @return the indexes
-     */
-    public Index[] getIndexes() {
-        return indexes == null ? new Index[0] : indexes.clone();
-    }
-
-    /**
-     * Gets lock option.
-     *
-     * @return the lockOption
+     * @return <span class="en-US">Record lock option</span>
+     * <span class="zh-CN">数据记录锁定选项</span>
      */
     public LockOption getLockOption() {
         return lockOption;
     }
 
     /**
-     * Gets drop option.
+     * <h3 class="en-US">Setter method for record lock option</h3>
+     * <h3 class="zh-CN">数据记录锁定选项的Setter方法</h3>
      *
-     * @return the dropOption
+     * @param lockOption <span class="en-US">Record lock option</span>
+     *                   <span class="zh-CN">数据记录锁定选项</span>
+     */
+    public void setLockOption(LockOption lockOption) {
+        this.lockOption = lockOption;
+    }
+
+    /**
+     * <h3 class="en-US">Getter method for record drop option</h3>
+     * <h3 class="zh-CN">数据记录删除选项的Getter方法</h3>
+     *
+     * @return <span class="en-US">Record drop option</span>
+     * <span class="zh-CN">数据记录删除选项</span>
      */
     public DropOption getDropOption() {
         return dropOption;
     }
 
     /**
-     * Identify key string.
+     * <h3 class="en-US">Setter method for record drop option</h3>
+     * <h3 class="zh-CN">数据记录删除选项的Setter方法</h3>
      *
-     * @param object the base object
-     * @return the string
+     * @param dropOption <span class="en-US">Record drop option</span>
+     *                   <span class="zh-CN">数据记录删除选项</span>
      */
-    public String identifyKey(Object object) {
-        return this.identifyKey(object, Globals.DEFAULT_VALUE_STRING);
+    public void setDropOption(DropOption dropOption) {
+        this.dropOption = dropOption;
     }
 
     /**
-     * Identify key string.
+     * <h3 class="en-US">Getter method for column configure information list</h3>
+     * <h3 class="zh-CN">数据列配置信息列表的Getter方法</h3>
      *
-     * @param object  the base object
-     * @param itemKey the item key
-     * @return the string
+     * @return <span class="en-US">Column configure information list</span>
+     * <span class="zh-CN">数据列配置信息列表</span>
      */
-    public String identifyKey(final Object object, final String itemKey) {
-        if (object != null && this.defineClass.equals(object.getClass())) {
-            TreeMap<String, Object> dataMap = new TreeMap<>();
-            this.getColumnConfigList().stream()
-                    .filter(ColumnConfig::isPrimaryKeyColumn)
-                    .forEach(columnConfig ->
-                            dataMap.put(columnConfig.getColumnName().toUpperCase(),
-                                    ReflectionUtils.getFieldValue(columnConfig.getFieldName(), object)));
-            dataMap.put(DatabaseCommons.CONTENT_MAP_KEY_DATABASE_NAME.toUpperCase(), this.schemaName.toUpperCase());
-            dataMap.put(DatabaseCommons.CONTENT_MAP_KEY_TABLE_NAME.toUpperCase(), this.tableName.toUpperCase());
-            if (StringUtils.notBlank(itemKey)) {
-                dataMap.put(DatabaseCommons.CONTENT_MAP_KEY_ITEM.toUpperCase(),
-                        Optional.ofNullable(this.getColumnConfig(itemKey))
-                                .filter(ColumnConfig::isLazyLoad)
-                                .map(columnConfig -> columnConfig.getColumnName().toUpperCase())
-                                .orElseThrow(() ->
-                                        new TableConfigException("Can't found column define! Item key: " + itemKey)));
-            }
-            return ConvertUtils.byteToHex(SecurityUtils.SHA256(dataMap));
-        }
-        return Globals.DEFAULT_VALUE_STRING;
+    public List<ColumnConfig> getColumnConfigs() {
+        return columnConfigs;
     }
 
     /**
-     * Cache keys list.
+     * <h3 class="en-US">Setter method for column configure information list</h3>
+     * <h3 class="zh-CN">数据列配置信息列表的Setter方法</h3>
      *
-     * @param object the object
-     * @return the list
+     * @param columnConfigs <span class="en-US">Column configure information list</span>
+     *                      <span class="zh-CN">数据列配置信息列表</span>
      */
-    public List<String> cacheKeys(final Object object) {
-        List<String> cacheKeys = new ArrayList<>();
-        SortedMap<String, Object> primaryKeyMap = this.generatePrimaryKeyMap(object);
-        this.columnConfigList.stream()
-                .filter(ColumnConfig::isLazyLoad)
-                .forEach(columnConfig -> {
-                    TreeMap<String, Object> keyMap = new TreeMap<>(primaryKeyMap);
-                    keyMap.put(DatabaseCommons.CONTENT_MAP_KEY_ITEM.toUpperCase(), columnConfig.getColumnName());
-                    cacheKeys.add(DatabaseCommons.cacheKey(this.defineClass.getName(), keyMap));
-                });
-        cacheKeys.add(DatabaseCommons.cacheKey(this.defineClass.getName(), primaryKeyMap));
-        return cacheKeys;
+    public void setColumnConfigs(List<ColumnConfig> columnConfigs) {
+        this.columnConfigs = columnConfigs;
     }
 
     /**
-     * Cache key string.
+     * <h3 class="en-US">Getter method for reference configure information list</h3>
+     * <h3 class="zh-CN">外键配置信息列表的Getter方法</h3>
      *
-     * @param object    the object
-     * @param fieldName the field name
-     * @return the string
+     * @return <span class="en-US">Reference configure information list</span>
+     * <span class="zh-CN">外键配置信息列表</span>
      */
-    public String cacheKey(final Object object, final String fieldName) {
-        return Optional.ofNullable(this.getColumnConfig(fieldName))
-                .map(columnConfig -> {
-                    SortedMap<String, Object> keyMap = this.generatePrimaryKeyMap(object);
-                    keyMap.put(DatabaseCommons.CONTENT_MAP_KEY_ITEM.toUpperCase(), columnConfig.getColumnName());
-                    return this.cacheKey(keyMap);
-                })
+    public List<ReferenceConfig> getReferenceConfigs() {
+        return referenceConfigs;
+    }
+
+    /**
+     * <h3 class="en-US">Setter method for reference configure information list</h3>
+     * <h3 class="zh-CN">外键配置信息列表的Setter方法</h3>
+     *
+     * @param referenceConfigs <span class="en-US">Reference configure information list</span>
+     *                         <span class="zh-CN">外键配置信息列表</span>
+     */
+    public void setReferenceConfigs(List<ReferenceConfig> referenceConfigs) {
+        this.referenceConfigs = referenceConfigs;
+    }
+
+    /**
+     * <h3 class="en-US">Retrieve column name by given identify key</h3>
+     * <h3 class="zh-CN">根据给定的识别代码查询列名称</h3>
+     *
+     * @param identifyKey <span class="en-US">Identify key</span>
+     *                    <span class="zh-CN">识别代码</span>
+     * @return <span class="en-US">Retrieved column name or empty string if not found</span>
+     * <span class="zh-CN">查询到的列名称，如果未找到返回空字符串</span>
+     */
+    public String columnName(final String identifyKey) {
+        return Optional.ofNullable(this.columnConfig(identifyKey))
+                .map(ColumnConfig::columnName)
                 .orElse(Globals.DEFAULT_VALUE_STRING);
     }
 
-    public String cacheKey(final SortedMap<String, Object> primaryKey) {
-		primaryKey.put(DatabaseCommons.CONTENT_MAP_KEY_DATABASE_NAME.toUpperCase(), this.schemaName);
-		primaryKey.put(DatabaseCommons.CONTENT_MAP_KEY_TABLE_NAME.toUpperCase(), this.tableName);
-		String jsonKey = StringUtils.objectToString(primaryKey, StringUtils.StringType.JSON, Boolean.FALSE);
-		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("Cache key map: {}", jsonKey);
-		}
-		return ConvertUtils.byteToHex(SecurityUtils.SHA256(jsonKey));
+    /**
+     * <h3 class="en-US">Check the given identify key is column identify key</h3>
+     * <h3 class="zh-CN">检查给定的识别代码是列识别代码</h3>
+     *
+     * @param identifyKey <span class="en-US">Identify key</span>
+     *                    <span class="zh-CN">识别代码</span>
+     * @return <span class="en-US">Check result</span>
+     * <span class="zh-CN">检查结果</span>
+     */
+    public boolean isColumn(final String identifyKey) {
+        return this.columnConfigs.stream().anyMatch(columnConfig -> columnConfig.matchKey(identifyKey));
     }
 
     /**
-     * Verify.
+     * <h3 class="en-US">Check the given identify key is lazy load column or reference</h3>
+     * <h3 class="zh-CN">检查给定的识别代码是懒加载列或外键</h3>
      *
-     * @param object       the object
-     * @param identifyCode identify code
-     * @throws DataModifiedException the data modified exception
+     * @param identifyKey <span class="en-US">Identify key</span>
+     *                    <span class="zh-CN">识别代码</span>
+     * @return <span class="en-US">Check result</span>
+     * <span class="zh-CN">检查结果</span>
      */
-    public void verify(final Object object, final long identifyCode) throws DataModifiedException {
-        VerifyProvider verifyProvider = ProviderFactory.getInstance().verifyProvider();
-        if (verifyProvider == null) {
-            //	Not configure verify provider or configured verify provider not exists
-            return;
-        }
-        verifyProvider.patch(object, identifyCode);
-        if (verifyProvider.verify(object)) {
-            return;
-        }
-        LOGGER.warn("Data record signature invalid! ");
-        throw new DataModifiedException("Data record signature invalid! ");
-    }
-
-    /**
-     * Column name string.
-     *
-     * @param identifyName column identify name
-     * @return the string
-     */
-    public String columnName(final String identifyName) {
-        if (this.isColumn(identifyName)) {
-            return Optional.ofNullable(this.getColumnConfig(identifyName))
-                    .map(ColumnConfig::getColumnName)
-                    .orElse(Globals.DEFAULT_VALUE_STRING);
-        }
-        return Globals.DEFAULT_VALUE_STRING;
-    }
-
-    /**
-     * Check given identifyName is a column
-     *
-     * @param identifyName maybe is field name or column name
-     * @return check result
-     */
-    public boolean isColumn(final String identifyName) {
-        return this.columnConfigList.stream().anyMatch(columnConfig -> columnConfig.matchIdentifyKey(identifyName));
-    }
-
-    /**
-     * Check given identifyName is a lazy load column
-     *
-     * @param identifyName maybe is field name or column name
-     * @return check result
-     */
-    public boolean isLazyLoad(final String identifyName) {
-        if (StringUtils.isEmpty(identifyName)) {
+    public boolean lazyLoad(final String identifyKey) {
+        if (StringUtils.isEmpty(identifyKey)) {
             return Boolean.FALSE;
         }
-        for (ColumnConfig columnConfig : this.columnConfigList) {
-            if (columnConfig.matchIdentifyKey(identifyName)) {
-                return columnConfig.isLazyLoad();
-            }
-        }
-
-        if (this.referenceConfigs.containsKey(identifyName)) {
-            return this.referenceConfigs.get(identifyName).isLazyLoad();
-        }
-
-        return Boolean.FALSE;
+        return this.columnConfigs.stream().filter(columnConfig -> columnConfig.matchKey(identifyKey))
+                .findFirst()
+                .map(ColumnConfig::isLazyLoad)
+                .orElseGet(() ->
+                        this.referenceConfigs
+                                .stream()
+                                .filter(referenceConfig -> match(referenceConfig, identifyKey))
+                                .findFirst()
+                                .map(ReferenceConfig::isLazyLoad)
+                                .orElse(Boolean.FALSE));
     }
 
     /**
-     * Retrieve column config by given identifyName
+     * <h3 class="en-US">Generate iterator of current reference configure list</h3>
+     * <h3 class="zh-CN">生成当前外键配置列表的遍历器</h3>
      *
-     * @param identifyName maybe is field name or column name
-     * @return Retrieve column config, or null if not found
+     * @return <span class="en-US">Generated iterator instance</span>
+     * <span class="zh-CN">生成的遍历器实例对象</span>
      */
-    public ColumnConfig getColumnConfig(final String identifyName) {
-        if (identifyName != null && identifyName.length() > 0) {
-            for (ColumnConfig currentColumn : this.columnConfigList) {
-                if (currentColumn.matchIdentifyKey(identifyName)) {
-                    return currentColumn;
-                }
-            }
-        }
-        return null;
+    public Iterator<ReferenceConfig> referenceIterator() {
+        return this.referenceConfigs.iterator();
     }
 
     /**
-     * Retrieve identified version column config
+     * <h3 class="en-US">Retrieve column configure instance by given identify key</h3>
+     * <h3 class="zh-CN">根据给定的识别代码查询列配置信息实例</h3>
      *
-     * @return Retrieve column config, or null if not defined
+     * @param identifyKey <span class="en-US">Identify key</span>
+     *                    <span class="zh-CN">识别代码</span>
+     * @return <span class="en-US">Retrieved column configure instance or <code>null</code> if not found</span>
+     * <span class="zh-CN">查询到的列配置信息实例，如果未找到返回 <code>null</code></span>
      */
-    public Optional<ColumnConfig> identifyVersionColumn() {
+    public ColumnConfig columnConfig(final String identifyKey) {
+        if (StringUtils.isEmpty(identifyKey)) {
+            return null;
+        }
+        return this.columnConfigs.stream()
+                .filter(columnConfig -> columnConfig.matchKey(identifyKey))
+                .findFirst()
+                .orElse(null);
+    }
+
+    /**
+     * <h3 class="en-US">Retrieve identify version column configure instance</h3>
+     * <h3 class="zh-CN">查询版本识别列配置信息实例</h3>
+     *
+     * @return <span class="en-US">Retrieved column configure instance or <code>null</code> if not found</span>
+     * <span class="zh-CN">查询到的列配置信息实例，如果未找到返回 <code>null</code></span>
+     */
+    public Optional<ColumnConfig> versionColumn() {
         ColumnConfig columnConfig = null;
-        for (ColumnConfig currentColumn : this.columnConfigList) {
+        for (ColumnConfig currentColumn : this.columnConfigs) {
             if (currentColumn.isIdentifyVersion()) {
                 columnConfig = currentColumn;
             }
@@ -536,240 +564,88 @@ public final class TableConfig implements Serializable {
     }
 
     /**
-     * Retrieve reference config by given field name
+     * <h3 class="en-US">Retrieve reference configure instance by given identify key</h3>
+     * <h3 class="zh-CN">根据给定的识别代码查询外键配置信息实例</h3>
      *
-     * @param identifyName Reference column identify name, maybe field name or reference entity class name
-     * @return Retrieve ReferenceConfig object, or null if not found
+     * @param identifyKey <span class="en-US">Identify key</span>
+     *                    <span class="zh-CN">识别代码</span>
+     * @return <span class="en-US">Retrieved reference configure instance or <code>null</code> if not found</span>
+     * <span class="zh-CN">查询到的外键配置信息实例，如果未找到返回 <code>null</code></span>
      */
-    public ReferenceConfig findReferenceConfig(final String identifyName) {
-        if (this.referenceConfigs.containsKey(identifyName)) {
-            return this.referenceConfigs.get(identifyName);
-        } else {
-            for (ReferenceConfig referenceConfig : this.referenceConfigs.values()) {
-                if (referenceConfig.getReferenceClass().getName().equalsIgnoreCase(identifyName)) {
-                    return referenceConfig;
-                }
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Iterator reference config
-     *
-     * @return Reference Iterator
-     * @see Iterator
-     */
-    public Iterator<ReferenceConfig> referenceIterator() {
-        return this.referenceConfigs.values().iterator();
-    }
-
-    /**
-     * Generate primary key value
-     *
-     * @param object the object
-     */
-    public void generatePrimaryKey(final Object object) {
-        this.columnConfigList.stream()
-                .filter(ColumnConfig::isPrimaryKeyColumn)
-                .forEach(columnConfig -> {
-                    GeneratorConfig generatorConfig = columnConfig.getGeneratorConfig();
-                    Object generateValue = null;
-                    if (GenerationOption.GENERATOR.equals(generatorConfig.getGenerationOption())) {
-                        switch (generatorConfig.getGeneratorName()) {
-                            case IDUtils.SNOWFLAKE:
-                                generateValue = IDUtils.snowflake();
-                                break;
-                            case IDUtils.NANO_ID:
-                                generateValue = IDUtils.nano();
-                                break;
-                            case IDUtils.UUIDv1:
-                                generateValue = IDUtils.UUIDv1();
-                                break;
-                            case IDUtils.UUIDv2:
-                                generateValue = IDUtils.UUIDv2();
-                                break;
-                            case IDUtils.UUIDv4:
-                                generateValue = IDUtils.UUIDv4();
-                                break;
-                        }
-                    }
-                    if (generateValue != null) {
-                        if (LOGGER.isDebugEnabled()) {
-                            LOGGER.debug("Generated value: {}", generateValue);
-                        }
-                        ReflectionUtils.setField(columnConfig.getFieldName(), object, generateValue);
-                    }
-                });
-    }
-
-    /**
-     * Generate primary key column parameter map
-     *
-     * @param object the object
-     * @return Primary key map
-     */
-    public SortedMap<String, Object> generatePrimaryKeyMap(final Object object) {
-        return this.generatePrimaryKeyMap(object, Boolean.FALSE);
-    }
-
-    /**
-     * Generate primary key column parameter map
-     *
-     * @param object    the object
-     * @param forUpdate the for update
-     * @return Primary key map
-     */
-    public SortedMap<String, Object> generatePrimaryKeyMap(final Object object, final boolean forUpdate) {
-        SortedMap<String, Object> parameterMap = new TreeMap<>();
-        if (this.defineClass.isAssignableFrom(object.getClass())) {
-            this.columnConfigList.stream()
-                    .filter(ColumnConfig::isPrimaryKeyColumn)
-                    .forEach(columnConfig -> parameterMap.put(columnConfig.getColumnName(),
-                            ReflectionUtils.getFieldValue(columnConfig.getFieldName(), object)));
-            if (forUpdate && LockOption.OPTIMISTIC_UPGRADE.equals(this.lockOption)) {
-                this.identifyVersionColumn()
-                        .ifPresent(columnConfig -> parameterMap.put(columnConfig.getColumnName(),
-                                ReflectionUtils.getFieldValue(columnConfig.getFieldName(), object)));
-            }
-        }
-        return parameterMap;
-    }
-
-    /**
-     * Generate primary key columns and normal column parameter map
-     *
-     * @param object    the object
-     * @param converter the converter
-     * @return Data map
-     */
-    public SortedMap<String, Object> convertToDataMap(final Object object, final Converter converter) {
-        SortedMap<String, Object> parameterMap = new TreeMap<>();
-        if (this.defineClass.isAssignableFrom(object.getClass())) {
-            this.columnConfigList.forEach(columnConfig ->
-                    Optional.ofNullable(this.retrieveValue(object, columnConfig, converter))
-                            .ifPresent(fieldValue -> parameterMap.put(columnConfig.getColumnName(), fieldValue)));
-        }
-        return parameterMap;
-    }
-
-    /**
-     * Generate primary key columns and normal column parameter map
-     *
-     * @param object    the object
-     * @param converter the converter
-     * @return Data map
-     */
-    public SortedMap<String, Object> convertToUpdateMap(final Object object, final Converter converter) {
-        TreeMap<String, Object> parameterMap = new TreeMap<>();
-        if (this.defineClass.isAssignableFrom(object.getClass())) {
-            if (object instanceof BaseObject) {
-                ((BaseObject) object).modifiedColumns()
-                        .forEach(identifyKey ->
-                                Optional.ofNullable(this.getColumnConfig(identifyKey))
-                                        .ifPresent(columnConfig ->
-                                                parameterMap.put(columnConfig.getColumnName(),
-                                                        this.retrieveValue(object, columnConfig, converter))));
-            } else {
-                this.columnConfigList.stream()
-                        .filter(columnConfig -> !columnConfig.isPrimaryKeyColumn() && columnConfig.isUpdatable())
-                        .forEach(columnConfig -> parameterMap.put(columnConfig.getColumnName(),
-                                this.retrieveValue(object, columnConfig, converter)));
-            }
-        }
-        return parameterMap;
-    }
-
-    /**
-     * Retrieve value optional.
-     *
-     * @param object      the object
-     * @param identifyKey the identify key
-     * @return the optional
-     */
-    public Object retrieveValue(final Object object, final String identifyKey) {
-        return Optional.ofNullable(this.getColumnConfig(identifyKey))
-                .map(columnConfig -> this.retrieveValue(object, columnConfig, null))
+    public ReferenceConfig referenceConfig(final String identifyKey) {
+        return this.referenceConfigs.stream()
+                .filter(referenceConfig -> match(referenceConfig, identifyKey))
+                .findFirst()
                 .orElse(null);
     }
 
     /**
-     * Retrieve value object.
+     * <h3 class="en-US">Check the given identify key is matched with given reference configure information instance</h3>
+     * <h3 class="zh-CN">检查给定的识别代码是否匹配给定的外键配置信息实例对象</h3>
      *
-     * @param columnConfig the column config
-     * @param converter    the converter
-     * @return the object
+     * @param referenceConfig <span class="en-US">Reference configure information</span>
+     *                        <span class="zh-CN">外键配置信息</span>
+     * @param identifyKey     <span class="en-US">Identify key</span>
+     *                        <span class="zh-CN">识别代码</span>
+     * @return <span class="en-US">Check result</span>
+     * <span class="zh-CN">检查结果</span>
      */
-    private Object retrieveValue(final Object object, final ColumnConfig columnConfig, final Converter converter) {
-        Object columnValue = ReflectionUtils.getFieldValue(columnConfig.getFieldName(), object);
-        if (columnValue == null || converter == null) {
-            return columnValue;
+    private static boolean match(final ReferenceConfig referenceConfig, final String identifyKey) {
+        if (referenceConfig == null || StringUtils.isEmpty(identifyKey)) {
+            return Boolean.FALSE;
         }
-        return converter.convertValue(columnConfig, columnValue);
-    }
-
-    private Optional<ColumnConfig> parseColumnField(final Field field, final Object object,
-                                                    final boolean primaryKeyColumn) {
-        if (field.isAnnotationPresent(Version.class) && !LockOption.OPTIMISTIC_UPGRADE.equals(this.lockOption)) {
-            return Optional.empty();
-        }
-        if (!this.isColumn(field.getName())) {
-            return Optional.of(ColumnConfig.newInstance(field, object, primaryKeyColumn));
-        }
-        return Optional.empty();
+        return referenceConfig.getFieldName().equalsIgnoreCase(identifyKey)
+                || referenceConfig.getReferenceClass().getName().equalsIgnoreCase(identifyKey);
     }
 
     /**
-     * Retrieve declared fields list.
+     * <h3 class="en-US">Check the given member instance is contains annotation</h3>
+     * <h3 class="zh-CN">检查给定的成员对象实例包含标注信息</h3>
      *
-     * @param clazz the clazz
-     * @return the list
+     * @param member <span class="en-US">Member instance</span>
+     *               <span class="zh-CN">成员对象实例</span>
+     * @return <span class="en-US">Check result</span>
+     * <span class="zh-CN">检查结果</span>
      */
-    private List<Field> retrieveDeclaredFields(final Class<?> clazz) {
-        if (clazz != null) {
-            List<Field> declaredFields = new ArrayList<>();
-            declaredFields.addAll(this.retrieveSuperClassFields(clazz.getSuperclass()));
-            declaredFields.addAll(annotationFields(clazz));
-            return declaredFields;
+    private static boolean annotationMember(final Member member) {
+        if (member == null) {
+            return Boolean.FALSE;
         }
-        return new ArrayList<>();
+        if (member instanceof Field) {
+            Field field = (Field) member;
+            return field.isAnnotationPresent(Column.class) || field.isAnnotationPresent(EmbeddedId.class)
+                    || (field.isAnnotationPresent(OneToMany.class) || field.isAnnotationPresent(ManyToOne.class)
+                    || field.isAnnotationPresent(OneToOne.class)) &&
+                    (field.isAnnotationPresent(JoinColumns.class) || field.isAnnotationPresent(JoinColumn.class));
+        }
+        if (member instanceof Method) {
+            Method method = (Method) member;
+            return (method.isAnnotationPresent(OneToMany.class) || method.isAnnotationPresent(ManyToOne.class))
+                    && (method.isAnnotationPresent(JoinColumns.class) || method.isAnnotationPresent(JoinColumn.class))
+                    && (method.getName().startsWith("get") || method.getName().startsWith("is"));
+        }
+        return Boolean.FALSE;
     }
 
     /**
-     * Retrieve super class fields list.
+     * <h3 class="en-US">Retrieve the given accessible object contains join column annotation</h3>
+     * <h3 class="zh-CN">检查给定的访问对象实例包含标注信息</h3>
      *
-     * @param clazz the clazz
-     * @return the list
+     * @param obj <span class="en-US">AccessibleObject instance</span>
+     *            <span class="zh-CN">注解对象实例</span>
+     * @return <span class="en-US">JoinColumn instance array</span>
+     * <span class="zh-CN">注解 JoinColumn 实例对象数组</span>
      */
-    private List<Field> retrieveSuperClassFields(final Class<?> clazz) {
-        List<Field> declaredFields = new ArrayList<>();
-        if (clazz != null) {
-            Class<?> superClass = clazz.getSuperclass();
-            if (superClass != null) {
-                declaredFields.addAll(this.retrieveSuperClassFields(superClass));
-            }
-            if (clazz.isAnnotationPresent(MappedSuperclass.class)) {
-                declaredFields.addAll(annotationFields(clazz));
-            }
+    private static JoinColumn[] joinColumns(final AccessibleObject obj) {
+        if (obj == null) {
+            return new JoinColumn[0];
         }
-        return declaredFields;
-    }
-
-    private List<Field> annotationFields(final Class<?> clazz) {
-        if (clazz == null) {
-            return new ArrayList<>();
+        if (obj.isAnnotationPresent(JoinColumns.class)) {
+            JoinColumns annotationColumns = obj.getAnnotation(JoinColumns.class);
+            return annotationColumns.value();
+        } else if (obj.isAnnotationPresent(JoinColumn.class)) {
+            return new JoinColumn[]{obj.getAnnotation(JoinColumn.class)};
         }
-        List<Field> declaredFields = new ArrayList<>();
-        Arrays.stream(clazz.getDeclaredFields())
-                .filter(this::annotationField)
-                .forEach(declaredFields::add);
-        return declaredFields;
-    }
-
-    private boolean annotationField(final Field field) {
-        return field.isAnnotationPresent(Column.class) || field.isAnnotationPresent(EmbeddedId.class)
-                || (field.isAnnotationPresent(OneToMany.class) || field.isAnnotationPresent(ManyToOne.class)
-                || field.isAnnotationPresent(OneToOne.class)) &&
-                (field.isAnnotationPresent(JoinColumns.class) || field.isAnnotationPresent(JoinColumn.class));
+        return new JoinColumn[0];
     }
 }

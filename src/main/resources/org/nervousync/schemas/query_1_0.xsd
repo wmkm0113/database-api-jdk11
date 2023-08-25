@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns="https://nervousync.org/schemas/query" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="https://nervousync.org/schemas/query" elementFormDefault="qualified" version="1.0">
+    <xsd:complexType name="join_column">
+        <xsd:all>
+            <xsd:element name="join_key" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Join key identify code</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="reference_key" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Reference key identify code</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="join_table">
+        <xsd:all>
+            <xsd:element name="join_type">
+                <xsd:annotation>
+                    <xsd:documentation>Table join type</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="LEFT" />
+                        <xsd:enumeration value="RIGHT" />
+                        <xsd:enumeration value="FULL" />
+                        <xsd:enumeration value="INNER" />
+                        <xsd:enumeration value="CROSS" />
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="alias_name" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Table alias name</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="entity_class" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Table entity class name</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="join_column_list">
+                <xsd:annotation>
+                    <xsd:documentation>Join column list</xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="join_column" type="join_column" maxOccurs="unbounded">
+                            <xsd:annotation>
+                                <xsd:documentation>Join column information</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="join_list">
+                <xsd:annotation>
+                    <xsd:documentation>Join table list</xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="join_table" type="join_table" minOccurs="0" maxOccurs="unbounded">
+                            <xsd:annotation>
+                                <xsd:documentation>Join table information</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="query_item" abstract="true">
+        <xsd:sequence>
+            <xsd:element name="item_type">
+                <xsd:annotation>
+                    <xsd:documentation>Query item type enumeration value</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="COLUMN" />
+                        <xsd:enumeration value="FUNCTION" />
+                        <xsd:enumeration value="CONSTANT" />
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="alias_name" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Query item alias name</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="sort_code" type="xsd:int" default="-1">
+                <xsd:annotation>
+                    <xsd:documentation>Query item sort code</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="query_column">
+        <xsd:complexContent>
+            <xsd:extension base="query_item">
+                <xsd:sequence>
+                    <xsd:element name="entity_class" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:documentation>Table entity class name</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="identify_key" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:documentation>Query column identify code</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="distinct" type="xsd:boolean">
+                        <xsd:annotation>
+                            <xsd:documentation>Query column distinct status</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="query_constant">
+        <xsd:complexContent>
+            <xsd:extension base="query_item">
+                <xsd:sequence>
+                    <xsd:element name="constant_value" type="xsd:anyType">
+                        <xsd:annotation>
+                            <xsd:documentation>Constant value object</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="query_function">
+        <xsd:complexContent>
+            <xsd:extension base="query_item">
+                <xsd:sequence>
+                    <xsd:element name="sql_function" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:documentation>SQL function name</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="function_params">
+                        <xsd:annotation>
+                            <xsd:documentation>Function parameter list</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:group ref="query_item_group" maxOccurs="unbounded" />
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:group name="query_item_group">
+        <xsd:choice>
+            <xsd:element name="query_column" type="query_column" />
+            <xsd:element name="column_param" type="query_column" />
+            <xsd:element name="query_constant" type="query_constant" />
+            <xsd:element name="constant_param" type="query_constant" />
+            <xsd:element name="query_function" type="query_function" />
+            <xsd:element name="function_param" type="query_function" />
+        </xsd:choice>
+    </xsd:group>
+    <xsd:complexType name="query_condition">
+        <xsd:all>
+            <xsd:element name="connection_code">
+                <xsd:annotation>
+                    <xsd:documentation>Match condition connection code</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="AND" />
+                        <xsd:enumeration value="OR" />
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="condition_code">
+                <xsd:annotation>
+                    <xsd:documentation>Match condition code</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="GREATER" />
+                        <xsd:enumeration value="GREATER_EQUAL" />
+                        <xsd:enumeration value="LESS" />
+                        <xsd:enumeration value="LESS_EQUAL" />
+                        <xsd:enumeration value="EQUAL" />
+                        <xsd:enumeration value="NOT_EQUAL" />
+                        <xsd:enumeration value="BETWEEN_AND" />
+                        <xsd:enumeration value="NOT_BETWEEN_AND" />
+                        <xsd:enumeration value="LIKE" />
+                        <xsd:enumeration value="NOT_LIKE" />
+                        <xsd:enumeration value="IS_NULL" />
+                        <xsd:enumeration value="NOT_NULL" />
+                        <xsd:enumeration value="IN" />
+                        <xsd:enumeration value="GROUP" />
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="entity_class" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Table entity class name</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="identify_key" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Condition column identify code</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="match_condition" type="match_condition" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Match condition value</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="match_condition">
+        <xsd:all>
+            <xsd:element name="condition_type">
+                <xsd:annotation>
+                    <xsd:documentation>Match condition type enumeration value</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="CONSTANT" />
+                        <xsd:enumeration value="GROUP" />
+                        <xsd:enumeration value="DYNAMIC" />
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="query_code" type="xsd:long">
+                <xsd:annotation>
+                    <xsd:documentation>Condition value from current query code</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="identify_key" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Condition value identify code</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="match_values">
+                <xsd:annotation>
+                    <xsd:documentation>Condition value array</xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="value" type="xsd:anyType" minOccurs="0" maxOccurs="unbounded">
+                            <xsd:annotation>
+                                <xsd:documentation>Condition value</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="query_table">
+        <xsd:all>
+            <xsd:element name="alias_name" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Table alias name</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="entity_class" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Table entity class name</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="join_list">
+                <xsd:annotation>
+                    <xsd:documentation>Join table list</xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="join_table" type="join_table" minOccurs="0" maxOccurs="unbounded">
+                            <xsd:annotation>
+                                <xsd:documentation>Join table information</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="item_list">
+                <xsd:annotation>
+                    <xsd:documentation>Query item list</xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                    <xsd:group ref="query_item_group" maxOccurs="unbounded">
+                        <xsd:annotation>
+                            <xsd:documentation>Query item information</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:group>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="condition_list">
+                <xsd:annotation>
+                    <xsd:documentation>Query condition list</xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="query_condition" type="query_condition" maxOccurs="unbounded">
+                            <xsd:annotation>
+                                <xsd:documentation>Query condition information</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="order_by_column">
+        <xsd:all>
+            <xsd:element name="entity_class" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Table entity class name</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="identify_key" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Order by column identify code</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="order_type">
+                <xsd:annotation>
+                    <xsd:documentation>Order by type enumeration value</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="ASC" />
+                        <xsd:enumeration value="DESC" />
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="sort_code" type="xsd:int" default="-1">
+                <xsd:annotation>
+                    <xsd:documentation>Order by item sort code</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="group_by_column">
+        <xsd:all>
+            <xsd:element name="entity_class" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Table entity class name</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="identify_key" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Group by column identify code</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="sort_code" type="xsd:int" default="-1">
+                <xsd:annotation>
+                    <xsd:documentation>Group by item sort code</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:element name="query_info">
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element name="query_table" type="query_table">
+                    <xsd:annotation>
+                        <xsd:documentation>Query table information</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="order_by_column_list">
+                    <xsd:annotation>
+                        <xsd:documentation>Order by column information list</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="order_by_column" type="order_by_column" minOccurs="0" maxOccurs="unbounded">
+                                <xsd:annotation>
+                                    <xsd:documentation>Order by column information</xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="group_by_column_list">
+                    <xsd:annotation>
+                        <xsd:documentation>Group by column information list</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="group_by_column" type="group_by_column" minOccurs="0" maxOccurs="unbounded">
+                                <xsd:annotation>
+                                    <xsd:documentation>Group by column information</xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="page_limit" type="xsd:int" minOccurs="0">
+                    <xsd:annotation>
+                        <xsd:documentation>Pager query limit size</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="offset" type="xsd:int" minOccurs="0">
+                    <xsd:annotation>
+                        <xsd:documentation>Pager query offset record</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="cacheables" type="xsd:boolean" minOccurs="0">
+                    <xsd:annotation>
+                        <xsd:documentation>Query using cache status</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="for_update" type="xsd:boolean" minOccurs="0">
+                    <xsd:annotation>
+                        <xsd:documentation>Query records for update status</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="lock_option">
+                    <xsd:annotation>
+                        <xsd:documentation>Lock option enumeration value if query records for update status</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:enumeration value="NONE" />
+                            <xsd:enumeration value="PESSIMISTIC_UPGRADE" />
+                            <xsd:enumeration value="PESSIMISTIC_UPGRADE_NOWAIT" />
+                            <xsd:enumeration value="OPTIMISTIC_UPGRADE" />
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:element>
+            </xsd:all>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

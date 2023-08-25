@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>数据库API简体中文国际化信息资源</comment>
+    <entry key="Table_Not_Found_Error">数据表定义未找到</entry><!-- 0x00DB00000001 -->
+    <entry key="Column_Not_Found_Error">数据列定义未找到，识别代码：{0}</entry><!-- 0x00DB00000002 -->
+</properties>

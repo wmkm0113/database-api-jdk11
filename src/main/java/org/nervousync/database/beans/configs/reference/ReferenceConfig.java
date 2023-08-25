@@ -1,223 +1,283 @@
 /*
- * Copyright © 2003 Nervousync® Studio, Inc. All rights reserved.
- * This software is the confidential and proprietary information of
- * Nervousync Studio, Inc. You shall not disclose such Confidential
- * Information and shall use it only in accordance with the terms of the
- * license agreement you entered into with Nervousync Studio.
+ * Licensed to the Nervousync Studio (NSYC) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.nervousync.database.beans.configs.reference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.JoinColumn;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import org.nervousync.beans.converter.impl.basic.ClassStringAdapter;
 import org.nervousync.beans.core.BeanObject;
+import org.nervousync.utils.ObjectUtils;
 import org.nervousync.utils.StringUtils;
 
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
- * Table reference config
+ * <h2 class="en-US">Reference configure information</h2>
+ * <h2 class="zh-CN">外键引用配置信息</h2>
  *
  * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
- * @version $Revision : 1.0 $ $Date: Mar 30, 2016 5:37:59 PM $
+ * @version $Revision: 1.0.0 $ $Date: Mar 30, 2016 17:48:56 $
  */
-public final class ReferenceConfig implements Serializable {
+@XmlType(name = "reference_config")
+@XmlRootElement(name = "reference_config")
+@XmlAccessorType(XmlAccessType.NONE)
+public final class ReferenceConfig extends BeanObject {
+    /**
+     * <span class="en-US">Serial version UID</span>
+     * <span class="zh-CN">序列化UID</span>
+     */
+    private static final long serialVersionUID = 352330256621053556L;
+    /**
+     * <span class="en-US">Reference is lazy load</span>
+     * <span class="zh-CN">外键懒加载</span>
+     */
+    @XmlElement(name = "lazy_load")
+    private boolean lazyLoad;
+    /**
+     * <span class="en-US">Return value is array</span>
+     * <span class="zh-CN">返回值是数组或列表</span>
+     */
+    @XmlElement(name = "return_array")
+    private boolean returnArray;
+    /**
+     * <span class="en-US">Target reference entity class</span>
+     * <span class="zh-CN">目标外键实体类</span>
+     */
+    @XmlElement(name = "reference_class")
+    @XmlJavaTypeAdapter(ClassStringAdapter.class)
+    private Class<?> referenceClass;
+    /**
+     * <span class="en-US">Column mapping field name</span>
+     * <span class="zh-CN">列映射的属性名</span>
+     */
+    @XmlElement(name = "field_name")
+    private String fieldName;
+    /**
+     * <span class="en-US">Reference cascade type array</span>
+     * <span class="zh-CN">外键级联状态数组</span>
+     */
+    @XmlElement(name = "cascade_type")
+    @XmlElementWrapper(name = "cascade_types")
+    private CascadeType[] cascadeTypes;
+    /**
+     * <span class="en-US">Reference join column configure list</span>
+     * <span class="zh-CN">外键关联列配置信息列表</span>
+     */
+    @XmlElement(name = "join_column")
+    @XmlElementWrapper(name = "join_column_list")
+    private List<JoinConfig> joinColumnList;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 352330256621053556L;
+    /**
+     * <h3 class="en-US">Constructor method for reference configure information</h3>
+     * <h3 class="zh-CN">外键引用配置信息的构造方法</h3>
+     */
+    public ReferenceConfig() {
+    }
 
-	/**
-	 * Field value is lazy load, default value is false
-	 */
-	private final boolean lazyLoad;
-	/**
-	 * Return value is array
-	 */
-	private final boolean returnArray;
-	/**
-	 * Reference table define class
-	 */
-	private final Class<?> referenceClass;
-	/**
-	 * Reference field name
-	 */
-	private final String fieldName;
-	/**
-	 * Reference cascade types
-	 */
-	private final CascadeType[] cascadeTypes;
-	/**
-	 * Reference table column mappings
-	 */
-	private final List<JoinColumnConfig> referenceColumnList;
-	
-	/**
-	 * Constructor
-	 * @param referenceClass        reference entity class
-	 * @param lazyLoad              lazy load status
-	 * @param returnArray           data is array
-	 * @param cascadeTypes          cascade type array
-	 * @param joinColumns           join column array
-	 */
-	private ReferenceConfig(final Class<?> referenceClass, final String fieldName, final boolean lazyLoad,
-	                        final boolean returnArray, final CascadeType[] cascadeTypes,
-	                        final JoinColumn[] joinColumns) {
-		this.referenceColumnList = new ArrayList<>();
+    /**
+     * <h3 class="en-US">Generate reference configure information instance by given arguments</h3>
+     * <h3 class="zh-CN">根据给定的参数信息生成外键引用配置信息实例对象</h3>
+     *
+     * @param referenceClass <span class="en-US">Target reference entity class</span>
+     *                       <span class="zh-CN">目标外键实体类</span>
+     * @param fieldName      <span class="en-US">Column mapping field name</span>
+     *                       <span class="zh-CN">列映射的属性名</span>
+     * @param lazyLoad       <span class="en-US">Reference is lazy load</span>
+     *                       <span class="zh-CN">外键懒加载</span>
+     * @param returnArray    <span class="en-US">Return value is array</span>
+     *                       <span class="zh-CN">返回值是数组或列表</span>
+     * @param cascadeTypes   <span class="en-US">Reference cascade type array</span>
+     *                       <span class="zh-CN">外键级联状态数组</span>
+     * @param joinColumns    <span class="en-US">The annotation instance array of JoinColumn</span>
+     *                       <span class="zh-CN">注解 JoinColumn 的实例对象数组</span>
+     * @return <span class="en-US">Generated reference configure information instance</span>
+     * <span class="zh-CN">生成的外键引用配置信息实例对象</span>
+     */
+    public static ReferenceConfig newInstance(final Class<?> referenceClass, final String fieldName,
+                                              final boolean lazyLoad, final boolean returnArray,
+                                              final CascadeType[] cascadeTypes, final JoinColumn[] joinColumns) {
+        if (joinColumns == null || cascadeTypes == null || StringUtils.isEmpty(fieldName) || joinColumns.length == 0) {
+            return null;
+        }
 
-		this.lazyLoad = lazyLoad;
-		this.returnArray = returnArray;
-		this.cascadeTypes = cascadeTypes;
-		this.fieldName = fieldName;
-		this.referenceClass = referenceClass;
+        List<JoinConfig> referenceColumns = new ArrayList<>();
+        Arrays.asList(joinColumns)
+                .forEach(joinColumn -> {
+                    JoinConfig joinConfig = new JoinConfig();
+                    joinConfig.setCurrentField(joinColumn.columnDefinition());
+                    joinConfig.setReferenceField(joinColumn.referencedColumnName());
+                    referenceColumns.add(joinConfig);
+                });
+        ReferenceConfig referenceConfig = new ReferenceConfig();
+        referenceConfig.setReferenceClass(referenceClass);
+        referenceConfig.setFieldName(fieldName);
+        referenceConfig.setLazyLoad(lazyLoad);
+        referenceConfig.setReturnArray(returnArray);
+        referenceConfig.setCascadeTypes(cascadeTypes);
+        referenceConfig.setJoinColumnList(referenceColumns);
+        return referenceConfig;
+    }
 
-		for (JoinColumn joinColumn : joinColumns) {
-			this.referenceColumnList.add(
-					new JoinColumnConfig(joinColumn.columnDefinition(),
-							joinColumn.referencedColumnName()));
-		}
-	}
+    /**
+     * <h3 class="en-US">Getter method for column value is lazy load</h3>
+     * <h3 class="zh-CN">列值懒加载的Getter方法</h3>
+     *
+     * @return <span class="en-US">Column value is lazy load</span>
+     * <span class="zh-CN">列值懒加载</span>
+     */
+    public boolean isLazyLoad() {
+        return lazyLoad;
+    }
 
-	/**
-	 * Initialize ReferenceConfig object
-	 *
-	 * @param referenceClass the reference class
-	 * @param fieldName      the field name
-	 * @param lazyLoad       Field value is lazy load
-	 * @param returnArray    Return value is array
-	 * @param cascadeTypes   Cascade types
-	 * @param joinColumns    Mapping columns
-	 * @return ReferenceConfig reference config
-	 * @see ReferenceConfig
-	 */
-	public static ReferenceConfig initialize(final Class<?> referenceClass, final String fieldName,
-	                                         final boolean lazyLoad, final boolean returnArray,
-	                                         final CascadeType[] cascadeTypes, final JoinColumn[] joinColumns) {
-		if (joinColumns == null || cascadeTypes == null || StringUtils.isEmpty(fieldName) || joinColumns.length == 0) {
-			return null;
-		}
-		return new ReferenceConfig(referenceClass, fieldName, lazyLoad, returnArray, cascadeTypes, joinColumns);
-	}
+    /**
+     * <h3 class="en-US">Setter method for column value is lazy load</h3>
+     * <h3 class="zh-CN">列值懒加载的Setter方法</h3>
+     *
+     * @param lazyLoad <span class="en-US">Column value is lazy load</span>
+     *                 <span class="zh-CN">列值懒加载</span>
+     */
+    public void setLazyLoad(boolean lazyLoad) {
+        this.lazyLoad = lazyLoad;
+    }
 
-	/**
-	 * Gets serial version uid.
-	 *
-	 * @return the serialVersionUID
-	 */
-	public static long getSerialVersionUID() {
-		return serialVersionUID;
-	}
+    /**
+     * <h3 class="en-US">Getter method for return value is array</h3>
+     * <h3 class="zh-CN">返回值是数组或列表的Getter方法</h3>
+     *
+     * @return <span class="en-US">Return value is array</span>
+     * <span class="zh-CN">返回值是数组或列表</span>
+     */
+    public boolean isReturnArray() {
+        return returnArray;
+    }
 
-	/**
-	 * Gets reference class.
-	 *
-	 * @return the reference class
-	 */
-	public Class<?> getReferenceClass() {
-		return referenceClass;
-	}
+    /**
+     * <h3 class="en-US">Setter method for return value is array</h3>
+     * <h3 class="zh-CN">返回值是数组或列表的Setter方法</h3>
+     *
+     * @param returnArray <span class="en-US">Return value is array</span>
+     *                    <span class="zh-CN">返回值是数组或列表</span>
+     */
+    public void setReturnArray(boolean returnArray) {
+        this.returnArray = returnArray;
+    }
 
-	/**
-	 * Gets field name.
-	 *
-	 * @return the fieldName
-	 */
-	public String getFieldName() {
-		return fieldName;
-	}
+    /**
+     * <h3 class="en-US">Getter method for target reference entity class</h3>
+     * <h3 class="zh-CN">目标外键实体类的Getter方法</h3>
+     *
+     * @return <span class="en-US">Target reference entity class</span>
+     * <span class="zh-CN">目标外键实体类</span>
+     */
+    public Class<?> getReferenceClass() {
+        return referenceClass;
+    }
 
-	/**
-	 * Is return array boolean.
-	 *
-	 * @return the returnArray
-	 */
-	public boolean isReturnArray() {
-		return returnArray;
-	}
+    /**
+     * <h3 class="en-US">Setter method for target reference entity class</h3>
+     * <h3 class="zh-CN">目标外键实体类的Setter方法</h3>
+     *
+     * @param referenceClass <span class="en-US">Target reference entity class</span>
+     *                       <span class="zh-CN">目标外键实体类</span>
+     */
+    public void setReferenceClass(Class<?> referenceClass) {
+        this.referenceClass = referenceClass;
+    }
 
-	/**
-	 * Get cascade types cascade type [ ].
-	 *
-	 * @return the cascadeType
-	 */
-	public CascadeType[] getCascadeTypes() {
-		return cascadeTypes == null ? new CascadeType[]{} : cascadeTypes.clone();
-	}
+    /**
+     * <h3 class="en-US">Getter method for column mapping field name</h3>
+     * <h3 class="zh-CN">列映射的属性名的Getter方法</h3>
+     *
+     * @return <span class="en-US">Column mapping field name</span>
+     * <span class="zh-CN">列映射的属性名</span>
+     */
+    public String getFieldName() {
+        return fieldName;
+    }
 
-	/**
-	 * Is lazy load boolean.
-	 *
-	 * @return the lazyLoad
-	 */
-	public boolean isLazyLoad() {
-		return lazyLoad;
-	}
+    /**
+     * <h3 class="en-US">Setter method for column mapping field name</h3>
+     * <h3 class="zh-CN">列映射的属性名的Setter方法</h3>
+     *
+     * @param fieldName <span class="en-US">Column mapping field name</span>
+     *                  <span class="zh-CN">列映射的属性名</span>
+     */
+    public void setFieldName(String fieldName) {
+        this.fieldName = fieldName;
+    }
 
-	/**
-	 * Gets reference column list.
-	 *
-	 * @return the referenceColumnList
-	 */
-	public List<JoinColumnConfig> getReferenceColumnList() {
-		return referenceColumnList;
-	}
+    /**
+     * <h3 class="en-US">Getter method for reference cascade type array</h3>
+     * <h3 class="zh-CN">外键级联状态数组的Getter方法</h3>
+     *
+     * @return <span class="en-US">Reference cascade type array</span>
+     * <span class="zh-CN">外键级联状态数组</span>
+     */
+    public CascadeType[] getCascadeTypes() {
+        return cascadeTypes;
+    }
 
-	/**
-	 * The type Join column config.
-	 */
-	@XmlRootElement
-	public static final class JoinColumnConfig extends BeanObject {
+    /**
+     * <h3 class="en-US">Setter method for reference cascade type array</h3>
+     * <h3 class="zh-CN">外键级联状态数组的Setter方法</h3>
+     *
+     * @param cascadeTypes <span class="en-US">Reference cascade type array</span>
+     *                     <span class="zh-CN">外键级联状态数组</span>
+     */
+    public void setCascadeTypes(CascadeType[] cascadeTypes) {
+        this.cascadeTypes = cascadeTypes;
+    }
 
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = -5091778742481427204L;
+    /**
+     * <h3 class="en-US">Getter method for reference join column configure list</h3>
+     * <h3 class="zh-CN">外键关联列配置信息列表的Getter方法</h3>
+     *
+     * @return <span class="en-US">Reference join column configure list</span>
+     * <span class="zh-CN">外键关联列配置信息列表</span>
+     */
+    public List<JoinConfig> getJoinColumnList() {
+        return joinColumnList;
+    }
 
-		@XmlElement
-		private final String currentField;
-		@XmlElement
-		private final String referenceField;
+    /**
+     * <h3 class="en-US">Setter method for reference join column configure list</h3>
+     * <h3 class="zh-CN">外键关联列配置信息列表的Setter方法</h3>
+     *
+     * @param joinColumnList <span class="en-US">Reference join column configure list</span>
+     *                       <span class="zh-CN">外键关联列配置信息列表</span>
+     */
+    public void setJoinColumnList(List<JoinConfig> joinColumnList) {
+        this.joinColumnList = joinColumnList;
+    }
 
-		/**
-		 * Instantiates a new Join column config.
-		 *
-		 * @param currentField   the current field name
-		 * @param referenceField the reference field name
-		 */
-		JoinColumnConfig(String currentField, String referenceField) {
-			this.currentField = currentField;
-			this.referenceField = referenceField;
-		}
-
-		/**
-		 * Gets serial version uid.
-		 *
-		 * @return the serialVersionUID
-		 */
-		public static long getSerialVersionUID() {
-			return serialVersionUID;
-		}
-
-		/**
-		 * Gets current field name.
-		 *
-		 * @return the currentField
-		 */
-		public String getCurrentField() {
-			return currentField;
-		}
-
-		/**
-		 * Gets reference field name.
-		 *
-		 * @return the referenceFieldName
-		 */
-		public String getReferenceField() {
-			return referenceField;
-		}
-	}
+    /**
+     * <h3 class="en-US">Match the given entity class was same as current target reference entity class</h3>
+     * <h3 class="zh-CN">匹配给定的实体类对象是否与当前目标外键实体类信息一致</h3>
+     *
+     * @param entityClass   <span class="en-US">Given entity class</span>
+     *                      <span class="zh-CN">给定的实体类</span>
+     * @return <span class="en-US">Match result</span>
+     * <span class="zh-CN">匹配结果</span>
+     */
+    public boolean match(final Class<?> entityClass) {
+        return ObjectUtils.nullSafeEquals(this.referenceClass, entityClass);
+    }
 }

@@ -1,43 +1,52 @@
 /*
- * Copyright © 2003 Nervousync® Studio, Inc. All rights reserved.
- * This software is the confidential and proprietary information of
- * Nervousync Studio, Inc. You shall not disclose such Confidential
- * Information and shall use it only in accordance with the terms of the
- * license agreement you entered into with Nervousync Studio.
+ * Licensed to the Nervousync Studio (NSYC) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.nervousync.database.annotations.transactional;
 
-import org.nervousync.commons.core.Globals;
+import org.nervousync.commons.Globals;
 import org.nervousync.database.enumerations.transactional.Isolation;
 
 import java.lang.annotation.*;
 
 /**
- * Transactional annotation, if class or method was annotated with this annotation, system will execute method in transactional mode
+ * <h2 class="en-US">The annotation of transactional configure</h2>
+ * <h2 class="zh-CN">事务配置信息的注解</h2>
+ *
  * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
- * @version $Revision: 1.0 $ $Date: Mar 30, 2016 3:45:19 PM $
+ * @version $Revision: 1.0.0 $ $Date: Mar 30, 2016 15:45:19 $
  */
+@Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.TYPE})
-@Documented
 public @interface Transactional {
+    /**
+     * @return <span class="en-US">The timeout value of transactional</span>
+     * <span class="zh-CN">事务的超时时间</span>
+     */
+    int timeout() default Globals.DEFAULT_VALUE_INT;
 
-	/**
-	 * Setting for transactional timeout value
-	 * @return		Transactional timeout value
-	 */
-	int timeout() default Globals.DEFAULT_VALUE_INT;
-	
-	/**
-	 * Transactional isolation
-	 * @see Isolation
-	 * @return		Transactional isolation
-	 */
-	Isolation isolation() default Isolation.DEFAULT;
-	
-	/**
-	 * System will process rollback automatic when catch these exceptions
-	 * @return		Rollback class list
-	 */
-	Class<?>[] rollbackFor() default {};
+    /**
+     * @return <span class="en-US">The isolation value of transactional</span>
+     * <span class="zh-CN">事务的等级代码</span>
+     */
+    Isolation isolation() default Isolation.DEFAULT;
+
+    /**
+     * @return <span class="en-US">The rollback exception class of transactional</span>
+     * <span class="zh-CN">事务的回滚异常</span>
+     */
+    Class<?>[] rollbackFor() default {};
 }

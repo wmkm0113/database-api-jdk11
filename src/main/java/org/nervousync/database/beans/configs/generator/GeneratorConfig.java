@@ -1,131 +1,174 @@
 /*
- * Copyright © 2003 Nervousync® Studio, Inc. All rights reserved.
- * This software is the confidential and proprietary information of
- * Nervousync Studio, Inc. You shall not disclose such Confidential
- * Information and shall use it only in accordance with the terms of the
- * license agreement you entered into with Nervousync Studio.
+ * Licensed to the Nervousync Studio (NSYC) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-
 package org.nervousync.database.beans.configs.generator;
 
 import jakarta.persistence.GeneratedValue;
-import org.nervousync.commons.core.Globals;
+import jakarta.persistence.GenerationType;
+import jakarta.xml.bind.annotation.*;
+import org.nervousync.beans.core.BeanObject;
+import org.nervousync.commons.Globals;
 import org.nervousync.database.annotations.sequence.SequenceGenerator;
 import org.nervousync.database.beans.configs.sequence.SequenceConfig;
-import org.nervousync.database.enumerations.generation.GenerationOption;
-
-import java.io.Serializable;
-import java.lang.reflect.Field;
 
 /**
- * The type Generator config.
+ * <h2 class="en-US">Column data generator configure information</h2>
+ * <h2 class="zh-CN">列数据生成器配置信息</h2>
  *
  * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
- * @version $Revision : 1.0 $ $Date: 11/4/2020 15:49 $
+ * @version $Revision: 1.0.0 $ $Date: Nov 4, 2020 15:49:52 $
  */
-public final class GeneratorConfig implements Serializable {
+@XmlType(name = "generator_config")
+@XmlRootElement(name = "generator_config")
+@XmlAccessorType(XmlAccessType.NONE)
+public final class GeneratorConfig extends BeanObject {
+    /**
+     * <span class="en-US">Serial version UID</span>
+     * <span class="zh-CN">序列化UID</span>
+     */
+    private static final long serialVersionUID = -4086799829735527877L;
+    /**
+     * <span class="en-US">Generation type</span>
+     * <span class="zh-CN">生成器类型</span>
+     */
+    @XmlElement(name = "generation_type")
+    private GenerationType generationType;
+    /**
+     * <span class="en-US">Generator name</span>
+     * <span class="zh-CN">生成器名称</span>
+     */
+    @XmlElement(name = "generator_name")
+    private String generatorName;
+    /**
+     * <span class="en-US">Sequence configure information</span>
+     * <span class="zh-CN">序列生成器配置信息</span>
+     */
+    @XmlElement(name = "sequence_config")
+    private SequenceConfig sequenceConfig = null;
 
-	private static final long serialVersionUID = -4086799829735527877L;
+    /**
+     * <h3 class="en-US">Constructor method for column data generator configure information</h3>
+     * <h3 class="zh-CN">列数据生成器配置信息的构造方法</h3>
+     */
+    public GeneratorConfig() {
+    }
 
-	/**
-	 * Generation type
-	 */
-	private final GenerationOption generationOption;
-	/**
-	 * Column sequence name
-	 */
-	private final String generatorName;
-	/**
-	 * Sequence config
-	 */
-	private SequenceConfig sequenceConfig = null;
+    /**
+     * <h3 class="en-US">Generate column data generator configure information instance by given annotation instance</h3>
+     * <h3 class="zh-CN">根据给定的注解实例对象生成列数据生成器配置信息实例对象</h3>
+     *
+     * @param generatedValue    <span class="en-US">The annotation instance of GeneratedValue</span>
+     *                          <span class="zh-CN">注解 GeneratedValue 的实例对象</span>
+     * @param sequenceGenerator <span class="en-US">The annotation instance of SequenceGenerator</span>
+     *                          <span class="zh-CN">注解 SequenceGenerator 的实例对象</span>
+     * @return <span class="en-US">Generated data generator configure information instance</span>
+     * <span class="zh-CN">生成的列数据生成器配置信息实例对象</span>
+     */
+    public static GeneratorConfig newInstance(final GeneratedValue generatedValue,
+                                              final SequenceGenerator sequenceGenerator) {
+        GeneratorConfig generatorConfig = new GeneratorConfig();
+        if (generatedValue == null) {
+            generatorConfig.setGenerationType(GenerationType.AUTO);
+            generatorConfig.setGeneratorName(Globals.DEFAULT_VALUE_STRING);
+        } else {
+            GenerationType generationType = generatedValue.strategy();
+            generatorConfig.setGenerationType(generationType);
+            switch (generationType) {
+                case SEQUENCE:
+                    if (sequenceGenerator == null) {
+                        generatorConfig.setGeneratorName(generatedValue.generator());
+                    } else {
+                        generatorConfig.setGeneratorName(sequenceGenerator.name());
+                        generatorConfig.setSequenceConfig(SequenceConfig.newInstance(sequenceGenerator));
+                    }
+                    break;
+                case AUTO:
+                    generatorConfig.setGeneratorName(generatedValue.generator());
+                    break;
+                default:
+                    generatorConfig.setGeneratorName(Globals.DEFAULT_VALUE_STRING);
+                    break;
+            }
+        }
+        return generatorConfig;
+    }
 
-	/**
-	 * Instantiates a new Generator config.
-	 *
-	 * @param field the field
-	 */
-	public GeneratorConfig(Field field) {
-		if (!field.isAnnotationPresent(GeneratedValue.class)) {
-			this.generationOption = GenerationOption.NONE;
-			this.generatorName = Globals.DEFAULT_VALUE_STRING;
-			return;
-		}
-		GeneratedValue generatedValue = field.getAnnotation(GeneratedValue.class);
-		switch (generatedValue.strategy()) {
-			case SEQUENCE:
-				this.generationOption = GenerationOption.SEQUENCE;
-				if (field.isAnnotationPresent(SequenceGenerator.class)) {
-					SequenceGenerator sequenceGenerator = field.getAnnotation(SequenceGenerator.class);
-					this.generatorName = sequenceGenerator.name();
-					this.sequenceConfig = new SequenceConfig();
-					this.sequenceConfig.setMinValue(sequenceGenerator.min());
-					this.sequenceConfig.setMaxValue(sequenceGenerator.max());
-					this.sequenceConfig.setCurrent(sequenceGenerator.init());
-					this.sequenceConfig.setStep(sequenceGenerator.step());
-					this.sequenceConfig.setSequenceName(sequenceGenerator.name());
-					this.sequenceConfig.setCycle(sequenceGenerator.cycle());
-				} else {
-					this.generatorName = Globals.DEFAULT_VALUE_STRING;
-				}
-				break;
-			case IDENTITY:
-				this.generationOption = GenerationOption.INCREMENT;
-				this.generatorName = Globals.DEFAULT_VALUE_STRING;
-				break;
-			case AUTO:
-				this.generationOption = GenerationOption.GENERATOR;
-				this.generatorName = generatedValue.generator();
-				break;
-			default:
-				this.generationOption = GenerationOption.ASSIGNED;
-				this.generatorName = Globals.DEFAULT_VALUE_STRING;
-				break;
-		}
-	}
+    /**
+     * <h3 class="en-US">Getter method for generation type</h3>
+     * <h3 class="zh-CN">生成器类型的Getter方法</h3>
+     *
+     * @return <span class="en-US">Generation type</span>
+     * <span class="zh-CN">生成器类型</span>
+     */
+    public GenerationType getGenerationType() {
+        return generationType;
+    }
 
-	/**
-	 * Gets serial version uid.
-	 *
-	 * @return the serial version uid
-	 */
-	public static long getSerialVersionUID() {
-		return serialVersionUID;
-	}
+    /**
+     * <h3 class="en-US">Setter method for generation type</h3>
+     * <h3 class="zh-CN">生成器类型的Setter方法</h3>
+     *
+     * @param generationType <span class="en-US">Generation type</span>
+     *                       <span class="zh-CN">生成器类型</span>
+     */
+    public void setGenerationType(GenerationType generationType) {
+        this.generationType = generationType;
+    }
 
-	/**
-	 * Gets generation option.
-	 *
-	 * @return the generation option
-	 */
-	public GenerationOption getGenerationOption() {
-		return generationOption;
-	}
+    /**
+     * <h3 class="en-US">Getter method for generator name</h3>
+     * <h3 class="zh-CN">生成器名称的Getter方法</h3>
+     *
+     * @return <span class="en-US">Generator name</span>
+     * <span class="zh-CN">生成器名称</span>
+     */
+    public String getGeneratorName() {
+        return generatorName;
+    }
 
-	/**
-	 * Gets generator name.
-	 *
-	 * @return the generator name
-	 */
-	public String getGeneratorName() {
-		return generatorName;
-	}
+    /**
+     * <h3 class="en-US">Setter method for generator name</h3>
+     * <h3 class="zh-CN">生成器名称的Setter方法</h3>
+     *
+     * @param generatorName <span class="en-US">Generator name</span>
+     *                      <span class="zh-CN">生成器名称</span>
+     */
+    public void setGeneratorName(String generatorName) {
+        this.generatorName = generatorName;
+    }
 
-	/**
-	 * Gets sequence config.
-	 *
-	 * @return the sequence config
-	 */
-	public SequenceConfig getSequenceConfig() {
-		return sequenceConfig;
-	}
+    /**
+     * <h3 class="en-US">Getter method for sequence configure information</h3>
+     * <h3 class="zh-CN">序列生成器配置信息的Getter方法</h3>
+     *
+     * @return <span class="en-US">Sequence configure information</span>
+     * <span class="zh-CN">序列生成器配置信息</span>
+     */
+    public SequenceConfig getSequenceConfig() {
+        return sequenceConfig;
+    }
 
-	/**
-	 * Sequence generator boolean.
-	 *
-	 * @return the boolean
-	 */
-	public boolean sequenceGenerator() {
-		return GenerationOption.SEQUENCE.equals(this.generationOption);
-	}
+    /**
+     * <h3 class="en-US">Setter method for sequence configure information</h3>
+     * <h3 class="zh-CN">序列生成器配置信息的Setter方法</h3>
+     *
+     * @param sequenceConfig <span class="en-US">Sequence configure information</span>
+     *                       <span class="zh-CN">序列生成器配置信息</span>
+     */
+    public void setSequenceConfig(SequenceConfig sequenceConfig) {
+        this.sequenceConfig = sequenceConfig;
+    }
 }
