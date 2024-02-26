@@ -1,6 +1,6 @@
 /*
  * Licensed to the Nervousync Studio (NSYC) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
+ * contributor license agreements. See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
@@ -21,17 +21,22 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Temporal;
+import jakarta.xml.bind.annotation.*;
 import org.nervousync.beans.core.BeanObject;
 import org.nervousync.commons.Globals;
+import org.nervousync.database.beans.configs.table.TableConfig;
 import org.nervousync.database.commons.DatabaseUtils;
+import org.nervousync.utils.CollectionUtils;
 import org.nervousync.utils.ObjectUtils;
+import org.nervousync.utils.StringUtils;
 
 import java.lang.reflect.Field;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.Arrays;
 import java.util.Date;
-import java.util.Optional;
+import java.util.List;
 
 /**
  * <h2 class="en-US">Column information</h2>
@@ -40,47 +45,64 @@ import java.util.Optional;
  * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Jun 27, 2018 23:02:27 $
  */
+@XmlType(name = "column_info")
+@XmlRootElement(name = "column_info")
+@XmlAccessorType(XmlAccessType.NONE)
 public final class ColumnInfo extends BeanObject {
     /**
      * <span class="en-US">Serial version UID</span>
      * <span class="zh-CN">序列化UID</span>
      */
     private static final long serialVersionUID = -2535643284257171857L;
+    private static final List<Class<?>> NUMBER_CLASS_LIST =
+            Arrays.asList(Short.class, short.class, Integer.class, int.class, Long.class, long.class,
+                    Float.class, float.class, Double.class, double.class);
+    private static final List<Integer> DATETIME_JDBC_TYPES = Arrays.asList(Types.TIMESTAMP, Types.DATE, Types.TIME);
     /**
      * <span class="en-US">Column name</span>
      * <span class="zh-CN">列名</span>
      */
-    private final String columnName;
+    @XmlElement(name = "column_name")
+    private String columnName;
     /**
      * <span class="en-US">JDBC data type code</span>
      * <span class="zh-CN">JDBC数据类型代码</span>
      */
-    private final int jdbcType;
+    @XmlElement(name = "jdbc_type")
+    private int jdbcType;
     /**
      * <span class="en-US">Column is nullable</span>
      * <span class="zh-CN">列允许为空值</span>
      */
-    private final boolean nullable;
+    @XmlElement(name = "nullable")
+    private boolean nullable;
     /**
      * <span class="en-US">Column length</span>
      * <span class="zh-CN">列长度</span>
      */
-    private final int length;
+    @XmlElement
+    private int length;
     /**
      * <span class="en-US">Column precision</span>
      * <span class="zh-CN">列精度</span>
      */
-    private final int precision;
+    @XmlElement
+    private int precision;
     /**
      * <span class="en-US">Column scale</span>
      * <span class="zh-CN">列小数位数</span>
      */
-    private final int scale;
+    @XmlElement
+    private int scale;
     /**
      * <span class="en-US">Column default value</span>
      * <span class="zh-CN">列默认值</span>
      */
-    private final Object defaultValue;
+    @XmlElement(name = "default_value")
+    private Object defaultValue;
+
+    public ColumnInfo() {
+    }
 
     /**
      * <h3 class="en-US">Private constructor method for column information</h3>
@@ -116,14 +138,16 @@ public final class ColumnInfo extends BeanObject {
      * <h3 class="en-US">Generate column information instance by given result set</h3>
      * <h3 class="zh-CN">根据给定的查询结果集生成列基本信息实例对象</h3>
      *
-     * @param resultSet <span class="en-US">result set instance</span>
-     *                  <span class="zh-CN">查询结果集实例对象</span>
+     * @param tableConfig <span class="en-US">Table configure information instance</span>
+     *                    <span class="zh-CN">数据表配置信息实例对象</span>
+     * @param resultSet   <span class="en-US">result set instance</span>
+     *                    <span class="zh-CN">查询结果集实例对象</span>
      * @return <span class="en-US">Column information</span>
      * <span class="zh-CN">列基本信息</span>
      * @throws SQLException <span class="en-US">If an error occurs when parse result set instance</span>
      *                      <span class="zh-CN">如果解析查询结果集时出现异常</span>
      */
-    public static ColumnInfo newInstance(final ResultSet resultSet) throws SQLException {
+    public static ColumnInfo newInstance(final TableConfig tableConfig, final ResultSet resultSet) throws SQLException {
         if (resultSet == null) {
             throw new SQLException("ResultSet is null");
         }
@@ -154,10 +178,47 @@ public final class ColumnInfo extends BeanObject {
                 scale = Globals.DEFAULT_VALUE_INT;
                 break;
         }
-        return new ColumnInfo(columnName, jdbcType, nullable, length, precision, scale,
-                Optional.ofNullable(resultSet.getObject("COLUMN_DEF"))
-                        .map(Object::toString)
-                        .orElse(Globals.DEFAULT_VALUE_STRING));
+
+        ColumnConfig columnConfig = tableConfig.columnConfig(columnName);
+        if (columnConfig == null) {
+            return null;
+        }
+
+        Object defaultValue;
+        Class<?> fieldType = columnConfig.getFieldType();
+        if (Boolean.class.equals(fieldType)) {
+            Object objValue = resultSet.getObject("COLUMN_DEF");
+            defaultValue = (objValue == null) ? null : Boolean.valueOf(objValue.toString());
+        } else if (boolean.class.equals(fieldType)) {
+            defaultValue = resultSet.getBoolean("COLUMN_DEF");
+        } else if (Byte.class.equals(fieldType) || byte.class.equals(fieldType)) {
+            defaultValue = resultSet.getByte("COLUMN_DEF");
+        } else if (CollectionUtils.contains(DATETIME_JDBC_TYPES, columnConfig.getColumnInfo().getJdbcType())) {
+            defaultValue = new Date(resultSet.getTimestamp("COLUMN_DEF").getTime());
+        } else if (Short.class.equals(fieldType)) {
+            defaultValue = resultSet.getShort("COLUMN_DEF");
+        } else if (short.class.equals(fieldType)) {
+            defaultValue = resultSet.getShort("COLUMN_DEF");
+        } else {
+            Object object = resultSet.getObject("COLUMN_DEF");
+            if (CollectionUtils.contains(NUMBER_CLASS_LIST, fieldType) && (object instanceof String)) {
+                String objValue = parseValue((String) object);
+                if (Integer.class.equals(fieldType) || int.class.equals(fieldType)) {
+                    defaultValue = Integer.parseInt(objValue);
+                } else if (Long.class.equals(fieldType) || long.class.equals(fieldType)) {
+                    defaultValue = Long.parseLong(objValue);
+                } else if (Float.class.equals(fieldType) || float.class.equals(fieldType)) {
+                    defaultValue = Float.parseFloat(objValue);
+                } else if (Double.class.equals(fieldType) || double.class.equals(fieldType)) {
+                    defaultValue = Double.parseDouble(objValue);
+                } else {
+                    defaultValue = resultSet.getObject("COLUMN_DEF");
+                }
+            } else {
+                defaultValue = resultSet.getObject("COLUMN_DEF");
+            }
+        }
+        return new ColumnInfo(columnName, jdbcType, nullable, length, precision, scale, defaultValue);
     }
 
     /**
@@ -310,5 +371,29 @@ public final class ColumnInfo extends BeanObject {
      */
     public Object getDefaultValue() {
         return defaultValue;
+    }
+
+    /**
+     * <h3 class="en-US">Parse the default value data read in the ResultSet</h3>
+     * <h3 class="zh-CN">解析ResultSet中读取的默认值数据</h3>
+     *
+     * @param objValue <span class="en-US">Default value from result set</span>
+     *                    <span class="zh-CN">读取的默认值</span>
+     * @return <span class="en-US">Parse and converted default value</span>
+     * <span class="zh-CN">解析后的默认值</span>
+     */
+    private static String parseValue(final String objValue) {
+        String parsedValue = objValue;
+        if (parsedValue.contains("::")) {
+            parsedValue = parsedValue.substring(0, parsedValue.indexOf("::"));
+            parsedValue = StringUtils.replace(parsedValue, "'", "");
+        }
+        if (parsedValue.startsWith("((")) {
+            parsedValue = parsedValue.substring(2);
+        }
+        if (parsedValue.endsWith("))")) {
+            parsedValue = parsedValue.substring(0, parsedValue.length() - 2);
+        }
+        return parsedValue;
     }
 }

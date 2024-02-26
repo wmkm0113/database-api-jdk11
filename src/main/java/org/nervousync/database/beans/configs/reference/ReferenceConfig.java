@@ -1,6 +1,6 @@
 /*
  * Licensed to the Nervousync Studio (NSYC) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
+ * contributor license agreements. See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
@@ -20,8 +20,8 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.JoinColumn;
 import jakarta.xml.bind.annotation.*;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import org.nervousync.beans.converter.impl.basic.ClassStringAdapter;
 import org.nervousync.beans.core.BeanObject;
+import org.nervousync.beans.transfer.basic.ClassAdapter;
 import org.nervousync.utils.ObjectUtils;
 import org.nervousync.utils.StringUtils;
 
@@ -39,7 +39,7 @@ import java.util.List;
 @XmlType(name = "reference_config")
 @XmlRootElement(name = "reference_config")
 @XmlAccessorType(XmlAccessType.NONE)
-public final class ReferenceConfig extends BeanObject {
+public final class ReferenceConfig<T> extends BeanObject {
     /**
      * <span class="en-US">Serial version UID</span>
      * <span class="zh-CN">序列化UID</span>
@@ -62,8 +62,8 @@ public final class ReferenceConfig extends BeanObject {
      * <span class="zh-CN">目标外键实体类</span>
      */
     @XmlElement(name = "reference_class")
-    @XmlJavaTypeAdapter(ClassStringAdapter.class)
-    private Class<?> referenceClass;
+    @XmlJavaTypeAdapter(ClassAdapter.class)
+    private Class<T> referenceClass;
     /**
      * <span class="en-US">Column mapping field name</span>
      * <span class="zh-CN">列映射的属性名</span>
@@ -111,7 +111,7 @@ public final class ReferenceConfig extends BeanObject {
      * @return <span class="en-US">Generated reference configure information instance</span>
      * <span class="zh-CN">生成的外键引用配置信息实例对象</span>
      */
-    public static ReferenceConfig newInstance(final Class<?> referenceClass, final String fieldName,
+    public static <T> ReferenceConfig<T> newInstance(final Class<T> referenceClass, final String fieldName,
                                               final boolean lazyLoad, final boolean returnArray,
                                               final CascadeType[] cascadeTypes, final JoinColumn[] joinColumns) {
         if (joinColumns == null || cascadeTypes == null || StringUtils.isEmpty(fieldName) || joinColumns.length == 0) {
@@ -126,7 +126,7 @@ public final class ReferenceConfig extends BeanObject {
                     joinConfig.setReferenceField(joinColumn.referencedColumnName());
                     referenceColumns.add(joinConfig);
                 });
-        ReferenceConfig referenceConfig = new ReferenceConfig();
+        ReferenceConfig<T> referenceConfig = new ReferenceConfig<>();
         referenceConfig.setReferenceClass(referenceClass);
         referenceConfig.setFieldName(fieldName);
         referenceConfig.setLazyLoad(lazyLoad);
@@ -187,7 +187,7 @@ public final class ReferenceConfig extends BeanObject {
      * @return <span class="en-US">Target reference entity class</span>
      * <span class="zh-CN">目标外键实体类</span>
      */
-    public Class<?> getReferenceClass() {
+    public Class<T> getReferenceClass() {
         return referenceClass;
     }
 
@@ -198,7 +198,7 @@ public final class ReferenceConfig extends BeanObject {
      * @param referenceClass <span class="en-US">Target reference entity class</span>
      *                       <span class="zh-CN">目标外键实体类</span>
      */
-    public void setReferenceClass(Class<?> referenceClass) {
+    public void setReferenceClass(Class<T> referenceClass) {
         this.referenceClass = referenceClass;
     }
 

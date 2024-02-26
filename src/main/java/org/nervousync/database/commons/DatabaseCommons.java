@@ -1,6 +1,6 @@
 /*
  * Licensed to the Nervousync Studio (NSYC) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
+ * contributor license agreements. See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
@@ -34,7 +34,41 @@ public final class DatabaseCommons {
      * <span class="zh-CN">默认每页记录数</span>
 	 */
 	public static final int DEFAULT_PAGE_LIMIT = 20;
-
+	/**
+     * <span class="en-US">The number of threads executed simultaneously by the default data import and export task</span>
+     * <span class="zh-CN">默认数据导入导出任务同时执行的线程数</span>
+	 */
+	public static final int DEFAULT_PROCESS_THREAD_LIMIT = 20;
+	/**
+     * <span class="en-US">The default expiration time after the data import and export task is completed</span>
+     * <span class="zh-CN">默认数据导入导出任务完成后的过期时间</span>
+	 */
+	public static final long DEFAULT_STORAGE_EXPIRE_TIME = 7 * 24 * 60 * 60 * 1000L;
+	/**
+     * <span class="en-US">Data import and export task status: Create</span>
+     * <span class="zh-CN">数据导入导出任务状态：创建</span>
+	 */
+	public static final int DATA_TASK_STATUS_CREATE = 0;
+	/**
+     * <span class="en-US">Data import and export task status: Processing</span>
+     * <span class="zh-CN">数据导入导出任务状态：处理中</span>
+	 */
+	public static final int DATA_TASK_STATUS_PROCESS = 1;
+	/**
+     * <span class="en-US">Data import and export task status: Finished</span>
+     * <span class="zh-CN">数据导入导出任务状态：已完成</span>
+	 */
+	public static final int DATA_TASK_STATUS_FINISH = 2;
+	/**
+     * <span class="en-US">Data file extension</span>
+     * <span class="zh-CN">数据文件的扩展名</span>
+	 */
+	public static final String DATA_FILE_EXTENSION_NAME = ".dat";
+	/**
+     * <span class="en-US">Data file extension</span>
+     * <span class="zh-CN">数据文件的扩展名</span>
+	 */
+	public static final String DATA_TMP_FILE_EXTENSION_NAME = ".tmp";
 	/**
      * <span class="en-US">Default database alias</span>
      * <span class="zh-CN">默认的数据库别名</span>
@@ -50,6 +84,11 @@ public final class DatabaseCommons {
      * <span class="zh-CN">缓存数据表中数据表名称键值</span>
 	 */
 	public static final String CONTENT_MAP_KEY_TABLE_NAME = "NSYC_TABLE_NAME";
+	/**
+     * <span class="en-US">Table name of cache data type key</span>
+     * <span class="zh-CN">缓存数据表中数据类型键值</span>
+	 */
+	public static final String CONTENT_MAP_KEY_DATA_TYPE = "NSYC_DATA_TYPE";
 	/**
      * <span class="en-US">Lazy load map key item of cache map key</span>
      * <span class="zh-CN">缓存数据表中懒加载列名称键值</span>

@@ -9,13 +9,28 @@
 package org.nervousync.database.entity.relational;
 
 import jakarta.persistence.*;
-import org.nervousync.beans.core.BeanObject;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import org.nervousync.annotations.beans.DataTransfer;
+import org.nervousync.annotations.beans.OutputConfig;
+import org.nervousync.beans.transfer.basic.BigDecimalAdapter;
+import org.nervousync.beans.transfer.basic.DateTimeAdapter;
+import org.nervousync.beans.transfer.blob.Base64Adapter;
 import org.nervousync.commons.Globals;
+import org.nervousync.database.annotations.data.ExcelColumn;
+import org.nervousync.database.annotations.data.ExcelSheet;
 import org.nervousync.database.annotations.table.Options;
+import org.nervousync.database.annotations.data.Sensitive;
 import org.nervousync.database.commons.DatabaseCommons;
+import org.nervousync.database.entity.core.BaseObject;
 import org.nervousync.database.entity.distribute.TestDistribute;
 import org.nervousync.database.enumerations.lock.LockOption;
+import org.nervousync.database.enumerations.sensitive.SensitiveType;
 import org.nervousync.utils.IDUtils;
+import org.nervousync.utils.StringUtils;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -24,11 +39,15 @@ import java.util.Date;
  * The type Test entity.
  *
  * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
- * @version $Revision : 1.0 $ $Date: 11/30/2020 1:05 PM $
+ * @version $Revision: 1.0 $ $Date: 11/30/2020 1:05 PM $
  */
+@ExcelSheet("Test_Relational")
+@XmlRootElement(name = "test_relational")
+@XmlAccessorType(XmlAccessType.NONE)
+@OutputConfig(type = StringUtils.StringType.JSON)
 @Options(lockOption = LockOption.PESSIMISTIC_UPGRADE)
 @Table(name = "Test_Relational", catalog = DatabaseCommons.DEFAULT_DATABASE_ALIAS)
-public final class TestRelational extends BeanObject {
+public final class TestRelational extends BaseObject {
 
     /**
      * The constant serialVersionUID.
@@ -41,11 +60,15 @@ public final class TestRelational extends BeanObject {
     @Id
     @Column(nullable = false)
     @GeneratedValue(generator = IDUtils.UUIDv4)
+    @XmlElement(name = "identify_code")
+    @ExcelColumn(0)
     private String identifyCode;
     /**
      * The Msg title.
      */
     @Column(nullable = false, length = 200)
+    @XmlElement(name = "msg_title")
+    @ExcelColumn(1)
     private String msgTitle;
     /**
      * The Msg content.
@@ -53,66 +76,110 @@ public final class TestRelational extends BeanObject {
     @Lob
     @Basic(fetch = FetchType.LAZY)
     @Column
+    @XmlElement(name = "msg_bytes")
+    @XmlJavaTypeAdapter(Base64Adapter.class)
+    @ExcelColumn(11)
+    @DataTransfer(adapter = Base64Adapter.class)
     private byte[] msgBytes;
+    /**
+     * The Chn id
+     */
+    @Column(nullable = false, length = 18)
+    @XmlElement(name = "chn_id")
+    @Sensitive(type = SensitiveType.CHN_ID_Code, encField = "encChnId", secureName = "sensitiveData")
+    @ExcelColumn(2)
+    private String chnId;
+    /**
+     * The Chn id
+     */
+    @Column(nullable = false, length = 200)
+    @XmlElement(name = "enc_chn_id")
+    private String encChnId;
     /**
      * The Msg content.
      */
     @Lob
     @Basic(fetch = FetchType.LAZY)
     @Column
+    @XmlElement(name = "msg_content")
+    @ExcelColumn(3)
     private String msgContent;
     /**
      * The Test int.
      */
     @Column
-    private short testInt = Globals.DEFAULT_VALUE_INT;
+    @XmlElement(name = "test_int")
+    @ExcelColumn(4)
+    private int testInt = Globals.DEFAULT_VALUE_INT;
     /**
      * The Test short.
      */
     @Column
+    @XmlElement(name = "test_short")
+    @ExcelColumn(5)
     private short testShort = Globals.DEFAULT_VALUE_SHORT;
     /**
      * The Test double.
      */
     @Column(precision = 53)
+    @XmlElement(name = "test_double")
+    @ExcelColumn(6)
     private double testDouble = Globals.DEFAULT_VALUE_DOUBLE;
     /**
      * The Test float.
      */
     @Column(precision = 53)
+    @XmlElement(name = "test_float")
+    @ExcelColumn(7)
     private float testFloat = Globals.DEFAULT_VALUE_FLOAT;
     /**
      * The Test byte.
      */
     @Column
+    @XmlElement(name = "test_byte")
     private byte testByte;
     /**
      * The Test boolean.
      */
     @Column
+    @XmlElement(name = "test_boolean")
     private boolean testBoolean = Boolean.FALSE;
     /**
      * The Test date.
      */
     @Column
     @Temporal(TemporalType.DATE)
+    @XmlElement(name = "test_date")
+    @XmlJavaTypeAdapter(DateTimeAdapter.class)
+    @ExcelColumn(8)
+    @DataTransfer(adapter = DateTimeAdapter.class, initParam = "yyyy-MM-dd")
     private Date testDate;
     /**
      * The Test time.
      */
     @Column
     @Temporal(TemporalType.TIME)
+    @XmlElement(name = "test_time")
+    @XmlJavaTypeAdapter(DateTimeAdapter.class)
+    @ExcelColumn(9)
+    @DataTransfer(adapter = DateTimeAdapter.class, initParam = "HH:mm:ss")
     private Date testTime;
     /**
      * The Test timestamp.
      */
     @Column
     @Temporal(TemporalType.TIMESTAMP)
+    @XmlElement(name = "test_timestamp")
+    @XmlJavaTypeAdapter(DateTimeAdapter.class)
+    @ExcelColumn(10)
+    @DataTransfer(adapter = DateTimeAdapter.class)
     private Date testTimestamp;
     /**
      * The Test big decimal.
      */
     @Column(precision = 31, scale = 14)
+    @XmlElement(name = "test_decimal")
+    @XmlJavaTypeAdapter(BigDecimalAdapter.class)
     private BigDecimal testBigDecimal;
     /**
      * The Relational reference.
@@ -187,6 +254,22 @@ public final class TestRelational extends BeanObject {
         this.msgBytes = msgBytes;
     }
 
+    public String getChnId() {
+        return chnId;
+    }
+
+    public void setChnId(String chnId) {
+        this.chnId = chnId;
+    }
+
+    public String getEncChnId() {
+        return encChnId;
+    }
+
+    public void setEncChnId(String encChnId) {
+        this.encChnId = encChnId;
+    }
+
     /**
      * Get msg content char [ ].
      *
@@ -210,7 +293,7 @@ public final class TestRelational extends BeanObject {
      *
      * @return the test int
      */
-    public short getTestInt() {
+    public int getTestInt() {
         return testInt;
     }
 
@@ -219,7 +302,7 @@ public final class TestRelational extends BeanObject {
      *
      * @param testInt the test int
      */
-    public void setTestInt(short testInt) {
+    public void setTestInt(int testInt) {
         this.testInt = testInt;
     }
 

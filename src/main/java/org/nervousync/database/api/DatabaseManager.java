@@ -1,6 +1,6 @@
 /*
  * Licensed to the Nervousync Studio (NSYC) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
+ * contributor license agreements. See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
@@ -15,6 +15,9 @@
  * limitations under the License.
  */
 package org.nervousync.database.api;
+
+import org.nervousync.database.beans.configs.table.TableConfig;
+import org.nervousync.database.beans.configs.transactional.TransactionalConfig;
 
 /**
  * <h2 class="en-US">The interface of database manager</h2>
@@ -34,15 +37,15 @@ public interface DatabaseManager {
     boolean initialize();
 
     /**
-     * <h3 class="en-US">Register entity class array</h3>
-     * <h3 class="zh-CN">注册实体类数组</h3>
+     * <h3 class="en-US">Initialize the data table according to the given data table configuration information</h3>
+     * <h3 class="zh-CN">根据给定的数据表配置信息初始化数据表</h3>
      *
-     * @param entityClasses <span class="en-US">Entity class array</span>
-     *                      <span class="zh-CN">实体类数组</span>
-     * @return <span class="en-US">Register succeed count of given entity class array</span>
-     * <span class="zh-CN">给定实体类数组注册成功的数量</span>
+     * @param tableConfig <span class="en-US">Table configure information</span>
+     *                    <span class="zh-CN">数据表配置信息</span>
+     * @return <span class="en-US">Initialize result</span>
+     * <span class="zh-CN">初始化结果</span>
      */
-    int registerTable(final Class<?>... entityClasses);
+    boolean initTable(final TableConfig tableConfig);
 
     /**
      * <h3 class="en-US">Truncate entity class array</h3>
@@ -54,15 +57,24 @@ public interface DatabaseManager {
     void truncateTable(final Class<?>... entityClasses);
 
     /**
-     * <h3 class="en-US">Remove entity class array</h3>
-     * <h3 class="zh-CN">删除实体类数组</h3>
+     * <h3 class="en-US">Drop the data table according to the given data table configuration information</h3>
+     * <h3 class="zh-CN">根据给定的数据表配置信息删除数据表</h3>
      *
-     * @param entityClasses <span class="en-US">Entity class array</span>
-     *                      <span class="zh-CN">实体类数组</span>
-     * @return <span class="en-US">Drop succeed count of given entity class array</span>
-     * <span class="zh-CN">给定实体类数组删除成功的数量</span>
+     * @param tableConfig <span class="en-US">Table configure information</span>
+     *                    <span class="zh-CN">数据表配置信息</span>
+     * @return <span class="en-US">Initialize result</span>
+     * <span class="zh-CN">初始化结果</span>
      */
-    int dropTable(final Class<?>... entityClasses);
+    boolean dropTable(final TableConfig tableConfig);
+
+    /**
+     * <h3 class="en-US">Generate database client in data restore mode</h3>
+     * <h3 class="zh-CN">生成数据恢复模式的数据操作客户端实例对象</h3>
+     *
+     * @return <span class="en-US">Generated database client instance</span>
+     * <span class="zh-CN">生成的数据操作客户端实例对象</span>
+     */
+    DatabaseClient restoreClient();
 
     /**
      * <h3 class="en-US">Generate database client in read only mode</h3>
@@ -86,14 +98,38 @@ public interface DatabaseManager {
      * <h3 class="en-US">Generate database client in transactional mode</h3>
      * <h3 class="zh-CN">生成事务模式的数据操作客户端实例对象</h3>
      *
-     * @param clazz      <span class="en-US">The database client using for class</span>
-     *                   <span class="zh-CN">使用数据操作客户端的类</span>
-     * @param methodName <span class="en-US">The database client using for method name</span>
-     *                   <span class="zh-CN">使用数据操作客户端的方法名</span>
+     * @param txConfig <span class="en-US">Transactional configure information object instance</span>
+     *                 <span class="zh-CN">事务配置信息实例对象</span>
      * @return <span class="en-US">Generated database client instance</span>
      * <span class="zh-CN">生成的数据操作客户端实例对象</span>
      */
-    DatabaseClient generateClient(final Class<?> clazz, final String methodName);
+    default DatabaseClient generateClient(final TransactionalConfig txConfig) {
+        return this.generateClient(txConfig, Boolean.FALSE);
+    }
+
+    /**
+     * <h3 class="en-US">Generate database client in transactional mode</h3>
+     * <h3 class="zh-CN">生成事务模式的数据操作客户端实例对象</h3>
+     *
+     * @param txConfig    <span class="en-US">Transactional configure information object instance</span>
+     *                    <span class="zh-CN">事务配置信息实例对象</span>
+     * @param restoreMode <span class="en-US">Data restore mode</span>
+     *                    <span class="zh-CN">数据恢复模式</span>
+     * @return <span class="en-US">Generated database client instance</span>
+     * <span class="zh-CN">生成的数据操作客户端实例对象</span>
+     */
+    DatabaseClient generateClient(final TransactionalConfig txConfig, final boolean restoreMode);
+
+    /**
+     * <h3 class="en-US">Find the corresponding client instance object based on the given transaction identification code</h3>
+     * <h3 class="zh-CN">根据给定的事务识别代码查找对应的客户端实例对象</h3>
+     *
+     * @param transactionalCode <span class="en-US">transaction identification code</span>
+     *                          <span class="zh-CN">事务识别代码</span>
+     * @return <span class="en-US">Retrieved database client instance, return <code>null</code> if not found</span>
+     * <span class="zh-CN">找到的数据操作客户端实例对象，如果未找到则返回<code>null</code></span>
+     */
+    DatabaseClient retrieveClient(final long transactionalCode);
 
     /**
      * <h3 class="en-US">Destroy current database manager instance</h3>

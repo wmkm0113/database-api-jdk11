@@ -9,8 +9,19 @@
 package org.nervousync.database.entity.distribute;
 
 import jakarta.persistence.*;
-import org.nervousync.beans.core.BeanObject;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import org.nervousync.annotations.beans.OutputConfig;
+import org.nervousync.beans.transfer.basic.BigDecimalAdapter;
+import org.nervousync.beans.transfer.basic.DateTimeAdapter;
+import org.nervousync.beans.transfer.blob.Base64Adapter;
 import org.nervousync.commons.Globals;
+import org.nervousync.database.entity.core.BaseObject;
+import org.nervousync.utils.IDUtils;
+import org.nervousync.utils.StringUtils;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -19,94 +30,117 @@ import java.util.Date;
  * The type Test entity.
  *
  * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
- * @version $Revision : 1.0 $ $Date: 11/30/2020 1:05 PM $
+ * @version $Revision: 1.0 $ $Date: 11/30/2020 1:05 PM $
  */
-@Table(name = "Test_Distribute", catalog = "Distribute")
-public final class TestDistribute extends BeanObject {
+@XmlRootElement(name = "test_distribute")
+@XmlAccessorType(XmlAccessType.NONE)
+@OutputConfig(type = StringUtils.StringType.JSON)
+@Table(name = "Test_Distribute", schema = "Distribute")
+public final class TestDistribute extends BaseObject {
 
 	/**
 	 * The constant serialVersionUID.
 	 */
 	private static final long serialVersionUID = -1136316002800055959L;
 
-	/**
-	 * Identify code.
-	 */
-	@Id
-	@Column(nullable = false)
-	private String identifyCode;
-	/**
-	 * The Msg title.
-	 */
-	@Column(nullable = false, length = 200)
-	private String msgTitle;
-	/**
-	 * The Msg content.
-	 */
-	@Lob
-//	@Basic(fetch = FetchType.LAZY)
-	@Column
-	private byte[] msgBytes;
-	/**
-	 * The Msg content.
-	 */
-	@Lob
-	@Basic(fetch = FetchType.LAZY)
-	@Column
-	private String msgContent;
-	/**
-	 * The Test int.
-	 */
-	@Column
-	private int testInt = Globals.DEFAULT_VALUE_INT;
-	/**
-	 * The Test short.
-	 */
-	@Column
-	private short testShort = Globals.DEFAULT_VALUE_SHORT;
-	/**
-	 * The Test double.
-	 */
-	@Column(precision = 53)
-	private double testDouble = Globals.DEFAULT_VALUE_DOUBLE;
-	/**
-	 * The Test float.
-	 */
-	@Column(precision = 53)
-	private float testFloat = Globals.DEFAULT_VALUE_FLOAT;
-	/**
-	 * The Test byte.
-	 */
-	@Column
-	private byte testByte;
-	/**
-	 * The Test boolean.
-	 */
-	@Column
-	private boolean testBoolean = Boolean.FALSE;
-	/**
-	 * The Test date.
-	 */
-	@Column
-	@Temporal(TemporalType.DATE)
-	private Date testDate;
-	/**
-	 * The Test time.
-	 */
-	@Column
-	@Temporal(TemporalType.TIME)
-	private Date testTime;
-	/**
-	 * The Test timestamp.
-	 */
-	@Column
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date testTimestamp;
-	/**
-	 * The Test big decimal.
-	 */
-	@Column(precision = 18)
-	private BigDecimal testBigDecimal;
+    /**
+     * Identify code.
+     */
+    @Id
+    @Column(nullable = false)
+    @GeneratedValue(generator = IDUtils.UUIDv4)
+    @XmlElement(name = "identify_code")
+    private String identifyCode;
+    /**
+     * The Msg title.
+     */
+    @Column(nullable = false, length = 200)
+    @XmlElement(name = "msg_title")
+    private String msgTitle;
+    /**
+     * The Msg content.
+     */
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @Column
+    @XmlElement(name = "msg_bytes")
+    @XmlJavaTypeAdapter(Base64Adapter.class)
+    private byte[] msgBytes;
+    /**
+     * The Msg content.
+     */
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @Column
+    @XmlElement(name = "msg_content")
+    private String msgContent;
+    /**
+     * The Test int.
+     */
+    @Column
+    @XmlElement(name = "test_int")
+    private int testInt = Globals.DEFAULT_VALUE_INT;
+    /**
+     * The Test short.
+     */
+    @Column
+    @XmlElement(name = "test_short")
+    private short testShort = Globals.DEFAULT_VALUE_SHORT;
+    /**
+     * The Test double.
+     */
+    @Column(precision = 53)
+    @XmlElement(name = "test_double")
+    private double testDouble = Globals.DEFAULT_VALUE_DOUBLE;
+    /**
+     * The Test float.
+     */
+    @Column(precision = 53)
+    @XmlElement(name = "test_float")
+    private float testFloat = Globals.DEFAULT_VALUE_FLOAT;
+    /**
+     * The Test byte.
+     */
+    @Column
+    @XmlElement(name = "test_byte")
+    private byte testByte;
+    /**
+     * The Test boolean.
+     */
+    @Column
+    @XmlElement(name = "test_boolean")
+    private boolean testBoolean = Boolean.FALSE;
+    /**
+     * The Test date.
+     */
+    @Column
+    @Temporal(TemporalType.DATE)
+    @XmlElement(name = "test_date")
+    @XmlJavaTypeAdapter(DateTimeAdapter.class)
+    private Date testDate;
+    /**
+     * The Test time.
+     */
+    @Column
+    @Temporal(TemporalType.TIME)
+    @XmlElement(name = "test_time")
+    @XmlJavaTypeAdapter(DateTimeAdapter.class)
+    private Date testTime;
+    /**
+     * The Test timestamp.
+     */
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    @XmlElement(name = "test_timestamp")
+    @XmlJavaTypeAdapter(DateTimeAdapter.class)
+    private Date testTimestamp;
+    /**
+     * The Test big decimal.
+     */
+    @Column(precision = 31, scale = 14)
+    @XmlElement(name = "test_decimal")
+    @XmlJavaTypeAdapter(BigDecimalAdapter.class)
+    private BigDecimal testBigDecimal;
 	/**
 	 * Distribute reference.
 	 */

@@ -1,6 +1,6 @@
 /*
  * Licensed to the Nervousync Studio (NSYC) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
+ * contributor license agreements. See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
@@ -18,16 +18,14 @@ package org.nervousync.database.beans.configs.column;
 
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
-import jakarta.xml.bind.annotation.*;
-import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import org.nervousync.beans.converter.Adapter;
-import org.nervousync.beans.converter.impl.basic.ClassStringAdapter;
 import org.nervousync.beans.core.BeanObject;
 import org.nervousync.commons.Globals;
+import org.nervousync.database.annotations.data.Sensitive;
 import org.nervousync.database.annotations.sequence.SequenceGenerator;
-import org.nervousync.database.annotations.table.Transfer;
+import org.nervousync.database.annotations.table.GeneratedValue;
 import org.nervousync.database.beans.configs.generator.GeneratorConfig;
 import org.nervousync.database.enumerations.lock.LockOption;
+import org.nervousync.database.enumerations.table.GenerationType;
 import org.nervousync.utils.ConvertUtils;
 import org.nervousync.utils.SecurityUtils;
 import org.nervousync.utils.StringUtils;
@@ -44,9 +42,6 @@ import java.util.Optional;
  * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Jun 27, 2018 22:18:46 $
  */
-@XmlType(name = "column_config")
-@XmlRootElement(name = "column_config")
-@XmlAccessorType(XmlAccessType.NONE)
 public final class ColumnConfig extends BeanObject {
     /**
      * <span class="en-US">Serial version UID</span>
@@ -57,69 +52,66 @@ public final class ColumnConfig extends BeanObject {
      * <span class="en-US">Column information</span>
      * <span class="zh-CN">列基本信息</span>
      */
-    @XmlElement(name = "column_info")
     private ColumnInfo columnInfo;
     /**
      * <span class="en-US">Column mapping field name</span>
      * <span class="zh-CN">列映射的属性名</span>
      */
-    @XmlElement(name = "field_name")
     private String fieldName;
     /**
      * <span class="en-US">Column mapping field type class</span>
      * <span class="zh-CN">列映射的属性类型</span>
      */
-    @XmlElement(name = "field_type")
-    @XmlJavaTypeAdapter(ClassStringAdapter.class)
     private Class<?> fieldType;
     /**
      * <span class="en-US">Column is primary key</span>
      * <span class="zh-CN">列是主键</span>
      */
-    @XmlElement(name = "primary_key")
     private boolean primaryKey;
     /**
      * <span class="en-US">Column value can updatable</span>
      * <span class="zh-CN">列值允许更新</span>
      */
-    @XmlElement
     private boolean updatable;
     /**
      * <span class="en-US">Column value is unique</span>
      * <span class="zh-CN">列值是唯一的</span>
      */
-    @XmlElement
     private boolean unique;
+    /**
+     * <span class="en-US">Column value is sensitive data</span>
+     * <span class="zh-CN">列值是敏感信息</span>
+     */
+    private boolean sensitiveData;
+    /**
+     * <span class="en-US">Sensitive information type</span>
+     * <span class="zh-CN">敏感信息类型</span>
+     */
+    private String sensitiveType;
+    /**
+     * <span class="en-US">Sensitive information encryption storage field</span>
+     * <span class="zh-CN">敏感信息加密存储属性</span>
+     */
+    private String encField;
+    /**
+     * <span class="en-US">Sensitive information encryption configure name</span>
+     * <span class="zh-CN">敏感信息加密配置名称</span>
+     */
+    private String secureName;
     /**
      * <span class="en-US">Column value is lazy load</span>
      * <span class="zh-CN">列值懒加载</span>
      */
-    @XmlElement
     private boolean lazyLoad;
     /**
      * <span class="en-US">Column is version identify</span>
      * <span class="zh-CN">列值是版本识别</span>
      */
-    @XmlElement(name = "identify_version")
     private boolean identifyVersion;
-    /**
-     * <span class="en-US">Column order number in Excel</span>
-     * <span class="zh-CN">Excel表中的列排列序号</span>
-     */
-    @XmlElement(name = "sort_order")
-    private int sortOrder;
-    /**
-     * <span class="en-US">Data converter class</span>
-     * <span class="zh-CN">数据转换类</span>
-     */
-    @XmlElement(name = "converter_class")
-    @XmlJavaTypeAdapter(ClassStringAdapter.class)
-    private Class<?> converterClass;
     /**
      * <span class="en-US">Column value generator configure</span>
      * <span class="zh-CN">数据生成器配置</span>
      */
-    @XmlElement(name = "generator_config")
     private GeneratorConfig generatorConfig;
     /**
      * <span class="en-US">Column identify key list</span>
@@ -173,18 +165,22 @@ public final class ColumnConfig extends BeanObject {
                                 config.setIdentifyVersion(Boolean.FALSE);
                             }
                         }
-                        if (field.isAnnotationPresent(Transfer.class)) {
-                            Transfer transfer = field.getAnnotation(Transfer.class);
-                            config.setSortOrder(transfer.order());
-                            config.setConverterClass(transfer.converter());
-                        } else {
-                            config.setSortOrder(Globals.DEFAULT_VALUE_INT);
-                            config.setConverterClass(Adapter.class);
-                        }
                         if (field.isAnnotationPresent(Basic.class)) {
                             config.setLazyLoad(FetchType.LAZY.equals(field.getAnnotation(Basic.class).fetch()));
                         } else {
                             config.setLazyLoad(Boolean.FALSE);
+                        }
+                        if (field.isAnnotationPresent(Sensitive.class)) {
+                            Sensitive sensitive = field.getAnnotation(Sensitive.class);
+                            config.setSensitiveData(Boolean.TRUE);
+                            config.setSensitiveType(sensitive.type().toString());
+                            config.setEncField(sensitive.encField());
+                            config.setSecureName(sensitive.secureName());
+                        } else {
+                            config.setSensitiveData(Boolean.FALSE);
+                            config.setSensitiveType(Globals.DEFAULT_VALUE_STRING);
+                            config.setEncField(Globals.DEFAULT_VALUE_STRING);
+                            config.setSecureName(Globals.DEFAULT_VALUE_STRING);
                         }
                         config.setGeneratorConfig(GeneratorConfig.newInstance(field.getAnnotation(GeneratedValue.class),
                                 field.getAnnotation(SequenceGenerator.class)));
@@ -356,6 +352,94 @@ public final class ColumnConfig extends BeanObject {
     }
 
     /**
+     * <h3 class="en-US">Getter method for column value is sensitive data</h3>
+     * <h3 class="zh-CN">列值是敏感信息的Getter方法</h3>
+     *
+     * @return <span class="en-US">Column value is sensitive data</span>
+     * <span class="zh-CN">列值是敏感信息</span>
+     */
+    public boolean isSensitiveData() {
+        return sensitiveData;
+    }
+
+    /**
+     * <h3 class="en-US">Setter method for column value is sensitive data</h3>
+     * <h3 class="zh-CN">列值是敏感信息的Setter方法</h3>
+     *
+     * @param sensitiveData <span class="en-US">Column value is sensitive data</span>
+     *                      <span class="zh-CN">列值是敏感信息</span>
+     */
+    public void setSensitiveData(boolean sensitiveData) {
+        this.sensitiveData = sensitiveData;
+    }
+
+    /**
+     * <h3 class="en-US">Getter method for sensitive information type</h3>
+     * <h3 class="zh-CN">敏感信息类型的Getter方法</h3>
+     *
+     * @return <span class="en-US">Sensitive information type</span>
+     * <span class="zh-CN">敏感信息类型</span>
+     */
+    public String getSensitiveType() {
+        return sensitiveType;
+    }
+
+    /**
+     * <h3 class="en-US">Setter method for sensitive information type</h3>
+     * <h3 class="zh-CN">敏感信息类型的Setter方法</h3>
+     *
+     * @param sensitiveType <span class="en-US">Sensitive information type</span>
+     *                      <span class="zh-CN">敏感信息类型</span>
+     */
+    public void setSensitiveType(String sensitiveType) {
+        this.sensitiveType = sensitiveType;
+    }
+
+    /**
+     * <h3 class="en-US">Getter method for sensitive information encryption storage field</h3>
+     * <h3 class="zh-CN">敏感信息加密存储属性的Getter方法</h3>
+     *
+     * @return <span class="en-US">Sensitive information encryption storage field</span>
+     * <span class="zh-CN">敏感信息加密存储属性</span>
+     */
+    public String getEncField() {
+        return encField;
+    }
+
+    /**
+     * <h3 class="en-US">Setter method for sensitive information encryption storage field</h3>
+     * <h3 class="zh-CN">敏感信息加密存储属性的Setter方法</h3>
+     *
+     * @param encField <span class="en-US">Sensitive information encryption storage field</span>
+     *                 <span class="zh-CN">敏感信息加密存储属性</span>
+     */
+    public void setEncField(String encField) {
+        this.encField = encField;
+    }
+
+    /**
+     * <h3 class="en-US">Getter method for sensitive information encryption configure name</h3>
+     * <h3 class="zh-CN">敏感信息加密配置名称的Getter方法</h3>
+     *
+     * @return <span class="en-US">Sensitive information encryption configure name</span>
+     * <span class="zh-CN">敏感信息加密配置名称</span>
+     */
+    public String getSecureName() {
+        return secureName;
+    }
+
+    /**
+     * <h3 class="en-US">Setter method for sensitive information encryption configure name</h3>
+     * <h3 class="zh-CN">敏感信息加密配置名称的Setter方法</h3>
+     *
+     * @param secureName <span class="en-US">Sensitive information encryption configure name</span>
+     *                   <span class="zh-CN">敏感信息加密配置名称</span>
+     */
+    public void setSecureName(String secureName) {
+        this.secureName = secureName;
+    }
+
+    /**
      * <h3 class="en-US">Getter method for column value is lazy load</h3>
      * <h3 class="zh-CN">列值懒加载的Getter方法</h3>
      *
@@ -400,50 +484,6 @@ public final class ColumnConfig extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Getter method for column order number in Excel</h3>
-     * <h3 class="zh-CN">Excel表中的列排列序号的Getter方法</h3>
-     *
-     * @return <span class="en-US">Column order number in Excel</span>
-     * <span class="zh-CN">Excel表中的列排列序号</span>
-     */
-    public int getSortOrder() {
-        return sortOrder;
-    }
-
-    /**
-     * <h3 class="en-US">Setter method for column order number in Excel</h3>
-     * <h3 class="zh-CN">Excel表中的列排列序号的Setter方法</h3>
-     *
-     * @param sortOrder <span class="en-US">Column order number in Excel</span>
-     *                  <span class="zh-CN">Excel表中的列排列序号</span>
-     */
-    public void setSortOrder(int sortOrder) {
-        this.sortOrder = sortOrder;
-    }
-
-    /**
-     * <h3 class="en-US">Getter method for data converter class</h3>
-     * <h3 class="zh-CN">数据转换类的Getter方法</h3>
-     *
-     * @return <span class="en-US">Data converter class</span>
-     * <span class="zh-CN">数据转换类</span>
-     */
-    public Class<?> getConverterClass() {
-        return converterClass;
-    }
-
-    /**
-     * <h3 class="en-US">Setter method for data converter class</h3>
-     * <h3 class="zh-CN">数据转换类的Setter方法</h3>
-     *
-     * @param converterClass <span class="en-US">Data converter class</span>
-     *                       <span class="zh-CN">数据转换类</span>
-     */
-    public void setConverterClass(Class<?> converterClass) {
-        this.converterClass = converterClass;
-    }
-
-    /**
      * <h3 class="en-US">Getter method for column value generator configure</h3>
      * <h3 class="zh-CN">数据生成器配置的Getter方法</h3>
      *
@@ -474,5 +514,38 @@ public final class ColumnConfig extends BeanObject {
      */
     public String columnName() {
         return this.columnInfo.getColumnName();
+    }
+
+    /**
+     * <span class="en-US">Current column JDBC type code</span>
+     * <span class="zh-CN">当前列的JDBC类型代码</span>
+     *
+     * @return <span class="en-US">JDBC type code</span>
+     * <span class="zh-CN">JDBC类型代码</span>
+     */
+    public int jdbcType() {
+        return this.columnInfo.getJdbcType();
+    }
+
+    /**
+     * <span class="en-US">Number of decimal places for the current column</span>
+     * <span class="zh-CN">当前列的小数位数</span>
+     *
+     * @return <span class="en-US">Number of decimal places</span>
+     * <span class="zh-CN">小数位数</span>
+     */
+    public int scale() {
+        return this.columnInfo.getScale();
+    }
+
+    /**
+     * <span class="en-US">Whether the current column uses a sequence to generate a primary key value</span>
+     * <span class="zh-CN">当前列是否使用序列生成主键值</span>
+     *
+     * @return <span class="en-US">Check result</span>
+     * <span class="zh-CN">检查结果</span>
+     */
+    public boolean sequenceGenerator() {
+        return GenerationType.SEQUENCE.equals(this.generatorConfig.getGenerationType());
     }
 }

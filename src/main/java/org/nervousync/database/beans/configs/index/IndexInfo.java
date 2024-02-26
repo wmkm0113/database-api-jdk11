@@ -1,6 +1,6 @@
 /*
  * Licensed to the Nervousync Studio (NSYC) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
+ * contributor license agreements. See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
@@ -17,6 +17,7 @@
 package org.nervousync.database.beans.configs.index;
 
 import jakarta.persistence.Index;
+import jakarta.xml.bind.annotation.*;
 import org.nervousync.beans.core.BeanObject;
 import org.nervousync.commons.Globals;
 import org.nervousync.database.beans.configs.column.ColumnConfig;
@@ -35,6 +36,9 @@ import java.util.List;
  * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Nov 4, 2020 16:33:28 $
  */
+@XmlType(name = "index_info")
+@XmlRootElement(name = "index_info")
+@XmlAccessorType(XmlAccessType.NONE)
 public final class IndexInfo extends BeanObject {
     /**
      * <span class="en-US">Serial version UID</span>
@@ -45,16 +49,20 @@ public final class IndexInfo extends BeanObject {
      * <span class="en-US">Index name</span>
      * <span class="zh-CN">索引名称</span>
      */
+    @XmlElement(name = "index_name")
     private String indexName;
     /**
      * <span class="en-US">Index contains column name list</span>
      * <span class="zh-CN">索引包含的列名列表</span>
      */
+    @XmlElement(name = "column_name")
+    @XmlElementWrapper(name = "column_list")
     private List<String> columnList;
     /**
      * <span class="en-US">Index is unique</span>
      * <span class="zh-CN">索引是唯一索引</span>
      */
+    @XmlElement
     private boolean unique;
 
     /**

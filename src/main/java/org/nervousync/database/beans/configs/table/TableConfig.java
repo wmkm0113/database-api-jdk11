@@ -1,6 +1,6 @@
 /*
  * Licensed to the Nervousync Studio (NSYC) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
+ * contributor license agreements. See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
@@ -20,13 +20,15 @@ import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 import jakarta.xml.bind.annotation.*;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import org.nervousync.beans.converter.impl.basic.ClassStringAdapter;
 import org.nervousync.beans.core.BeanObject;
+import org.nervousync.beans.transfer.basic.ClassAdapter;
 import org.nervousync.commons.Globals;
 import org.nervousync.database.annotations.table.Options;
 import org.nervousync.database.beans.configs.column.ColumnConfig;
+import org.nervousync.database.beans.configs.index.IndexInfo;
 import org.nervousync.database.beans.configs.reference.ReferenceConfig;
 import org.nervousync.database.commons.DatabaseCommons;
+import org.nervousync.database.commons.DatabaseUtils;
 import org.nervousync.database.enumerations.drop.DropOption;
 import org.nervousync.database.enumerations.lock.LockOption;
 import org.nervousync.utils.ClassUtils;
@@ -36,9 +38,6 @@ import org.nervousync.utils.StringUtils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AccessibleObject;
-import java.lang.reflect.Field;
-import java.lang.reflect.Member;
-import java.lang.reflect.Method;
 import java.util.*;
 
 /**
@@ -48,6 +47,7 @@ import java.util.*;
  * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Mar 23, 2010 10:13:02 $
  */
+@XmlType(name = "table_config")
 @XmlRootElement(name = "table_config")
 @XmlAccessorType(XmlAccessType.NONE)
 public final class TableConfig extends BeanObject {
@@ -97,7 +97,7 @@ public final class TableConfig extends BeanObject {
      * <span class="zh-CN">实体类</span>
      */
     @XmlElement(name = "define_class")
-    @XmlJavaTypeAdapter(ClassStringAdapter.class)
+    @XmlJavaTypeAdapter(ClassAdapter.class)
     private Class<?> defineClass;
     /**
      * <span class="en-US">Record lock option</span>
@@ -119,18 +119,28 @@ public final class TableConfig extends BeanObject {
     @XmlElementWrapper(name = "column_config_list")
     private List<ColumnConfig> columnConfigs;
     /**
+     * <span class="en-US">Table index information list</span>
+     * <span class="zh-CN">数据表索引信息列表</span>
+     */
+    @XmlElement(name = "index_info")
+    @XmlElementWrapper(name = "index_info")
+    private List<IndexInfo> indexInfos;
+    /**
      * <span class="en-US">Reference configure information list</span>
      * <span class="zh-CN">外键配置信息列表</span>
      */
     @XmlElement(name = "reference_config")
     @XmlElementWrapper(name = "reference_config_list")
-    private List<ReferenceConfig> referenceConfigs;
+    private List<ReferenceConfig<?>> referenceConfigs;
 
     /**
      * <h3 class="en-US">Constructor method for table configure information</h3>
      * <h3 class="zh-CN">数据表配置信息的构造方法</h3>
      */
     public TableConfig() {
+        this.columnConfigs = new ArrayList<>();
+        this.indexInfos = new ArrayList<>();
+        this.referenceConfigs = new ArrayList<>();
     }
 
     /**
@@ -159,12 +169,12 @@ public final class TableConfig extends BeanObject {
         }
 
         List<ColumnConfig> columnConfigs = new ArrayList<>();
-        List<ReferenceConfig> referenceConfigs = new ArrayList<>();
+        List<ReferenceConfig<?>> referenceConfigs = new ArrayList<>();
 
         final Object object = ObjectUtils.newInstance(clazz);
         ReflectionUtils.getAllDeclaredFields(clazz, Boolean.TRUE,
                         parentClass -> parentClass.isAnnotationPresent(MappedSuperclass.class),
-                        TableConfig::annotationMember)
+                        DatabaseUtils::annotationMember)
                 .forEach(field -> {
                     if (field.isAnnotationPresent(Column.class)) {
                         ColumnConfig.newInstance(field, ReflectionUtils.getFieldValue(field, object), lockOption)
@@ -213,11 +223,11 @@ public final class TableConfig extends BeanObject {
                     }
                 });
 
-        ReflectionUtils.getAllDeclaredMethods(clazz, TableConfig::annotationMember)
+        ReflectionUtils.getAllDeclaredMethods(clazz, DatabaseUtils::annotationMember)
                 .forEach(method -> {
                     Class<?> referenceClass = null;
                     CascadeType[] cascadeType;
-                    boolean lazyLoad = false;
+                    boolean lazyLoad = Boolean.FALSE;
 
                     if (method.isAnnotationPresent(OneToMany.class)) {
                         OneToMany oneToMany = method.getAnnotation(OneToMany.class);
@@ -246,6 +256,11 @@ public final class TableConfig extends BeanObject {
 
         Table table = clazz.getAnnotation(Table.class);
 
+        List<IndexInfo> indexInfos = new ArrayList<>();
+        Arrays.asList(table.indexes())
+                .forEach(index ->
+                        Optional.ofNullable(IndexInfo.newInstance(index, columnConfigs)).ifPresent(indexInfos::add));
+
         TableConfig tableConfig = new TableConfig();
 
         tableConfig.setSchemaName(StringUtils.isEmpty(table.schema())
@@ -259,10 +274,23 @@ public final class TableConfig extends BeanObject {
         tableConfig.setTableName(StringUtils.notBlank(table.name()) ? table.name() : clazz.getSimpleName());
         tableConfig.setDefineClass(clazz);
         tableConfig.setColumnConfigs(columnConfigs);
+        tableConfig.setIndexInfos(indexInfos);
         tableConfig.setReferenceConfigs(referenceConfigs);
         tableConfig.setCompositeId(columnConfigs.stream().filter(ColumnConfig::isPrimaryKey).count() > 1);
 
         return tableConfig;
+    }
+
+    public String identifyKey() {
+        return ClassUtils.originalClassName(this.defineClass);
+    }
+
+    public boolean matchClass(@Nonnull final Class<?> entityClass) {
+        return ObjectUtils.nullSafeEquals(this.defineClass, entityClass);
+    }
+
+    public boolean containsReference(@Nonnull final Class<?> referenceClass) {
+        return this.referenceConfigs.stream().anyMatch(referenceConfig -> referenceConfig.match(referenceClass));
     }
 
     /**
@@ -442,13 +470,35 @@ public final class TableConfig extends BeanObject {
     }
 
     /**
+     * <h3 class="en-US">Getter method for table index information list</h3>
+     * <h3 class="zh-CN">数据表索引信息列表的Getter方法</h3>
+     *
+     * @return <span class="en-US">Table index information list</span>
+     * <span class="zh-CN">数据表索引信息列表</span>
+     */
+    public List<IndexInfo> getIndexInfos() {
+        return indexInfos;
+    }
+
+    /**
+     * <h3 class="en-US">Setter method for table index information list</h3>
+     * <h3 class="zh-CN">数据表索引信息列表的Setter方法</h3>
+     *
+     * @param indexInfos <span class="en-US">Table index information list</span>
+     *                   <span class="zh-CN">数据表索引信息列表</span>
+     */
+    public void setIndexInfos(List<IndexInfo> indexInfos) {
+        this.indexInfos = indexInfos;
+    }
+
+    /**
      * <h3 class="en-US">Getter method for reference configure information list</h3>
      * <h3 class="zh-CN">外键配置信息列表的Getter方法</h3>
      *
      * @return <span class="en-US">Reference configure information list</span>
      * <span class="zh-CN">外键配置信息列表</span>
      */
-    public List<ReferenceConfig> getReferenceConfigs() {
+    public List<ReferenceConfig<?>> getReferenceConfigs() {
         return referenceConfigs;
     }
 
@@ -459,7 +509,7 @@ public final class TableConfig extends BeanObject {
      * @param referenceConfigs <span class="en-US">Reference configure information list</span>
      *                         <span class="zh-CN">外键配置信息列表</span>
      */
-    public void setReferenceConfigs(List<ReferenceConfig> referenceConfigs) {
+    public void setReferenceConfigs(List<ReferenceConfig<?>> referenceConfigs) {
         this.referenceConfigs = referenceConfigs;
     }
 
@@ -489,6 +539,20 @@ public final class TableConfig extends BeanObject {
      */
     public boolean isColumn(final String identifyKey) {
         return this.columnConfigs.stream().anyMatch(columnConfig -> columnConfig.matchKey(identifyKey));
+    }
+
+    /**
+     * <h3 class="en-US">Checks that the column identified by the given identification code is sensitive data</h3>
+     * <h3 class="zh-CN">检查给定的识别代码所标识的列是敏感数据</h3>
+     *
+     * @param identifyKey <span class="en-US">Identify key</span>
+     *                    <span class="zh-CN">识别代码</span>
+     * @return <span class="en-US">Check result</span>
+     * <span class="zh-CN">检查结果</span>
+     */
+    public boolean isSensitive(final String identifyKey) {
+        return this.columnConfigs.stream().anyMatch(columnConfig ->
+                columnConfig.matchKey(identifyKey) && columnConfig.isSensitiveData());
     }
 
     /**
@@ -523,7 +587,7 @@ public final class TableConfig extends BeanObject {
      * @return <span class="en-US">Generated iterator instance</span>
      * <span class="zh-CN">生成的遍历器实例对象</span>
      */
-    public Iterator<ReferenceConfig> referenceIterator() {
+    public Iterator<ReferenceConfig<?>> referenceIterator() {
         return this.referenceConfigs.iterator();
     }
 
@@ -567,12 +631,28 @@ public final class TableConfig extends BeanObject {
      * <h3 class="en-US">Retrieve reference configure instance by given identify key</h3>
      * <h3 class="zh-CN">根据给定的识别代码查询外键配置信息实例</h3>
      *
+     * @param referenceClass <span class="en-US">Foreign key target entity class</span>
+     *                       <span class="zh-CN">外键目标实体类</span>
+     * @return <span class="en-US">Retrieved reference configure instance or <code>null</code> if not found</span>
+     * <span class="zh-CN">查询到的外键配置信息实例，如果未找到返回 <code>null</code></span>
+     */
+    public ReferenceConfig<?> referenceConfig(final Class<?> referenceClass) {
+        return this.referenceConfigs.stream()
+                .filter(referenceConfig -> referenceConfig.match(referenceClass))
+                .findFirst()
+                .orElse(null);
+    }
+
+    /**
+     * <h3 class="en-US">Retrieve reference configure instance by given identify key</h3>
+     * <h3 class="zh-CN">根据给定的识别代码查询外键配置信息实例</h3>
+     *
      * @param identifyKey <span class="en-US">Identify key</span>
      *                    <span class="zh-CN">识别代码</span>
      * @return <span class="en-US">Retrieved reference configure instance or <code>null</code> if not found</span>
      * <span class="zh-CN">查询到的外键配置信息实例，如果未找到返回 <code>null</code></span>
      */
-    public ReferenceConfig referenceConfig(final String identifyKey) {
+    public ReferenceConfig<?> referenceConfig(final String identifyKey) {
         return this.referenceConfigs.stream()
                 .filter(referenceConfig -> match(referenceConfig, identifyKey))
                 .findFirst()
@@ -590,41 +670,12 @@ public final class TableConfig extends BeanObject {
      * @return <span class="en-US">Check result</span>
      * <span class="zh-CN">检查结果</span>
      */
-    private static boolean match(final ReferenceConfig referenceConfig, final String identifyKey) {
+    private static boolean match(final ReferenceConfig<?> referenceConfig, final String identifyKey) {
         if (referenceConfig == null || StringUtils.isEmpty(identifyKey)) {
             return Boolean.FALSE;
         }
         return referenceConfig.getFieldName().equalsIgnoreCase(identifyKey)
                 || referenceConfig.getReferenceClass().getName().equalsIgnoreCase(identifyKey);
-    }
-
-    /**
-     * <h3 class="en-US">Check the given member instance is contains annotation</h3>
-     * <h3 class="zh-CN">检查给定的成员对象实例包含标注信息</h3>
-     *
-     * @param member <span class="en-US">Member instance</span>
-     *               <span class="zh-CN">成员对象实例</span>
-     * @return <span class="en-US">Check result</span>
-     * <span class="zh-CN">检查结果</span>
-     */
-    private static boolean annotationMember(final Member member) {
-        if (member == null) {
-            return Boolean.FALSE;
-        }
-        if (member instanceof Field) {
-            Field field = (Field) member;
-            return field.isAnnotationPresent(Column.class) || field.isAnnotationPresent(EmbeddedId.class)
-                    || (field.isAnnotationPresent(OneToMany.class) || field.isAnnotationPresent(ManyToOne.class)
-                    || field.isAnnotationPresent(OneToOne.class)) &&
-                    (field.isAnnotationPresent(JoinColumns.class) || field.isAnnotationPresent(JoinColumn.class));
-        }
-        if (member instanceof Method) {
-            Method method = (Method) member;
-            return (method.isAnnotationPresent(OneToMany.class) || method.isAnnotationPresent(ManyToOne.class))
-                    && (method.isAnnotationPresent(JoinColumns.class) || method.isAnnotationPresent(JoinColumn.class))
-                    && (method.getName().startsWith("get") || method.getName().startsWith("is"));
-        }
-        return Boolean.FALSE;
     }
 
     /**

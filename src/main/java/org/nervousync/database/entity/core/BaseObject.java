@@ -1,6 +1,6 @@
 /*
  * Licensed to the Nervousync Studio (NSYC) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
+ * contributor license agreements. See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
@@ -21,9 +21,16 @@ import jakarta.persistence.MappedSuperclass;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import org.nervousync.beans.core.BeanObject;
+import org.nervousync.database.beans.configs.column.ColumnConfig;
+import org.nervousync.database.beans.sensitive.DesensitizedData;
+import org.nervousync.database.entity.EntityManager;
+import org.nervousync.utils.ClassUtils;
+import org.nervousync.utils.ReflectionUtils;
+import org.nervousync.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * <h2 class="en-US">Abstract Entity Class</h2>
@@ -192,5 +199,30 @@ public abstract class BaseObject extends BeanObject {
             return;
         }
         this.modifiedColumns.add(fieldName);
+    }
+
+    /**
+     * <h3 class="en-US">Desensitize column data marked as sensitive data</h3>
+     * <h3 class="zh-CN">将标注为敏感数据的列数据进行脱敏处理</h3>
+     */
+    public final void desensitization() {
+        Optional.ofNullable(EntityManager.tableConfig(ClassUtils.originalClassName(this.getClass())))
+                .ifPresent(tableConfig -> tableConfig.getColumnConfigs()
+                        .stream()
+                        .filter(ColumnConfig::isSensitiveData)
+                        .forEach(columnConfig -> {
+                            Object fieldValue = ReflectionUtils.getFieldValue(columnConfig.getFieldName(), this);
+                            if (fieldValue instanceof String) {
+                                Optional.ofNullable(DesensitizedData.desensitization(columnConfig, (String) fieldValue))
+                                        .ifPresent(DesensitizedData -> {
+                                            ReflectionUtils.setField(columnConfig.getFieldName(), this,
+                                                    DesensitizedData.getDesensitizationValue());
+                                            if (StringUtils.notBlank(DesensitizedData.getEncryptedValue())) {
+                                                ReflectionUtils.setField(columnConfig.getEncField(), this,
+                                                        DesensitizedData.getEncryptedValue());
+                                            }
+                                        });
+                            }
+                        }));
     }
 }

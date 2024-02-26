@@ -1,6 +1,6 @@
 /*
  * Licensed to the Nervousync Studio (NSYC) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
+ * contributor license agreements. See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
@@ -24,5 +24,5 @@ package org.nervousync.database.enumerations.query;
  * @version $Revision: 1.0.0 $ $Date: Oct 6, 2020 19:02:27 $
  */
 public enum ItemType {
-    COLUMN, FUNCTION, CONSTANT
+    COLUMN, FUNCTION, CONSTANT, QUERY, RANGE, GROUP, ARRAY
 }

@@ -1,6 +1,6 @@
 /*
  * Licensed to the Nervousync Studio (NSYC) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
+ * contributor license agreements. See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
@@ -16,13 +16,11 @@
  */
 package org.nervousync.database.beans.configs.transactional;
 
-import jakarta.annotation.Nonnull;
 import org.nervousync.database.annotations.transactional.Transactional;
 import org.nervousync.database.enumerations.transactional.Isolation;
 import org.nervousync.utils.IDUtils;
 
 import java.io.Serializable;
-import java.util.Optional;
 
 /**
  * <h2 class="en-US">Transactional configure information</h2>
@@ -62,14 +60,18 @@ public final class TransactionalConfig implements Serializable {
      * <h3 class="en-US">Private constructor method for transactional configure information</h3>
      * <h3 class="zh-CN">事务配置信息的私有构造方法</h3>
      *
-     * @param transactional <span class="en-US">The annotation instance of Transactional</span>
-     *                      <span class="zh-CN">注解 Transactional 的实例对象</span>
+     * @param timeout            <span class="en-US">The timeout value of transactional</span>
+     *                           <span class="zh-CN">事务的超时时间</span>
+     * @param isolation          <span class="en-US">The isolation value of transactional</span>
+     *                           <span class="zh-CN">事务的等级代码</span>
+     * @param rollBackForClasses <span class="en-US">The rollback exception class of transactional</span>
+     *                           <span class="zh-CN">事务的回滚异常</span>
      */
-    private TransactionalConfig(@Nonnull final Transactional transactional) {
+    private TransactionalConfig(final int timeout, final Isolation isolation, final Class<?>[] rollBackForClasses) {
         this.transactionalCode = IDUtils.snowflake();
-        this.timeout = transactional.timeout();
-        this.isolation = transactional.isolation();
-        this.rollBackForClasses = transactional.rollbackFor();
+        this.timeout = timeout;
+        this.isolation = isolation;
+        this.rollBackForClasses = rollBackForClasses;
     }
 
     /**
@@ -82,7 +84,31 @@ public final class TransactionalConfig implements Serializable {
      * <span class="zh-CN">生成的事务配置信息实例对象</span>
      */
     public static TransactionalConfig newInstance(final Transactional transactional) {
-        return Optional.ofNullable(transactional).map(TransactionalConfig::new).orElse(null);
+        if (transactional == null) {
+            return null;
+        }
+        return new TransactionalConfig(transactional.timeout(), transactional.isolation(), transactional.rollbackFor());
+    }
+
+    /**
+     * <h3 class="en-US">Generate transactional configure information instance by given annotation instance</h3>
+     * <h3 class="zh-CN">根据给定的注解实例对象生成数事务配置信息实例对象</h3>
+     *
+     * @param timeout            <span class="en-US">The timeout value of transactional</span>
+     *                           <span class="zh-CN">事务的超时时间</span>
+     * @param isolation          <span class="en-US">The isolation value of transactional</span>
+     *                           <span class="zh-CN">事务的等级代码</span>
+     * @param rollBackForClasses <span class="en-US">The rollback exception class of transactional</span>
+     *                           <span class="zh-CN">事务的回滚异常</span>
+     * @return <span class="en-US">Generated transactional configure information instance</span>
+     * <span class="zh-CN">生成的事务配置信息实例对象</span>
+     */
+    public static TransactionalConfig newInstance(final int timeout, final Isolation isolation,
+                                                  final Class<?>[] rollBackForClasses) {
+        if (timeout < 0 || isolation == null || rollBackForClasses.length == 0) {
+            return null;
+        }
+        return new TransactionalConfig(timeout, isolation, rollBackForClasses);
     }
 
     /**

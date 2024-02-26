@@ -1,6 +1,6 @@
 /*
  * Licensed to the Nervousync Studio (NSYC) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
+ * contributor license agreements. See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
@@ -16,13 +16,13 @@
  */
 package org.nervousync.database.beans.configs.generator;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.xml.bind.annotation.*;
 import org.nervousync.beans.core.BeanObject;
 import org.nervousync.commons.Globals;
 import org.nervousync.database.annotations.sequence.SequenceGenerator;
+import org.nervousync.database.annotations.table.GeneratedValue;
 import org.nervousync.database.beans.configs.sequence.SequenceConfig;
+import org.nervousync.database.enumerations.table.GenerationType;
 
 /**
  * <h2 class="en-US">Column data generator configure information</h2>
@@ -81,10 +81,10 @@ public final class GeneratorConfig extends BeanObject {
                                               final SequenceGenerator sequenceGenerator) {
         GeneratorConfig generatorConfig = new GeneratorConfig();
         if (generatedValue == null) {
-            generatorConfig.setGenerationType(GenerationType.AUTO);
+            generatorConfig.setGenerationType(GenerationType.ASSIGNED);
             generatorConfig.setGeneratorName(Globals.DEFAULT_VALUE_STRING);
         } else {
-            GenerationType generationType = generatedValue.strategy();
+            GenerationType generationType = generatedValue.type();
             generatorConfig.setGenerationType(generationType);
             switch (generationType) {
                 case SEQUENCE:
@@ -95,7 +95,7 @@ public final class GeneratorConfig extends BeanObject {
                         generatorConfig.setSequenceConfig(SequenceConfig.newInstance(sequenceGenerator));
                     }
                     break;
-                case AUTO:
+                case GENERATE:
                     generatorConfig.setGeneratorName(generatedValue.generator());
                     break;
                 default:
