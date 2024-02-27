@@ -1,5 +1,4 @@
 # 数据库通用接口
-为数据处理平台打造的接口工具包，提供统一数据平台的查询输入输出格式、数据导入导出工具、懒加载数据列或关联数据等功能，同时还可以根据注解自动对敏感数据进行加密/解密、查询条件拆分等操作，
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.nervousync/database-api-jdk11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.nervousync/database-api-jdk11/)
 [![License](https://img.shields.io/github/license/wmkm0113/database-api.svg)](https://github.com/wmkm0113/database-api/blob/master/LICENSE)
@@ -8,6 +7,8 @@
 
 [English](README.md)
 简体中文
+
+为数据处理平台打造的接口工具包，提供统一数据平台的查询输入输出格式、数据导入导出工具、懒加载数据列或关联数据等功能，同时还可以根据注解自动对敏感数据进行加密/解密、查询条件拆分等操作，
 
 ## 目录
 * [JDK版本](#JDK版本)

@@ -1,9 +1,4 @@
 # Database Commons API
-An interface toolkit created for the data processing platform, 
-which provides query input and output formats of the unified data platform, 
-data import and export tools, lazy loading of data columns or associated data, and other functions. 
-It can also automatically encrypt/decrypt and query sensitive data based on annotations. 
-Conditional splitting and other operations,
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.nervousync/database-api-jdk11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.nervousync/database-api-jdk11/)
 [![License](https://img.shields.io/github/license/wmkm0113/database-api.svg)](https://github.com/wmkm0113/database-api/blob/master/LICENSE)
@@ -12,6 +7,12 @@ Conditional splitting and other operations,
 
 English
 [简体中文](README_zh_CN.md)
+
+An interface toolkit created for the data processing platform, 
+which provides query input and output formats of the unified data platform, 
+data import and export tools, lazy loading of data columns or associated data, and other functions. 
+It can also automatically encrypt/decrypt and query sensitive data based on annotations. 
+Conditional splitting and other operations,
 
 ## Table of contents
 * [JDK Version](#JDK-Version)
