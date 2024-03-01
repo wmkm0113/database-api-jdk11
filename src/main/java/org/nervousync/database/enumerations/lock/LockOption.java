@@ -27,5 +27,24 @@ import jakarta.xml.bind.annotation.XmlEnum;
  */
 @XmlEnum
 public enum LockOption {
-	NONE, PESSIMISTIC_UPGRADE, PESSIMISTIC_UPGRADE_NOWAIT, OPTIMISTIC_UPGRADE
+    /**
+     * <span class="en-US">None</span>
+     * <span class="zh-CN">无</span>
+     */
+	NONE,
+    /**
+     * <span class="en-US">Pessimistic upgrade</span>
+     * <span class="zh-CN">悲观锁</span>
+     */
+	PESSIMISTIC_UPGRADE,
+    /**
+     * <span class="en-US">Pessimistic upgrade nowait (Oracle special implement)</span>
+     * <span class="zh-CN">无等待悲观锁（Oracle的特定实现）</span>
+     */
+	PESSIMISTIC_UPGRADE_NOWAIT,
+    /**
+     * <span class="en-US">Optimistic upgrade</span>
+     * <span class="zh-CN">乐观锁</span>
+     */
+	OPTIMISTIC_UPGRADE
 }

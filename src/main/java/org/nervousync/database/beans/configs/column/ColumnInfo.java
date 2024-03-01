@@ -101,12 +101,16 @@ public final class ColumnInfo extends BeanObject {
     @XmlElement(name = "default_value")
     private Object defaultValue;
 
+    /**
+     * <h4 class="en-US">Constructor method for column information</h4>
+     * <h4 class="zh-CN">列基本信息的构造方法</h4>
+     */
     public ColumnInfo() {
     }
 
     /**
-     * <h3 class="en-US">Private constructor method for column information</h3>
-     * <h3 class="zh-CN">列基本信息的私有构造方法</h3>
+     * <h4 class="en-US">Private constructor method for column information</h4>
+     * <h4 class="zh-CN">列基本信息的私有构造方法</h4>
      *
      * @param columnName   <span class="en-US">Column name</span>
      *                     <span class="zh-CN">列名</span>
@@ -135,8 +139,8 @@ public final class ColumnInfo extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Generate column information instance by given result set</h3>
-     * <h3 class="zh-CN">根据给定的查询结果集生成列基本信息实例对象</h3>
+     * <h4 class="en-US">Generate column information instance by given result set</h4>
+     * <h4 class="zh-CN">根据给定的查询结果集生成列基本信息实例对象</h4>
      *
      * @param tableConfig <span class="en-US">Table configure information instance</span>
      *                    <span class="zh-CN">数据表配置信息实例对象</span>
@@ -222,8 +226,8 @@ public final class ColumnInfo extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Generate column information instance by given field instance and default value</h3>
-     * <h3 class="zh-CN">根据给定的反射获得的属性实例对象和默认值生成列基本信息实例对象</h3>
+     * <h4 class="en-US">Generate column information instance by given field instance and default value</h4>
+     * <h4 class="zh-CN">根据给定的反射获得的属性实例对象和默认值生成列基本信息实例对象</h4>
      *
      * @param field        <span class="en-US">Field instance</span>
      *                     <span class="zh-CN">反射获得的属性实例对象</span>
@@ -279,8 +283,8 @@ public final class ColumnInfo extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Check the given column information was modified</h3>
-     * <h3 class="zh-CN">检查给定的列基本信息是否更改</h3>
+     * <h4 class="en-US">Check the given column information was modified</h4>
+     * <h4 class="zh-CN">检查给定的列基本信息是否更改</h4>
      *
      * @param columnInfo <span class="en-US">Target column information</span>
      *                   <span class="zh-CN">目标列基本信息</span>
@@ -297,8 +301,8 @@ public final class ColumnInfo extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Getter method for column name</h3>
-     * <h3 class="zh-CN">列名的Getter方法</h3>
+     * <h4 class="en-US">Getter method for column name</h4>
+     * <h4 class="zh-CN">列名的Getter方法</h4>
      *
      * @return <span class="en-US">Column name</span>
      * <span class="zh-CN">列名</span>
@@ -308,8 +312,8 @@ public final class ColumnInfo extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Getter method for JDBC data type code</h3>
-     * <h3 class="zh-CN">JDBC数据类型代码的Getter方法</h3>
+     * <h4 class="en-US">Getter method for JDBC data type code</h4>
+     * <h4 class="zh-CN">JDBC数据类型代码的Getter方法</h4>
      *
      * @return <span class="en-US">JDBC data type code</span>
      * <span class="zh-CN">JDBC数据类型代码</span>
@@ -319,8 +323,8 @@ public final class ColumnInfo extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Getter method for column is nullable</h3>
-     * <h3 class="zh-CN">列允许为空值的Getter方法</h3>
+     * <h4 class="en-US">Getter method for column is nullable</h4>
+     * <h4 class="zh-CN">列允许为空值的Getter方法</h4>
      *
      * @return <span class="en-US">Column is nullable</span>
      * <span class="zh-CN">列允许为空值</span>
@@ -330,8 +334,8 @@ public final class ColumnInfo extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Getter method for column length</h3>
-     * <h3 class="zh-CN">列长度的Getter方法</h3>
+     * <h4 class="en-US">Getter method for column length</h4>
+     * <h4 class="zh-CN">列长度的Getter方法</h4>
      *
      * @return <span class="en-US">Column length</span>
      * <span class="zh-CN">列长度</span>
@@ -341,8 +345,8 @@ public final class ColumnInfo extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Getter method for column precision</h3>
-     * <h3 class="zh-CN">列精度的Getter方法</h3>
+     * <h4 class="en-US">Getter method for column precision</h4>
+     * <h4 class="zh-CN">列精度的Getter方法</h4>
      *
      * @return <span class="en-US">Column precision</span>
      * <span class="zh-CN">列精度</span>
@@ -352,8 +356,8 @@ public final class ColumnInfo extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Getter method for column scale</h3>
-     * <h3 class="zh-CN">列小数位数的Getter方法</h3>
+     * <h4 class="en-US">Getter method for column scale</h4>
+     * <h4 class="zh-CN">列小数位数的Getter方法</h4>
      *
      * @return <span class="en-US">Column scale</span>
      * <span class="zh-CN">列小数位数</span>
@@ -363,8 +367,8 @@ public final class ColumnInfo extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Getter method for column default value</h3>
-     * <h3 class="zh-CN">列默认值的Getter方法</h3>
+     * <h4 class="en-US">Getter method for column default value</h4>
+     * <h4 class="zh-CN">列默认值的Getter方法</h4>
      *
      * @return <span class="en-US">Column default value</span>
      * <span class="zh-CN">列默认值</span>
@@ -374,8 +378,8 @@ public final class ColumnInfo extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Parse the default value data read in the ResultSet</h3>
-     * <h3 class="zh-CN">解析ResultSet中读取的默认值数据</h3>
+     * <h4 class="en-US">Parse the default value data read in the ResultSet</h4>
+     * <h4 class="zh-CN">解析ResultSet中读取的默认值数据</h4>
      *
      * @param objValue <span class="en-US">Default value from result set</span>
      *                    <span class="zh-CN">读取的默认值</span>

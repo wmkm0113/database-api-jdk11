@@ -25,5 +25,34 @@ package org.nervousync.database.enumerations.sensitive;
  * @version $Revision: 1.0.0 $ $Date: Sep 12, 2023 15:16:08 $
  */
 public enum SensitiveType {
-    CHN_Social_Code, CHN_ID_Code, Luhn, E_MAIL, PHONE_NUMBER, NORMAL
+    /**
+     * <span class="en-US">Social Credit Code</span>
+     * <span class="zh-CN">统一社会信用代码</span>
+     */
+    CHN_Social_Code,
+    /**
+     * <span class="en-US">ID Code</span>
+     * <span class="zh-CN">身份证号码</span>
+     */
+    CHN_ID_Code,
+    /**
+     * <span class="en-US">Bank card number</span>
+     * <span class="zh-CN">银行卡号</span>
+     */
+    Luhn,
+    /**
+     * <span class="en-US">E-mail address</span>
+     * <span class="zh-CN">电子邮件地址</span>
+     */
+    E_MAIL,
+    /**
+     * <span class="en-US">Phone number</span>
+     * <span class="zh-CN">电话号码</span>
+     */
+    PHONE_NUMBER,
+    /**
+     * <span class="en-US">Normal</span>
+     * <span class="zh-CN">一般</span>
+     */
+    NORMAL
 }

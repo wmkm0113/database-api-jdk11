@@ -26,23 +26,60 @@ import java.sql.Connection;
  * @version $Revision: 1.0.0 $ $Date: Mar 30, 2016 15:52:00 $
  */
 public enum Isolation {
-	
+
+	/**
+	 * <span class="en-US">Default</span>
+	 * <span class="zh-CN">默认</span>
+	 */
 	DEFAULT(Connection.TRANSACTION_NONE),
-	
-	ISOLATION_READ_UNCOMMITTED(Connection.TRANSACTION_READ_UNCOMMITTED), 
+	/**
+	 * <span class="en-US">Read uncommitted</span>
+	 * <span class="zh-CN">读未提交</span>
+	 */
+	ISOLATION_READ_UNCOMMITTED(Connection.TRANSACTION_READ_UNCOMMITTED),
 
-	ISOLATION_READ_COMMITTED(Connection.TRANSACTION_READ_COMMITTED), 
+	/**
+	 * <span class="en-US">Read committed</span>
+	 * <span class="zh-CN">读已提交</span>
+	 */
+	ISOLATION_READ_COMMITTED(Connection.TRANSACTION_READ_COMMITTED),
 
+	/**
+	 * <span class="en-US">Repeatable read</span>
+	 * <span class="zh-CN">重复读</span>
+	 */
 	ISOLATION_REPEATABLE_READ(Connection.TRANSACTION_REPEATABLE_READ), 
 
+	/**
+	 * <span class="en-US">Serializable</span>
+	 * <span class="zh-CN">序列</span>
+	 */
 	ISOLATION_SERIALIZABLE(Connection.TRANSACTION_SERIALIZABLE);
-	
+
+	/**
+	 * <span class="en-US">Transactional level code</span>
+	 * <span class="zh-CN">事务等级代码</span>
+	 */
 	private final int transactionLevel;
-	
+
+	/**
+	 * <span class="en-US">Constructor method for enumeration value of transactional isolation</span>
+	 * <span class="zh-CN">事务等级枚举值的构建方法</span>
+	 *
+	 * @param transactionLevel <span class="en-US">Transactional level code</span>
+	 *                         <span class="zh-CN">事务等级代码</span>
+	 */
 	Isolation(int transactionLevel) {
 		this.transactionLevel = transactionLevel;
 	}
-	
+
+	/**
+	 * <span class="en-US">Obtain transactional level code</span>
+	 * <span class="zh-CN">获取事务等级代码</span>
+	 *
+	 * @return <span class="en-US">Transactional level code</span>
+	 * <span class="zh-CN">事务等级代码</span>
+	 */
 	public int value() {
 		return this.transactionLevel;
 	}

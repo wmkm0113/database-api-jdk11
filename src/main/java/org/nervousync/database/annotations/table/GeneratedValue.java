@@ -26,6 +26,13 @@ import java.lang.annotation.Target;
 
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+/**
+ * <h2 class="en-US">The annotation of data generated value</h2>
+ * <h2 class="zh-CN">数据自动生成器注解</h2>
+ *
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
+ * @version $Revision: 1.0.0 $ $Date: Apr 11, 2018 17:36:43 $
+ */
 @Documented
 @Target(ElementType.FIELD)
 @Retention(RUNTIME)

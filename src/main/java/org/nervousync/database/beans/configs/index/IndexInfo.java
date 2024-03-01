@@ -66,15 +66,15 @@ public final class IndexInfo extends BeanObject {
     private boolean unique;
 
     /**
-     * <h3 class="en-US">Constructor method for column index configure information</h3>
-     * <h3 class="zh-CN">列索引配置信息的构造方法</h3>
+     * <h4 class="en-US">Constructor method for column index configure information</h4>
+     * <h4 class="zh-CN">列索引配置信息的构造方法</h4>
      */
     public IndexInfo() {
     }
 
     /**
-     * <h3 class="en-US">Generate column index configure information instance by given annotation instance and column info list</h3>
-     * <h3 class="zh-CN">根据给定的注解实例对象和列基本信息列表生成列索引配置信息实例对象</h3>
+     * <h4 class="en-US">Generate column index configure information instance by given annotation instance and column info list</h4>
+     * <h4 class="zh-CN">根据给定的注解实例对象和列基本信息列表生成列索引配置信息实例对象</h4>
      *
      * @param index         <span class="en-US">The annotation instance of Index</span>
      *                      <span class="zh-CN">注解 Index 的实例对象</span>
@@ -106,8 +106,8 @@ public final class IndexInfo extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Generate column index information instance by given result set</h3>
-     * <h3 class="zh-CN">根据给定的查询结果集生成列索引配置信息实例对象</h3>
+     * <h4 class="en-US">Generate column index information instance by given result set</h4>
+     * <h4 class="zh-CN">根据给定的查询结果集生成列索引配置信息实例对象</h4>
      *
      * @param resultSet <span class="en-US">result set instance</span>
      *                  <span class="zh-CN">查询结果集实例对象</span>
@@ -136,8 +136,8 @@ public final class IndexInfo extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Getter method for index name</h3>
-     * <h3 class="zh-CN">索引名称的Getter方法</h3>
+     * <h4 class="en-US">Getter method for index name</h4>
+     * <h4 class="zh-CN">索引名称的Getter方法</h4>
      *
      * @return <span class="en-US">Index name</span>
      * <span class="zh-CN">索引名称</span>
@@ -147,8 +147,8 @@ public final class IndexInfo extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Setter method for index name</h3>
-     * <h3 class="zh-CN">索引名称的Setter方法</h3>
+     * <h4 class="en-US">Setter method for index name</h4>
+     * <h4 class="zh-CN">索引名称的Setter方法</h4>
      *
      * @param indexName <span class="en-US">Index name</span>
      *                  <span class="zh-CN">索引名称</span>
@@ -158,8 +158,8 @@ public final class IndexInfo extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Getter method for index contains column list</h3>
-     * <h3 class="zh-CN">索引包含的列基本信息列表的Getter方法</h3>
+     * <h4 class="en-US">Getter method for index contains column list</h4>
+     * <h4 class="zh-CN">索引包含的列基本信息列表的Getter方法</h4>
      *
      * @return <span class="en-US">Index contains column list</span>
      * <span class="zh-CN">索引包含的列基本信息列表</span>
@@ -169,8 +169,8 @@ public final class IndexInfo extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Setter method for index contains column list</h3>
-     * <h3 class="zh-CN">索引包含的列基本信息列表的Setter方法</h3>
+     * <h4 class="en-US">Setter method for index contains column list</h4>
+     * <h4 class="zh-CN">索引包含的列基本信息列表的Setter方法</h4>
      *
      * @param columnList <span class="en-US">Index contains column list</span>
      *                   <span class="zh-CN">索引包含的列基本信息列表</span>
@@ -180,8 +180,8 @@ public final class IndexInfo extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Getter method for index is unique</h3>
-     * <h3 class="zh-CN">索引是唯一索引的Getter方法</h3>
+     * <h4 class="en-US">Getter method for index is unique</h4>
+     * <h4 class="zh-CN">索引是唯一索引的Getter方法</h4>
      *
      * @return <span class="en-US">Index is unique</span>
      * <span class="zh-CN">索引是唯一索引</span>
@@ -191,8 +191,8 @@ public final class IndexInfo extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Setter method for index is unique</h3>
-     * <h3 class="zh-CN">索引是唯一索引的Setter方法</h3>
+     * <h4 class="en-US">Setter method for index is unique</h4>
+     * <h4 class="zh-CN">索引是唯一索引的Setter方法</h4>
      *
      * @param unique <span class="en-US">Index is unique</span>
      *               <span class="zh-CN">索引是唯一索引</span>

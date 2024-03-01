@@ -33,9 +33,9 @@ public final class InsertException extends AbstractException {
     private static final long serialVersionUID = -3335093464081598442L;
 
     /**
-     * <h3 class="en-US">Constructor method for InsertException</h3>
+     * <h4 class="en-US">Constructor method for InsertException</h4>
      * <span class="en-US">Create a new InsertException with the specified message.</span>
-     * <h3 class="zh-CN">InsertException构造方法</h3>
+     * <h4 class="zh-CN">InsertException构造方法</h4>
      * <span class="zh-CN">使用特定的信息创建 InsertException 实例对象。</span>
      *
      * @param errorCode   <span class="en-US">Error identified code</span>
@@ -48,9 +48,9 @@ public final class InsertException extends AbstractException {
     }
 
     /**
-     * <h3 class="en-US">Constructor method for InsertException</h3>
+     * <h4 class="en-US">Constructor method for InsertException</h4>
      * <span class="en-US">Create a new InsertException with the specified message and root cause.</span>
-     * <h3 class="zh-CN">InsertException构造方法</h3>
+     * <h4 class="zh-CN">InsertException构造方法</h4>
      * <span class="zh-CN">使用特定的信息以及异常信息对象实例创建 InsertException 实例对象。</span>
      *
      * @param errorCode   <span class="en-US">Error identified code</span>

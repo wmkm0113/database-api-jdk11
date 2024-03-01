@@ -46,8 +46,8 @@ public final class QueryParameter extends AbstractParameter<QueryInfo> {
     private QueryInfo itemValue;
 
     /**
-     * <h3 class="en-US">Constructor method for sub-query parameter information define</h3>
-     * <h3 class="zh-CN">子查询参数定义的构造方法</h3>
+     * <h4 class="en-US">Constructor method for sub-query parameter information define</h4>
+     * <h4 class="zh-CN">子查询参数定义的构造方法</h4>
      */
     public QueryParameter() {
         super(ItemType.QUERY);

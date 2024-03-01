@@ -109,8 +109,8 @@ public final class SensitiveConfig {
     }
 
     /**
-     * <h3 class="en-US">Getter method for show prefix length</h3>
-     * <h3 class="zh-CN">显示前缀长度的Getter方法</h3>
+     * <h4 class="en-US">Getter method for show prefix length</h4>
+     * <h4 class="zh-CN">显示前缀长度的Getter方法</h4>
      *
      * @return <span class="en-US">Show prefix length</span>
      * <span class="zh-CN">显示前缀长度</span>
@@ -120,8 +120,8 @@ public final class SensitiveConfig {
     }
 
     /**
-     * <h3 class="en-US">Getter method for show suffix length</h3>
-     * <h3 class="zh-CN">显示后缀长度的Getter方法</h3>
+     * <h4 class="en-US">Getter method for show suffix length</h4>
+     * <h4 class="zh-CN">显示后缀长度的Getter方法</h4>
      *
      * @return <span class="en-US">Show suffix length</span>
      * <span class="zh-CN">显示后缀长度</span>

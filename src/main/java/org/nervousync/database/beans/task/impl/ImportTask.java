@@ -59,12 +59,16 @@ public final class ImportTask extends AbstractTask {
     @XmlElement(name = "timeout")
     private int timeout;
 
+	/**
+	 * <h4 class="en-US">Constructor method for data import task information</h4>
+	 * <h4 class="zh-CN">数据导入任务信息的构建方法</h4>
+	 */
     public ImportTask() {
     }
 
     /**
-     * <h3 class="en-US">Getter method for task data storage path</h3>
-     * <h3 class="zh-CN">任务数据存储路径的Getter方法</h3>
+     * <h4 class="en-US">Getter method for task data storage path</h4>
+     * <h4 class="zh-CN">任务数据存储路径的Getter方法</h4>
      *
      * @return <span class="en-US">Task data storage path</span>
      * <span class="zh-CN">任务数据存储路径</span>
@@ -74,8 +78,8 @@ public final class ImportTask extends AbstractTask {
     }
 
     /**
-     * <h3 class="en-US">Setter method for task data storage path</h3>
-     * <h3 class="zh-CN">任务数据存储路径的Setter方法</h3>
+     * <h4 class="en-US">Setter method for task data storage path</h4>
+     * <h4 class="zh-CN">任务数据存储路径的Setter方法</h4>
      *
      * @param dataPath <span class="en-US">Task data storage path</span>
      *                 <span class="zh-CN">任务数据存储路径</span>
@@ -85,8 +89,8 @@ public final class ImportTask extends AbstractTask {
     }
 
     /**
-     * <h3 class="en-US">Getter method for import tasks using transactions</h3>
-     * <h3 class="zh-CN">导入任务使用事务的Getter方法</h3>
+     * <h4 class="en-US">Getter method for import tasks using transactions</h4>
+     * <h4 class="zh-CN">导入任务使用事务的Getter方法</h4>
      *
      * @return <span class="en-US">Import tasks using transactions</span>
      * <span class="zh-CN">导入任务使用事务</span>
@@ -96,8 +100,8 @@ public final class ImportTask extends AbstractTask {
     }
 
     /**
-     * <h3 class="en-US">Setter method for import tasks using transactions</h3>
-     * <h3 class="zh-CN">导入任务使用事务的Setter方法</h3>
+     * <h4 class="en-US">Setter method for import tasks using transactions</h4>
+     * <h4 class="zh-CN">导入任务使用事务的Setter方法</h4>
      *
      * @param transactional <span class="en-US">Import tasks using transactions</span>
      *                      <span class="zh-CN">导入任务使用事务</span>
@@ -107,8 +111,8 @@ public final class ImportTask extends AbstractTask {
     }
 
     /**
-     * <h3 class="en-US">Getter method for transaction timeout</h3>
-     * <h3 class="zh-CN">事务超时时间的Getter方法</h3>
+     * <h4 class="en-US">Getter method for transaction timeout</h4>
+     * <h4 class="zh-CN">事务超时时间的Getter方法</h4>
      *
      * @return <span class="en-US">Transaction timeout</span>
      * <span class="zh-CN">事务超时时间</span>
@@ -118,8 +122,8 @@ public final class ImportTask extends AbstractTask {
     }
 
     /**
-     * <h3 class="en-US">Setter method for transaction timeout</h3>
-     * <h3 class="zh-CN">事务超时时间的Setter方法</h3>
+     * <h4 class="en-US">Setter method for transaction timeout</h4>
+     * <h4 class="zh-CN">事务超时时间的Setter方法</h4>
      *
      * @param timeout <span class="en-US">Transaction timeout</span>
      *                <span class="zh-CN">事务超时时间</span>

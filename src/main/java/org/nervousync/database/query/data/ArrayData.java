@@ -46,15 +46,15 @@ public final class ArrayData extends BeanObject {
     private Object[] arrayObject;
 
     /**
-     * <h3 class="en-US">Constructor method for array objects define</h3>
-     * <h3 class="zh-CN">数组值定义的构造方法</h3>
+     * <h4 class="en-US">Constructor method for array objects define</h4>
+     * <h4 class="zh-CN">数组值定义的构造方法</h4>
      */
     public ArrayData() {
     }
 
     /**
-     * <h3 class="en-US">Constructor method for array objects define</h3>
-     * <h3 class="zh-CN">数组值定义的构造方法</h3>
+     * <h4 class="en-US">Constructor method for array objects define</h4>
+     * <h4 class="zh-CN">数组值定义的构造方法</h4>
      *
      * @param arrayObject <span class="en-US">Array objects</span>
      *                    <span class="zh-CN">数组值</span>
@@ -64,8 +64,8 @@ public final class ArrayData extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Getter method for array objects</h3>
-     * <h3 class="zh-CN">数组值的Getter方法</h3>
+     * <h4 class="en-US">Getter method for array objects</h4>
+     * <h4 class="zh-CN">数组值的Getter方法</h4>
      *
      * @return <span class="en-US">Array objects</span>
      * <span class="zh-CN">数组值</span>
@@ -75,8 +75,8 @@ public final class ArrayData extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Setter method for array objects</h3>
-     * <h3 class="zh-CN">数组值的Setter方法</h3>
+     * <h4 class="en-US">Setter method for array objects</h4>
+     * <h4 class="zh-CN">数组值的Setter方法</h4>
      *
      * @param arrayObject <span class="en-US">Array objects</span>
      *                    <span class="zh-CN">数组值</span>

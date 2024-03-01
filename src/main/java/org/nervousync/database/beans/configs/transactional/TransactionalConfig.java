@@ -57,8 +57,8 @@ public final class TransactionalConfig implements Serializable {
     private final Class<?>[] rollBackForClasses;
 
     /**
-     * <h3 class="en-US">Private constructor method for transactional configure information</h3>
-     * <h3 class="zh-CN">事务配置信息的私有构造方法</h3>
+     * <h4 class="en-US">Private constructor method for transactional configure information</h4>
+     * <h4 class="zh-CN">事务配置信息的私有构造方法</h4>
      *
      * @param timeout            <span class="en-US">The timeout value of transactional</span>
      *                           <span class="zh-CN">事务的超时时间</span>
@@ -75,8 +75,8 @@ public final class TransactionalConfig implements Serializable {
     }
 
     /**
-     * <h3 class="en-US">Generate transactional configure information instance by given annotation instance</h3>
-     * <h3 class="zh-CN">根据给定的注解实例对象生成数事务配置信息实例对象</h3>
+     * <h4 class="en-US">Generate transactional configure information instance by given annotation instance</h4>
+     * <h4 class="zh-CN">根据给定的注解实例对象生成数事务配置信息实例对象</h4>
      *
      * @param transactional <span class="en-US">The annotation instance of Transactional</span>
      *                      <span class="zh-CN">注解 Transactional 的实例对象</span>
@@ -91,8 +91,8 @@ public final class TransactionalConfig implements Serializable {
     }
 
     /**
-     * <h3 class="en-US">Generate transactional configure information instance by given annotation instance</h3>
-     * <h3 class="zh-CN">根据给定的注解实例对象生成数事务配置信息实例对象</h3>
+     * <h4 class="en-US">Generate transactional configure information instance by given annotation instance</h4>
+     * <h4 class="zh-CN">根据给定的注解实例对象生成数事务配置信息实例对象</h4>
      *
      * @param timeout            <span class="en-US">The timeout value of transactional</span>
      *                           <span class="zh-CN">事务的超时时间</span>
@@ -112,8 +112,8 @@ public final class TransactionalConfig implements Serializable {
     }
 
     /**
-     * <h3 class="en-US">Getter method for transactional identify code</h3>
-     * <h3 class="zh-CN">事务识别代码的Getter方法</h3>
+     * <h4 class="en-US">Getter method for transactional identify code</h4>
+     * <h4 class="zh-CN">事务识别代码的Getter方法</h4>
      *
      * @return <span class="en-US">Transactional identify code</span>
      * <span class="zh-CN">事务识别代码</span>
@@ -123,8 +123,8 @@ public final class TransactionalConfig implements Serializable {
     }
 
     /**
-     * <h3 class="en-US">Getter method for the timeout value of transactional</h3>
-     * <h3 class="zh-CN">事务的超时时间的Getter方法</h3>
+     * <h4 class="en-US">Getter method for the timeout value of transactional</h4>
+     * <h4 class="zh-CN">事务的超时时间的Getter方法</h4>
      *
      * @return <span class="en-US">The timeout value of transactional</span>
      * <span class="zh-CN">事务的超时时间</span>
@@ -134,8 +134,8 @@ public final class TransactionalConfig implements Serializable {
     }
 
     /**
-     * <h3 class="en-US">Getter method for the isolation value of transactional</h3>
-     * <h3 class="zh-CN">事务的等级代码的Getter方法</h3>
+     * <h4 class="en-US">Getter method for the isolation value of transactional</h4>
+     * <h4 class="zh-CN">事务的等级代码的Getter方法</h4>
      *
      * @return <span class="en-US">The isolation value of transactional</span>
      * <span class="zh-CN">事务的等级代码</span>
@@ -145,8 +145,8 @@ public final class TransactionalConfig implements Serializable {
     }
 
     /**
-     * <h3 class="en-US">Getter method for the rollback exception class of transactional</h3>
-     * <h3 class="zh-CN">事务的回滚异常的Getter方法</h3>
+     * <h4 class="en-US">Getter method for the rollback exception class of transactional</h4>
+     * <h4 class="zh-CN">事务的回滚异常的Getter方法</h4>
      *
      * @return <span class="en-US">The rollback exception class of transactional</span>
      * <span class="zh-CN">事务的回滚异常</span>

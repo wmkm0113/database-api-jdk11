@@ -71,15 +71,15 @@ public final class EntityManager {
     }
 
     /**
-     * <h3 class="en-US">Private constructor for EntityManager</h3>
-     * <h3 class="zh-CN">实体类管理器的私有构造方法</h3>
+     * <h4 class="en-US">Private constructor for EntityManager</h4>
+     * <h4 class="zh-CN">实体类管理器的私有构造方法</h4>
      */
     private EntityManager() {
     }
 
     /**
-     * <h3 class="en-US">Parse the given array of entity classes and write the mapping relationship into the mapping table</h3>
-     * <h3 class="zh-CN">解析给定的实体类数组，并将映射关系写入映射表</h3>
+     * <h4 class="en-US">Parse the given array of entity classes and write the mapping relationship into the mapping table</h4>
+     * <h4 class="zh-CN">解析给定的实体类数组，并将映射关系写入映射表</h4>
      *
      * @param entityClasses <span class="en-US">Entity classes array</span>
      *                      <span class="zh-CN">实体类数组</span>
@@ -95,8 +95,8 @@ public final class EntityManager {
     }
 
     /**
-     * <h3 class="en-US">Register the data table configuration information of the remote data source</h3>
-     * <h3 class="zh-CN">注册远程数据源的数据表配置信息</h3>
+     * <h4 class="en-US">Register the data table configuration information of the remote data source</h4>
+     * <h4 class="zh-CN">注册远程数据源的数据表配置信息</h4>
      *
      * @param tableConfig <span class="en-US">TableConfig instance</span>
      *                    <span class="zh-CN">数据表配置信息实例对象</span>
@@ -105,14 +105,14 @@ public final class EntityManager {
         if (StringUtils.isEmpty(tableConfig.getSchemaName()) || StringUtils.isEmpty(tableConfig.getTableName())) {
             return;
         }
-        String identifyKey = tableConfig.identifyKey();
-        if (tableExists(identifyKey)) {
+		String className = ClassUtils.originalClassName(tableConfig.getDefineClass());
+		if (tableExists(className)) {
             LOGGER.warn("Table_Config_Override",
                     tableConfig.getDefineClass().getName(), tableConfig.getTableName());
         }
         REGISTERED_CONFIGS.put(tableConfig.getTableName(), tableConfig);
         TransferBean<?> transferBean = TransferBean.newInstance(tableConfig.getDefineClass());
-        REGISTERED_TRANSFERS.put(identifyKey, transferBean);
+        REGISTERED_TRANSFERS.put(className, transferBean);
         Optional.of(DatabaseUtils.tableKey(tableConfig.getTableName()))
                 .filter(StringUtils::notBlank)
                 .ifPresent(tableKey -> {
@@ -120,8 +120,8 @@ public final class EntityManager {
                     REGISTERED_TRANSFERS.put(tableKey, transferBean);
                 });
         redefineClass(tableConfig.getDefineClass());
-        REGISTERED_CONFIGS.put(identifyKey, tableConfig);
-        Optional.of(DatabaseUtils.tableKey(identifyKey))
+        REGISTERED_CONFIGS.put(className, tableConfig);
+        Optional.of(DatabaseUtils.tableKey(className))
                 .filter(StringUtils::notBlank)
                 .ifPresent(tableKey -> REGISTERED_CONFIGS.put(tableKey, tableConfig));
         if (LOGGER.isDebugEnabled()) {
@@ -131,8 +131,8 @@ public final class EntityManager {
     }
 
     /**
-     * <h3 class="en-US">Remove the corresponding data table configuration information according to the given entity class array</h3>
-     * <h3 class="zh-CN">根据给定的实体类数组移除对应的数据表配置信息</h3>
+     * <h4 class="en-US">Remove the corresponding data table configuration information according to the given entity class array</h4>
+     * <h4 class="zh-CN">根据给定的实体类数组移除对应的数据表配置信息</h4>
      *
      * @param entityClasses <span class="en-US">Entity classes array</span>
      *                      <span class="zh-CN">实体类数组</span>
@@ -154,8 +154,8 @@ public final class EntityManager {
     }
 
     /**
-     * <h3 class="en-US">Check if it is registered according to the given identification code</h3>
-     * <h3 class="zh-CN">根据给定的识别代码检查是否注册</h3>
+     * <h4 class="en-US">Check if it is registered according to the given identification code</h4>
+     * <h4 class="zh-CN">根据给定的识别代码检查是否注册</h4>
      *
      * @param identifyKey <span class="en-US">The identification code</span>
      *                    <span class="zh-CN">识别代码</span>
@@ -170,8 +170,8 @@ public final class EntityManager {
     }
 
     /**
-     * <h3 class="en-US">Check if it is registered according to the given identification code</h3>
-     * <h3 class="zh-CN">根据给定的识别代码检查是否注册</h3>
+     * <h4 class="en-US">Check if it is registered according to the given identification code</h4>
+     * <h4 class="zh-CN">根据给定的识别代码检查是否注册</h4>
      *
      * @param defineClass <span class="en-US">Entity class</span>
      *                    <span class="zh-CN">实体类</span>
@@ -186,8 +186,8 @@ public final class EntityManager {
     }
 
     /**
-     * <h3 class="en-US">Check if it is exist to the given identification code of data column and entity class</h3>
-     * <h3 class="zh-CN">根据给定的识别代码检查数据列是否存在</h3>
+     * <h4 class="en-US">Check if it is exist to the given identification code of data column and entity class</h4>
+     * <h4 class="zh-CN">根据给定的识别代码检查数据列是否存在</h4>
      *
      * @param defineClass <span class="en-US">Entity class</span>
      *                    <span class="zh-CN">实体类</span>
@@ -203,8 +203,8 @@ public final class EntityManager {
     }
 
     /**
-     * <h3 class="en-US">Retrieve the data table configuration information instance object according to the given entity class</h3>
-     * <h3 class="zh-CN">根据给定的实体类检索数据表配置信息实例对象</h3>
+     * <h4 class="en-US">Retrieve the data table configuration information instance object according to the given entity class</h4>
+     * <h4 class="zh-CN">根据给定的实体类检索数据表配置信息实例对象</h4>
      *
      * @param defineClass <span class="en-US">Entity class</span>
      *                    <span class="zh-CN">实体类</span>
@@ -216,8 +216,8 @@ public final class EntityManager {
     }
 
     /**
-     * <h3 class="en-US">Retrieve the data table configuration information instance object according to the given identification code</h3>
-     * <h3 class="zh-CN">根据给定的识别代码检索数据表配置信息实例对象</h3>
+     * <h4 class="en-US">Retrieve the data table configuration information instance object according to the given identification code</h4>
+     * <h4 class="zh-CN">根据给定的识别代码检索数据表配置信息实例对象</h4>
      *
      * @param identifyKey <span class="en-US">The identification code</span>
      *                    <span class="zh-CN">识别代码</span>
@@ -232,8 +232,8 @@ public final class EntityManager {
     }
 
     /**
-     * <h3 class="en-US">Retrieve the data table name according to the given identification code</h3>
-     * <h3 class="zh-CN">根据给定的识别代码检索数据表名</h3>
+     * <h4 class="en-US">Retrieve the data table name according to the given identification code</h4>
+     * <h4 class="zh-CN">根据给定的识别代码检索数据表名</h4>
      *
      * @param defineClass <span class="en-US">Entity class</span>
      *                    <span class="zh-CN">实体类</span>
@@ -245,8 +245,8 @@ public final class EntityManager {
     }
 
     /**
-     * <h3 class="en-US">Retrieve the data table name according to the given identification code</h3>
-     * <h3 class="zh-CN">根据给定的识别代码检索数据表名</h3>
+     * <h4 class="en-US">Retrieve the data table name according to the given identification code</h4>
+     * <h4 class="zh-CN">根据给定的识别代码检索数据表名</h4>
      *
      * @param identifyKey <span class="en-US">The identification code</span>
      *                    <span class="zh-CN">识别代码</span>
@@ -270,8 +270,8 @@ public final class EntityManager {
     }
 
     /**
-     * <h3 class="en-US">Retrieve the database schema name according to the given identification code</h3>
-     * <h3 class="zh-CN">根据给定的识别代码检索数据库名称</h3>
+     * <h4 class="en-US">Retrieve the database schema name according to the given identification code</h4>
+     * <h4 class="zh-CN">根据给定的识别代码检索数据库名称</h4>
      *
      * @param defineClass <span class="en-US">Entity class</span>
      *                    <span class="zh-CN">实体类</span>
@@ -283,8 +283,8 @@ public final class EntityManager {
     }
 
     /**
-     * <h3 class="en-US">Retrieve the database schema name according to the given identification code</h3>
-     * <h3 class="zh-CN">根据给定的识别代码检索数据库名称</h3>
+     * <h4 class="en-US">Retrieve the database schema name according to the given identification code</h4>
+     * <h4 class="zh-CN">根据给定的识别代码检索数据库名称</h4>
      *
      * @param identifyKey <span class="en-US">The identification code</span>
      *                    <span class="zh-CN">识别代码</span>
@@ -301,8 +301,8 @@ public final class EntityManager {
     }
 
     /**
-     * <h3 class="en-US">Check if the given entity class is in the same database</h3>
-     * <h3 class="zh-CN">检查给定的实体类是否在同一个数据库中</h3>
+     * <h4 class="en-US">Check if the given entity class is in the same database</h4>
+     * <h4 class="zh-CN">检查给定的实体类是否在同一个数据库中</h4>
      *
      * @param entityClass    <span class="en-US">Entity class</span>
      *                       <span class="zh-CN">实体类</span>
@@ -317,8 +317,8 @@ public final class EntityManager {
     }
 
     /**
-     * <h3 class="en-US">Generate corresponding entity class instance objects according to the given data mapping table</h3>
-     * <h3 class="zh-CN">根据给定的数据映射表生成对应实体类实例对象</h3>
+     * <h4 class="en-US">Generate corresponding entity class instance objects according to the given data mapping table</h4>
+     * <h4 class="zh-CN">根据给定的数据映射表生成对应实体类实例对象</h4>
      *
      * @param <T>         <span class="en-US">Entity define class</span>
      *                    <span class="zh-CN">实体类定义</span>
@@ -335,6 +335,17 @@ public final class EntityManager {
                 .orElse(null);
     }
 
+	/**
+	 * <h4 class="en-US">Parse data list to data map which data list read from excel file</h4>
+	 * <h4 class="zh-CN">解析Excel读取的数据列表为数据映射表</h4>
+	 *
+	 * @param entityClass <span class="en-US">Entity define class</span>
+	 *                    <span class="zh-CN">实体类定义</span>
+	 * @param dataValues  <span class="en-US">Data list which read from excel file</span>
+	 *                    <span class="zh-CN">Excel读取的数据列表</span>
+	 * @return <span class="en-US">Parsed data map</span>
+	 * <span class="zh-CN">解析的数据映射表</span>
+	 */
     public static Map<String, String> parseList(@Nonnull final Class<?> entityClass,
                                                 @Nonnull final List<String> dataValues) {
         return Optional.ofNullable(REGISTERED_TRANSFERS.get(ClassUtils.originalClassName(entityClass)))
@@ -342,6 +353,17 @@ public final class EntityManager {
                 .orElse(new HashMap<>());
     }
 
+	/**
+	 * <h4 class="en-US">Convert data map with value type is string to data map</h4>
+	 * <h4 class="zh-CN">转换字符串映射表为数据对象映射表</h4>
+	 *
+	 * @param entityClass <span class="en-US">Entity define class</span>
+	 *                    <span class="zh-CN">实体类定义</span>
+	 * @param transferMap <span class="en-US">Data map with value type is string</span>
+	 *                    <span class="zh-CN">字符串映射表</span>
+	 * @return <span class="en-US">Converted data map</span>
+	 * <span class="zh-CN">转换的数据映射表</span>
+	 */
     public static Map<String, Object> unmarshalMap(@Nonnull final Class<?> entityClass,
                                                    @Nonnull final Map<String, String> transferMap) {
         return Optional.ofNullable(REGISTERED_TRANSFERS.get(ClassUtils.originalClassName(entityClass)))
@@ -349,6 +371,17 @@ public final class EntityManager {
                 .orElse(new HashMap<>());
     }
 
+	/**
+	 * <h4 class="en-US">Convert entity object instance to data map</h4>
+	 * <h4 class="zh-CN">转换实体类对象为数据映射表</h4>
+	 *
+	 * @param removeRecord <span class="en-US">Entity object instance will be removed</span>
+	 *                    <span class="zh-CN">实体类对象为需要删除的记录</span>
+	 * @param baseObject  <span class="en-US">Entity object instance</span>
+	 *                    <span class="zh-CN">实体类对象</span>
+	 * @return <span class="en-US">Converted data map</span>
+	 * <span class="zh-CN">转换的数据映射表</span>
+	 */
     public static Map<String, String> objectToMap(final boolean removeRecord, @Nonnull final BaseObject baseObject) {
         Map<String, String> dataMap = new HashMap<>();
         if (tableExists(ClassUtils.originalClassName(baseObject.getClass()))) {
@@ -375,14 +408,23 @@ public final class EntityManager {
         return dataMap;
     }
 
+	/**
+	 * <h4 class="en-US">Write given entity object instance data to excel file</h4>
+	 * <h4 class="zh-CN">写入数据表实体类对象数据到Excel文件</h4>
+	 *
+	 * @param excelWriter <span class="en-US">Excel writer instance</span>
+	 *                    <span class="zh-CN">Excel文件写入器</span>
+	 * @param object      <span class="en-US">Entity object instance</span>
+	 *                    <span class="zh-CN">实体对象实例</span>
+	 */
     public static void appendToExcel(@Nonnull final ExcelWriter excelWriter, @Nonnull final Object object) {
         Optional.ofNullable(REGISTERED_TRANSFERS.get(ClassUtils.originalClassName(object.getClass())))
                 .ifPresent(transferBean -> transferBean.appendData(excelWriter, object));
     }
 
     /**
-     * <h3 class="en-US">Checks if the given data record object instance matches the given database name</h3>
-     * <h3 class="zh-CN">检查给定的数据记录对象实例是否匹配给定的数据库名称</h3>
+     * <h4 class="en-US">Checks if the given data record object instance matches the given database name</h4>
+     * <h4 class="zh-CN">检查给定的数据记录对象实例是否匹配给定的数据库名称</h4>
      *
      * @param object     <span class="en-US">Entity object instance</span>
      *                   <span class="zh-CN">实体对象实例</span>
@@ -401,8 +443,8 @@ public final class EntityManager {
     }
 
     /**
-     * <h3 class="en-US">Unregister all registered data table configuration information</h3>
-     * <h3 class="zh-CN">注销所有已注册的数据表配置信息</h3>
+     * <h4 class="en-US">Unregister all registered data table configuration information</h4>
+     * <h4 class="zh-CN">注销所有已注册的数据表配置信息</h4>
      */
     public static void destroy() {
         REGISTERED_CONFIGS.clear();
@@ -410,8 +452,8 @@ public final class EntityManager {
     }
 
     /**
-     * <h3 class="en-US">Checks whether the given entity class contains lazy loading annotation</h3>
-     * <h3 class="zh-CN">检查给定的实体类是否包含懒加载注解</h3>
+     * <h4 class="en-US">Checks whether the given entity class contains lazy loading annotation</h4>
+     * <h4 class="zh-CN">检查给定的实体类是否包含懒加载注解</h4>
      *
      * @param entityClass <span class="en-US">Entity define class</span>
      *                    <span class="zh-CN">实体类定义</span>
@@ -430,8 +472,8 @@ public final class EntityManager {
     }
 
     /**
-     * <h3 class="en-US">Use Bytebuddy to modify entity classes to implement lazy loading function</h3>
-     * <h3 class="zh-CN">使用Bytebuddy对实体类进行修改，以实现懒加载功能</h3>
+     * <h4 class="en-US">Use Bytebuddy to modify entity classes to implement lazy loading function</h4>
+     * <h4 class="zh-CN">使用Bytebuddy对实体类进行修改，以实现懒加载功能</h4>
      *
      * @param entityClass <span class="en-US">Entity define class</span>
      *                    <span class="zh-CN">实体类定义</span>

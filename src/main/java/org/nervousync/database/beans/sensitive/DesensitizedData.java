@@ -47,8 +47,8 @@ public final class DesensitizedData {
     private final String encryptedValue;
 
     /**
-     * <h2 class="en-US">Private constructor for desensitized data definition</h2>
-     * <h2 class="zh-CN">脱敏数据定义的私有构造方法</h2>
+     * <h4 class="en-US">Private constructor for desensitized data definition</h4>
+     * <h4 class="zh-CN">脱敏数据定义的私有构造方法</h4>
      *
      * @param desensitizationValue <span class="en-US">Desensitized data</span>
      *                             <span class="zh-CN">脱敏后的数据</span>
@@ -61,8 +61,8 @@ public final class DesensitizedData {
     }
 
     /**
-     * <h2 class="en-US">Static methods are used to generate desensitized data definition instance objects</h2>
-     * <h2 class="zh-CN">静态方法用于生成脱敏数据定义实例对象</h2>
+     * <h4 class="en-US">Static methods are used to generate desensitized data definition instance objects</h4>
+     * <h4 class="zh-CN">静态方法用于生成脱敏数据定义实例对象</h4>
      *
      * @param columnConfig  <span class="en-US">Data column definition</span>
      *                      <span class="zh-CN">数据列定义</span>
@@ -97,8 +97,8 @@ public final class DesensitizedData {
     }
 
     /**
-     * <h3 class="en-US">Getter method for desensitized data</h3>
-     * <h3 class="zh-CN">脱敏后的数据的Getter方法</h3>
+     * <h4 class="en-US">Getter method for desensitized data</h4>
+     * <h4 class="zh-CN">脱敏后的数据的Getter方法</h4>
      *
      * @return <span class="en-US">Desensitized data</span>
      * <span class="zh-CN">脱敏后的数据</span>
@@ -108,8 +108,8 @@ public final class DesensitizedData {
     }
 
     /**
-     * <h3 class="en-US">Getter method for encrypted hidden data</h3>
-     * <h3 class="zh-CN">加密后的隐藏数据的Getter方法</h3>
+     * <h4 class="en-US">Getter method for encrypted hidden data</h4>
+     * <h4 class="zh-CN">加密后的隐藏数据的Getter方法</h4>
      *
      * @return <span class="en-US">Encrypted hidden data</span>
      * <span class="zh-CN">加密后的隐藏数据</span>
@@ -119,8 +119,8 @@ public final class DesensitizedData {
     }
 
     /**
-     * <h3 class="en-US">Handle sensitive information based on given prefix and suffix lengths</h3>
-     * <h3 class="zh-CN">根据给定的前缀和后缀长度处理敏感信息</h3>
+     * <h4 class="en-US">Handle sensitive information based on given prefix and suffix lengths</h4>
+     * <h4 class="zh-CN">根据给定的前缀和后缀长度处理敏感信息</h4>
      *
      * @param sensitiveData   <span class="en-US">Sensitive information string</span>
      *                        <span class="zh-CN">敏感信息字符串</span>

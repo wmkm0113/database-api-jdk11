@@ -27,8 +27,8 @@ import org.nervousync.database.enumerations.query.OrderType;
 import java.util.Comparator;
 
 /**
- * <h2 class="en-US">Abstract query item define</h2>
- * <h2 class="zh-CN">抽象查询项信息定义</h2>
+ * <h2 class="en-US">Sort item define</h2>
+ * <h2 class="zh-CN">排序项定义</h2>
  *
  * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Oct 9, 2020 11:30:54 $
@@ -49,8 +49,8 @@ public abstract class SortedItem extends BeanObject {
     private int sortCode;
 
     /**
-     * <h3 class="en-US">Getter method for sort code</h3>
-     * <h3 class="zh-CN">排序代码的Getter方法</h3>
+     * <h4 class="en-US">Getter method for sort code</h4>
+     * <h4 class="zh-CN">排序代码的Getter方法</h4>
      *
      * @return <span class="en-US">Sort code</span>
      * <span class="zh-CN">排序代码</span>
@@ -60,8 +60,8 @@ public abstract class SortedItem extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Setter method for sort code</h3>
-     * <h3 class="zh-CN">排序代码的Setter方法</h3>
+     * <h4 class="en-US">Setter method for sort code</h4>
+     * <h4 class="zh-CN">排序代码的Setter方法</h4>
      *
      * @param sortCode <span class="en-US">Sort code</span>
      *                 <span class="zh-CN">排序代码</span>
@@ -70,22 +70,59 @@ public abstract class SortedItem extends BeanObject {
         this.sortCode = sortCode;
     }
 
+	/**
+	 * <h4 class="en-US">Generate ASC mode comparator instance</h4>
+	 * <h4 class="zh-CN">生成升序排序比较器</h4>
+	 *
+	 * @return <span class="en-US">Generated ASC mode comparator instance</span>
+	 * <span class="zh-CN">生成的升序排序比较器</span>
+	 */
     public static SortedItemComparator asc() {
         return new SortedItemComparator(OrderType.ASC);
     }
 
+	/**
+	 * <h4 class="en-US">Generate DESC mode comparator instance</h4>
+	 * <h4 class="zh-CN">生成降序排序比较器</h4>
+	 *
+	 * @return <span class="en-US">Generated DESC mode comparator instance</span>
+	 * <span class="zh-CN">生成的降序排序比较器</span>
+	 */
     public static SortedItemComparator desc() {
         return new SortedItemComparator(OrderType.DESC);
     }
 
+	/**
+	 * <h2 class="en-US">Sort item comparator</h2>
+	 * <h2 class="zh-CN">排序项比较器</h2>
+	 *
+	 * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
+	 * @version $Revision: 1.0.0 $ $Date: Oct 9, 2020 11:38:17 $
+	 */
     public static final class SortedItemComparator implements Comparator<SortedItem> {
 
+		/**
+		 * <span class="en-US">Order type</span>
+		 * <span class="zh-CN">排序类型</span>
+		 */
         private final OrderType orderType;
 
+		/**
+		 * <h4 class="en-US">Private constructor method for sort item comparator</h4>
+		 * <h4 class="zh-CN">排序项比较器的私有构造方法</h4>
+		 *
+		 * @param orderType <span class="en-US">Order type</span>
+		 *                  <span class="zh-CN">排序类型</span>
+		 */
         private SortedItemComparator(@Nonnull final OrderType orderType) {
             this.orderType = orderType;
         }
 
+		/**
+		 * (Non-javadoc)
+		 *
+		 * @see Comparator#compare(Object, Object)
+		 */
         @Override
         public int compare(final SortedItem o1, final SortedItem o2) {
             int compare = Integer.compare(o1.getSortCode(), o2.getSortCode());

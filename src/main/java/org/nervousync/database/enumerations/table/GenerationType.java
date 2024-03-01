@@ -27,5 +27,19 @@ import org.nervousync.database.annotations.table.GeneratedValue;
  * @since 1.0
  */
 public enum GenerationType {
-    GENERATE, SEQUENCE, ASSIGNED
+    /**
+     * <span class="en-US">Generate automatically</span>
+     * <span class="zh-CN">自动生成</span>
+     */
+    GENERATE,
+    /**
+     * <span class="en-US">Sequence generator</span>
+     * <span class="zh-CN">序列生成器</span>
+     */
+    SEQUENCE,
+    /**
+     * <span class="en-US">Assigned value</span>
+     * <span class="zh-CN">手动填写</span>
+     */
+    ASSIGNED
 }

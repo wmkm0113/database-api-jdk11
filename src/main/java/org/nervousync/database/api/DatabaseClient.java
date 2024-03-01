@@ -36,20 +36,20 @@ import java.util.Map;
 public interface DatabaseClient {
 
 	/**
-	 * <h3 class="en-US">Rollback current transactional</h3>
-	 * <h3 class="zh-CN">回滚当前事务</h3>
+	 * <h4 class="en-US">Rollback current transactional</h4>
+	 * <h4 class="zh-CN">回滚当前事务</h4>
 	 */
 	void rollbackTransactional();
 
 	/**
-	 * <h3 class="en-US">Finish current transactional</h3>
-	 * <h3 class="zh-CN">结束当前事务</h3>
+	 * <h4 class="en-US">Finish current transactional</h4>
+	 * <h4 class="zh-CN">结束当前事务</h4>
 	 */
 	void endTransactional();
 
 	/**
-	 * <h3 class="en-US">Check whether the given exception information belongs to a rollback exception</h3>
-	 * <h3 class="zh-CN">检查给定的异常信息是否属于回滚异常</h3>
+	 * <h4 class="en-US">Check whether the given exception information belongs to a rollback exception</h4>
+	 * <h4 class="zh-CN">检查给定的异常信息是否属于回滚异常</h4>
 	 *
 	 * @param e <span class="en-US">Catch exception instance</span>
 	 *          <span class="zh-CN">捕获的异常实例</span>
@@ -59,8 +59,8 @@ public interface DatabaseClient {
 	boolean rollbackException(final Exception e);
 
 	/**
-	 * <h3 class="en-US">Save the given records object to database</h3>
-	 * <h3 class="zh-CN">保存给定的记录实例对象到数据库</h3>
+	 * <h4 class="en-US">Save the given records object to database</h4>
+	 * <h4 class="zh-CN">保存给定的记录实例对象到数据库</h4>
 	 *
 	 * @param recordObjects <span class="en-US">Record object array</span>
 	 *                      <span class="zh-CN">记录实例对象数组</span>
@@ -70,8 +70,8 @@ public interface DatabaseClient {
 	void saveRecords(final BaseObject... recordObjects) throws Exception;
 
 	/**
-	 * <h3 class="en-US">Update the given records object to database</h3>
-	 * <h3 class="zh-CN">更新给定的记录实例对象到数据库</h3>
+	 * <h4 class="en-US">Update the given records object to database</h4>
+	 * <h4 class="zh-CN">更新给定的记录实例对象到数据库</h4>
 	 *
 	 * @param recordObjects <span class="en-US">Record object array</span>
 	 *                      <span class="zh-CN">记录实例对象数组</span>
@@ -81,8 +81,8 @@ public interface DatabaseClient {
 	void updateRecords(final BaseObject... recordObjects) throws Exception;
 
 	/**
-	 * <h3 class="en-US">Drop the given records object to database</h3>
-	 * <h3 class="zh-CN">从数据库中删除给定的记录实例对象</h3>
+	 * <h4 class="en-US">Drop the given records object to database</h4>
+	 * <h4 class="zh-CN">从数据库中删除给定的记录实例对象</h4>
 	 *
 	 * @param recordObjects <span class="en-US">Record object array</span>
 	 *                      <span class="zh-CN">记录实例对象数组</span>
@@ -92,8 +92,8 @@ public interface DatabaseClient {
 	void dropRecords(final BaseObject... recordObjects) throws Exception;
 
 	/**
-	 * <h3 class="en-US">Read lazy loaded column data</h3>
-	 * <h3 class="zh-CN">读取懒加载的列数据</h3>
+	 * <h4 class="en-US">Read lazy loaded column data</h4>
+	 * <h4 class="zh-CN">读取懒加载的列数据</h4>
 	 *
 	 * @param primaryKeyMap <span class="en-US">Composite primary key map</span>
 	 *                      <span class="zh-CN">联合主键值映射表</span>
@@ -108,8 +108,8 @@ public interface DatabaseClient {
 	                  final String identifyKey);
 
 	/**
-	 * <h3 class="en-US">Retrieve record from database by given primary key value</h3>
-	 * <h3 class="zh-CN">根据给定的主键值，从数据库中查询唯一记录</h3>
+	 * <h4 class="en-US">Retrieve record from database by given primary key value</h4>
+	 * <h4 class="zh-CN">根据给定的主键值，从数据库中查询唯一记录</h4>
 	 *
 	 * @param primaryKey  <span class="en-US">Primary key value</span>
 	 *                    <span class="zh-CN">主键值</span>
@@ -128,8 +128,8 @@ public interface DatabaseClient {
 			throws RetrieveException;
 
 	/**
-	 * <h3 class="en-US">Retrieve record from database by given composite primary key map</h3>
-	 * <h3 class="zh-CN">根据给定的联合主键值映射表，从数据库中查询唯一记录</h3>
+	 * <h4 class="en-US">Retrieve record from database by given composite primary key map</h4>
+	 * <h4 class="zh-CN">根据给定的联合主键值映射表，从数据库中查询唯一记录</h4>
 	 *
 	 * @param <T>           <span class="en-US">Target entity class</span>
 	 *                      <span class="zh-CN">目标实体类</span>
@@ -148,8 +148,8 @@ public interface DatabaseClient {
 			throws RetrieveException;
 
 	/**
-	 * <h3 class="en-US">Query total record count by given query information</h3>
-	 * <h3 class="zh-CN">查询满足给定查询条件的记录数</h3>
+	 * <h4 class="en-US">Query total record count by given query information</h4>
+	 * <h4 class="zh-CN">查询满足给定查询条件的记录数</h4>
 	 *
 	 * @param queryInfo <span class="en-US">Query information instance object</span>
 	 *                  <span class="zh-CN">查询信息实例对象</span>
@@ -161,8 +161,8 @@ public interface DatabaseClient {
 	long queryTotal(@Nonnull final QueryInfo queryInfo) throws QueryException;
 
 	/**
-	 * <h3 class="en-US">Query record by given query information</h3>
-	 * <h3 class="zh-CN">查询满足给定查询条件的记录</h3>
+	 * <h4 class="en-US">Query record by given query information</h4>
+	 * <h4 class="zh-CN">查询满足给定查询条件的记录</h4>
 	 *
 	 * @param queryInfo   <span class="en-US">Query information instance object</span>
 	 *                    <span class="zh-CN">查询信息实例对象</span>

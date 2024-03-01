@@ -55,13 +55,17 @@ public final class ExportTask extends AbstractTask {
     @XmlElementWrapper(name = "query_plan_list")
     private List<QueryInfo> queryInfoList;
 
+	/**
+	 * <h4 class="en-US">Constructor method for data export task information</h4>
+	 * <h4 class="zh-CN">数据导出任务信息的构建方法</h4>
+	 */
     public ExportTask() {
         this.queryInfoList = new ArrayList<>();
     }
 
     /**
-     * <h3 class="en-US">Getter method for export Excel using compatibility mode</h3>
-     * <h3 class="zh-CN">使用兼容模式输出Excel的Getter方法</h3>
+     * <h4 class="en-US">Getter method for export Excel using compatibility mode</h4>
+     * <h4 class="zh-CN">使用兼容模式输出Excel的Getter方法</h4>
      *
      * @return <span class="en-US">Export Excel using compatibility mode</span>
      * <span class="zh-CN">使用兼容模式输出Excel</span>
@@ -71,8 +75,8 @@ public final class ExportTask extends AbstractTask {
     }
 
     /**
-     * <h3 class="en-US">Setter method for export Excel using compatibility mode</h3>
-     * <h3 class="zh-CN">使用兼容模式输出Excel的Setter方法</h3>
+     * <h4 class="en-US">Setter method for export Excel using compatibility mode</h4>
+     * <h4 class="zh-CN">使用兼容模式输出Excel的Setter方法</h4>
      *
      * @param compatibilityMode <span class="en-US">Export Excel using compatibility mode</span>
      *                          <span class="zh-CN">使用兼容模式输出Excel</span>
@@ -82,8 +86,8 @@ public final class ExportTask extends AbstractTask {
     }
 
     /**
-     * <h3 class="en-US">Getter method for query information list for data export tasks</h3>
-     * <h3 class="zh-CN">数据导出任务的查询信息列表的Getter方法</h3>
+     * <h4 class="en-US">Getter method for query information list for data export tasks</h4>
+     * <h4 class="zh-CN">数据导出任务的查询信息列表的Getter方法</h4>
      *
      * @return <span class="en-US">Query information list for data export tasks</span>
      * <span class="zh-CN">数据导出任务的查询信息列表</span>
@@ -93,8 +97,8 @@ public final class ExportTask extends AbstractTask {
     }
 
     /**
-     * <h3 class="en-US">Setter method for query information list for data export tasks</h3>
-     * <h3 class="zh-CN">数据导出任务的查询信息列表的Setter方法</h3>
+     * <h4 class="en-US">Setter method for query information list for data export tasks</h4>
+     * <h4 class="zh-CN">数据导出任务的查询信息列表的Setter方法</h4>
      *
      * @param databaseQueryList <span class="en-US">Query information list for data export tasks</span>
      *                      <span class="zh-CN">数据导出任务的查询信息列表</span>

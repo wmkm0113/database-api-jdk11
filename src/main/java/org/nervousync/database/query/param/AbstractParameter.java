@@ -56,8 +56,8 @@ public abstract class AbstractParameter<T> extends SortedItem {
     private final ItemType itemType;
 
     /**
-     * <h3 class="en-US">Protect constructor method for abstract class for parameter information define</h3>
-     * <h3 class="zh-CN">参数信息定义抽象类的构造方法</h3>
+     * <h4 class="en-US">Protect constructor method for abstract class for parameter information define</h4>
+     * <h4 class="zh-CN">参数信息定义抽象类的构造方法</h4>
      *
      * @param itemType <span class="en-US">Parameter type</span>
      *                 <span class="zh-CN">参数类型</span>
@@ -67,8 +67,8 @@ public abstract class AbstractParameter<T> extends SortedItem {
     }
 
     /**
-     * <h3 class="en-US">Getter method for parameter type</h3>
-     * <h3 class="zh-CN">参数类型的Getter方法</h3>
+     * <h4 class="en-US">Getter method for parameter type</h4>
+     * <h4 class="zh-CN">参数类型的Getter方法</h4>
      *
      * @return <span class="en-US">Parameter type</span>
      * <span class="zh-CN">参数类型</span>
@@ -78,8 +78,8 @@ public abstract class AbstractParameter<T> extends SortedItem {
     }
 
     /**
-     * <h3 class="en-US">Getter method for parameter value</h3>
-     * <h3 class="zh-CN">参数值的Getter方法</h3>
+     * <h4 class="en-US">Getter method for parameter value</h4>
+     * <h4 class="zh-CN">参数值的Getter方法</h4>
      *
      * @return <span class="en-US">Parameter value</span>
      * <span class="zh-CN">参数值</span>
@@ -87,8 +87,8 @@ public abstract class AbstractParameter<T> extends SortedItem {
     public abstract T getItemValue();
 
     /**
-     * <h3 class="en-US">Setter method for parameter value</h3>
-     * <h3 class="zh-CN">参数值的Setter方法</h3>
+     * <h4 class="en-US">Setter method for parameter value</h4>
+     * <h4 class="zh-CN">参数值的Setter方法</h4>
      *
      * @param itemValue <span class="en-US">Parameter value</span>
      *                  <span class="zh-CN">参数值</span>
@@ -96,8 +96,8 @@ public abstract class AbstractParameter<T> extends SortedItem {
     public abstract void setItemValue(T itemValue);
 
     /**
-     * <h3 class="en-US">Static method for generate function parameter instance</h3>
-     * <h3 class="zh-CN">静态方法用于生成函数参数实例对象</h3>
+     * <h4 class="en-US">Static method for generate function parameter instance</h4>
+     * <h4 class="zh-CN">静态方法用于生成函数参数实例对象</h4>
      *
      * @param sqlFunction    <span class="en-US">Function name</span>
      *                       <span class="zh-CN">函数名称</span>
@@ -112,8 +112,8 @@ public abstract class AbstractParameter<T> extends SortedItem {
     }
 
     /**
-     * <h3 class="en-US">Static method for generate function parameter instance</h3>
-     * <h3 class="zh-CN">静态方法用于生成函数参数实例对象</h3>
+     * <h4 class="en-US">Static method for generate function parameter instance</h4>
+     * <h4 class="zh-CN">静态方法用于生成函数参数实例对象</h4>
      *
      * @param aliasName      <span class="en-US">Item alias name</span>
      *                       <span class="zh-CN">查询项别名</span>
@@ -131,8 +131,8 @@ public abstract class AbstractParameter<T> extends SortedItem {
     }
 
     /**
-     * <h3 class="en-US">Static method for generate function parameter instance</h3>
-     * <h3 class="zh-CN">静态方法用于生成函数参数实例对象</h3>
+     * <h4 class="en-US">Static method for generate function parameter instance</h4>
+     * <h4 class="zh-CN">静态方法用于生成函数参数实例对象</h4>
      *
      * @param aliasName      <span class="en-US">Item alias name</span>
      *                       <span class="zh-CN">查询项别名</span>
@@ -155,8 +155,8 @@ public abstract class AbstractParameter<T> extends SortedItem {
     }
 
     /**
-     * <h3 class="en-US">Static method for generate column parameter instance</h3>
-     * <h3 class="zh-CN">静态方法用于生成数据列参数实例对象</h3>
+     * <h4 class="en-US">Static method for generate column parameter instance</h4>
+     * <h4 class="zh-CN">静态方法用于生成数据列参数实例对象</h4>
      *
      * @param entityClass <span class="en-US">The entity class to which the data column belongs</span>
      *                    <span class="zh-CN">数据列所属的实体类</span>
@@ -176,8 +176,8 @@ public abstract class AbstractParameter<T> extends SortedItem {
     }
 
     /**
-     * <h3 class="en-US">Static method for generate column parameter instance</h3>
-     * <h3 class="zh-CN">静态方法用于生成数据列参数实例对象</h3>
+     * <h4 class="en-US">Static method for generate column parameter instance</h4>
+     * <h4 class="zh-CN">静态方法用于生成数据列参数实例对象</h4>
      *
      * @param entityClass <span class="en-US">The entity class to which the data column belongs</span>
      *                    <span class="zh-CN">数据列所属的实体类</span>
@@ -201,8 +201,8 @@ public abstract class AbstractParameter<T> extends SortedItem {
     }
 
     /**
-     * <h3 class="en-US">Static method for generate constant parameter instance</h3>
-     * <h3 class="zh-CN">静态方法用于生成常量参数实例对象</h3>
+     * <h4 class="en-US">Static method for generate constant parameter instance</h4>
+     * <h4 class="zh-CN">静态方法用于生成常量参数实例对象</h4>
      *
      * @param object <span class="en-US">Constant value</span>
      *               <span class="zh-CN">常量值</span>
@@ -214,8 +214,8 @@ public abstract class AbstractParameter<T> extends SortedItem {
     }
 
     /**
-     * <h3 class="en-US">Static method for generate constant parameter instance</h3>
-     * <h3 class="zh-CN">静态方法用于生成常量参数实例对象</h3>
+     * <h4 class="en-US">Static method for generate constant parameter instance</h4>
+     * <h4 class="zh-CN">静态方法用于生成常量参数实例对象</h4>
      *
      * @param object   <span class="en-US">Constant value</span>
      *                 <span class="zh-CN">常量值</span>
@@ -232,8 +232,8 @@ public abstract class AbstractParameter<T> extends SortedItem {
     }
 
     /**
-     * <h3 class="en-US">Static method for generate sub-query parameter instance</h3>
-     * <h3 class="zh-CN">静态方法用于生成子查询参数实例对象</h3>
+     * <h4 class="en-US">Static method for generate sub-query parameter instance</h4>
+     * <h4 class="zh-CN">静态方法用于生成子查询参数实例对象</h4>
      *
      * @param queryInfo     <span class="en-US">Sub-query information</span>
      *                      <span class="zh-CN">子查询信息</span>
@@ -245,8 +245,8 @@ public abstract class AbstractParameter<T> extends SortedItem {
     }
 
     /**
-     * <h3 class="en-US">Static method for generate sub-query parameter instance</h3>
-     * <h3 class="zh-CN">静态方法用于生成子查询参数实例对象</h3>
+     * <h4 class="en-US">Static method for generate sub-query parameter instance</h4>
+     * <h4 class="zh-CN">静态方法用于生成子查询参数实例对象</h4>
      *
      * @param queryInfo     <span class="en-US">Sub-query information</span>
      *                      <span class="zh-CN">子查询信息</span>
@@ -263,8 +263,8 @@ public abstract class AbstractParameter<T> extends SortedItem {
     }
 
     /**
-     * <h3 class="en-US">Static method for generate ranges data parameter instance</h3>
-     * <h3 class="zh-CN">静态方法用于生成范围值查询参数实例对象</h3>
+     * <h4 class="en-US">Static method for generate ranges data parameter instance</h4>
+     * <h4 class="zh-CN">静态方法用于生成范围值查询参数实例对象</h4>
      *
      * @param beginValue <span class="en-US">Begin value</span>
      *                   <span class="zh-CN">起始值</span>
@@ -278,8 +278,8 @@ public abstract class AbstractParameter<T> extends SortedItem {
     }
 
     /**
-     * <h3 class="en-US">Static method for generate condition data array parameter instance</h3>
-     * <h3 class="zh-CN">静态方法用于生成匹配值数组查询参数实例对象</h3>
+     * <h4 class="en-US">Static method for generate condition data array parameter instance</h4>
+     * <h4 class="zh-CN">静态方法用于生成匹配值数组查询参数实例对象</h4>
      *
      * @param matchValues <span class="en-US">Condition data array</span>
      *                    <span class="zh-CN">匹配值数组</span>
@@ -293,8 +293,8 @@ public abstract class AbstractParameter<T> extends SortedItem {
     }
 
     /**
-     * <h3 class="en-US">Static method for generate ranges data parameter instance</h3>
-     * <h3 class="zh-CN">静态方法用于生成范围值查询参数实例对象</h3>
+     * <h4 class="en-US">Static method for generate ranges data parameter instance</h4>
+     * <h4 class="zh-CN">静态方法用于生成范围值查询参数实例对象</h4>
      *
      * @param beginValue <span class="en-US">Begin value</span>
      *                   <span class="zh-CN">起始值</span>

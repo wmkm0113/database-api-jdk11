@@ -24,6 +24,79 @@ package org.nervousync.database.enumerations.query;
  * @version $Revision: 1.0.0 $ $Date: Oct 6, 2020 18:47:52 $
  */
 public enum ConditionCode {
-	GREATER, GREATER_EQUAL, LESS, LESS_EQUAL, EQUAL, NOT_EQUAL, BETWEEN_AND,
-	NOT_BETWEEN_AND, LIKE, NOT_LIKE, IS_NULL, NOT_NULL, IN, NOT_IN, GROUP
+    /**
+     * <span class="en-US">Greater</span>
+     * <span class="zh-CN">大于</span>
+     */
+	GREATER,
+    /**
+     * <span class="en-US">Greater equal</span>
+     * <span class="zh-CN">大于等于</span>
+     */
+	GREATER_EQUAL,
+    /**
+     * <span class="en-US">Less</span>
+     * <span class="zh-CN">小于</span>
+     */
+	LESS,
+    /**
+     * <span class="en-US">Less equal</span>
+     * <span class="zh-CN">小于等于</span>
+     */
+	LESS_EQUAL,
+    /**
+     * <span class="en-US">Equal</span>
+     * <span class="zh-CN">等于</span>
+     */
+	EQUAL,
+    /**
+     * <span class="en-US">Not equal</span>
+     * <span class="zh-CN">不等于</span>
+     */
+	NOT_EQUAL,
+    /**
+     * <span class="en-US">Between value1 and value2</span>
+     * <span class="zh-CN">在 ... 和 ... 之间</span>
+     */
+	BETWEEN_AND,
+    /**
+     * <span class="en-US">Not between value1 and value2</span>
+     * <span class="zh-CN">没有在 ... 和 ... 之间</span>
+     */
+	NOT_BETWEEN_AND,
+    /**
+     * <span class="en-US">Like</span>
+     * <span class="zh-CN">匹配查询</span>
+     */
+	LIKE,
+    /**
+     * <span class="en-US">Not like</span>
+     * <span class="zh-CN">不匹配查询</span>
+     */
+	NOT_LIKE,
+    /**
+     * <span class="en-US">Is null</span>
+     * <span class="zh-CN">为空值</span>
+     */
+	IS_NULL,
+    /**
+     * <span class="en-US">Not null</span>
+     * <span class="zh-CN">不为空值</span>
+     */
+	NOT_NULL,
+    /**
+     * <span class="en-US">Contains in</span>
+     * <span class="zh-CN">包含</span>
+     */
+	IN,
+    /**
+     * <span class="en-US">Not contains in</span>
+     * <span class="zh-CN">不包含</span>
+     */
+	NOT_IN,
+    /**
+     * <span class="en-US">Group</span>
+     * <span class="zh-CN">条件组</span>
+     */
+	GROUP
 }

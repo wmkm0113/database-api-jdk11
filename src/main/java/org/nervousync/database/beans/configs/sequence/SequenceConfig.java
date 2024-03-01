@@ -76,15 +76,15 @@ public final class SequenceConfig extends BeanObject {
     private boolean cycle = Boolean.FALSE;
 
     /**
-     * <h3 class="en-US">Constructor method for sequence configure information</h3>
-     * <h3 class="zh-CN">序列生成器配置信息的构造方法</h3>
+     * <h4 class="en-US">Constructor method for sequence configure information</h4>
+     * <h4 class="zh-CN">序列生成器配置信息的构造方法</h4>
      */
     public SequenceConfig() {
     }
 
     /**
-     * <h3 class="en-US">Generate sequence configure information instance by given annotation instance</h3>
-     * <h3 class="zh-CN">根据给定的注解实例对象生成序列生成器配置信息实例对象</h3>
+     * <h4 class="en-US">Generate sequence configure information instance by given annotation instance</h4>
+     * <h4 class="zh-CN">根据给定的注解实例对象生成序列生成器配置信息实例对象</h4>
      *
      * @param sequenceGenerator <span class="en-US">The annotation instance of SequenceGenerator</span>
      *                          <span class="zh-CN">注解 SequenceGenerator 的实例对象</span>
@@ -103,8 +103,8 @@ public final class SequenceConfig extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Getter method for sequence name</h3>
-     * <h3 class="zh-CN">序列名称的Getter方法</h3>
+     * <h4 class="en-US">Getter method for sequence name</h4>
+     * <h4 class="zh-CN">序列名称的Getter方法</h4>
      *
      * @return <span class="en-US">Sequence name</span>
      * <span class="zh-CN">序列名称</span>
@@ -114,8 +114,8 @@ public final class SequenceConfig extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Setter method for sequence name</h3>
-     * <h3 class="zh-CN">序列名称的Setter方法</h3>
+     * <h4 class="en-US">Setter method for sequence name</h4>
+     * <h4 class="zh-CN">序列名称的Setter方法</h4>
      *
      * @param sequenceName <span class="en-US">Sequence name</span>
      *                     <span class="zh-CN">序列名称</span>
@@ -125,8 +125,8 @@ public final class SequenceConfig extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Getter method for sequence minimum value</h3>
-     * <h3 class="zh-CN">序列最小值的Getter方法</h3>
+     * <h4 class="en-US">Getter method for sequence minimum value</h4>
+     * <h4 class="zh-CN">序列最小值的Getter方法</h4>
      *
      * @return <span class="en-US">Sequence minimum value</span>
      * <span class="zh-CN">序列最小值</span>
@@ -136,8 +136,8 @@ public final class SequenceConfig extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Setter method for sequence minimum value</h3>
-     * <h3 class="zh-CN">序列最小值的Setter方法</h3>
+     * <h4 class="en-US">Setter method for sequence minimum value</h4>
+     * <h4 class="zh-CN">序列最小值的Setter方法</h4>
      *
      * @param minValue <span class="en-US">Sequence minimum value</span>
      *                 <span class="zh-CN">序列最小值</span>
@@ -147,8 +147,8 @@ public final class SequenceConfig extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Getter method for sequence maximum value</h3>
-     * <h3 class="zh-CN">序列最大值的Getter方法</h3>
+     * <h4 class="en-US">Getter method for sequence maximum value</h4>
+     * <h4 class="zh-CN">序列最大值的Getter方法</h4>
      *
      * @return <span class="en-US">Sequence maximum value</span>
      * <span class="zh-CN">序列最大值</span>
@@ -158,8 +158,8 @@ public final class SequenceConfig extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Setter method for sequence maximum value</h3>
-     * <h3 class="zh-CN">序列最大值的Setter方法</h3>
+     * <h4 class="en-US">Setter method for sequence maximum value</h4>
+     * <h4 class="zh-CN">序列最大值的Setter方法</h4>
      *
      * @param maxValue <span class="en-US">Sequence maximum value</span>
      *                 <span class="zh-CN">序列最大值</span>
@@ -169,8 +169,8 @@ public final class SequenceConfig extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Getter method for sequence step value</h3>
-     * <h3 class="zh-CN">序列步进值的Getter方法</h3>
+     * <h4 class="en-US">Getter method for sequence step value</h4>
+     * <h4 class="zh-CN">序列步进值的Getter方法</h4>
      *
      * @return <span class="en-US">Sequence step value</span>
      * <span class="zh-CN">序列步进值</span>
@@ -180,8 +180,8 @@ public final class SequenceConfig extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Setter method for sequence step value</h3>
-     * <h3 class="zh-CN">序列步进值的Setter方法</h3>
+     * <h4 class="en-US">Setter method for sequence step value</h4>
+     * <h4 class="zh-CN">序列步进值的Setter方法</h4>
      *
      * @param step <span class="en-US">Sequence step value</span>
      *             <span class="zh-CN">序列步进值</span>
@@ -191,8 +191,8 @@ public final class SequenceConfig extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Getter method for sequence current value</h3>
-     * <h3 class="zh-CN">当前序列值的Getter方法</h3>
+     * <h4 class="en-US">Getter method for sequence current value</h4>
+     * <h4 class="zh-CN">当前序列值的Getter方法</h4>
      *
      * @return <span class="en-US">Sequence current value</span>
      * <span class="zh-CN">当前序列值</span>
@@ -202,8 +202,8 @@ public final class SequenceConfig extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Setter method for sequence current value</h3>
-     * <h3 class="zh-CN">当前序列值的Setter方法</h3>
+     * <h4 class="en-US">Setter method for sequence current value</h4>
+     * <h4 class="zh-CN">当前序列值的Setter方法</h4>
      *
      * @param current <span class="en-US">Sequence current value</span>
      *                <span class="zh-CN">当前序列值</span>
@@ -213,8 +213,8 @@ public final class SequenceConfig extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Getter method for sequence value is cycle</h3>
-     * <h3 class="zh-CN">序列数据循环的Getter方法</h3>
+     * <h4 class="en-US">Getter method for sequence value is cycle</h4>
+     * <h4 class="zh-CN">序列数据循环的Getter方法</h4>
      *
      * @return <span class="en-US">Sequence value is cycle</span>
      * <span class="zh-CN">序列数据循环</span>
@@ -224,8 +224,8 @@ public final class SequenceConfig extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Setter method for sequence value is cycle</h3>
-     * <h3 class="zh-CN">序列数据循环的Setter方法</h3>
+     * <h4 class="en-US">Setter method for sequence value is cycle</h4>
+     * <h4 class="zh-CN">序列数据循环的Setter方法</h4>
      *
      * @param cycle <span class="en-US">Sequence value is cycle</span>
      *              <span class="zh-CN">序列数据循环</span>

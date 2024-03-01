@@ -33,9 +33,9 @@ public final class QueryException extends AbstractException {
     private static final long serialVersionUID = -8565047314090749663L;
 
     /**
-     * <h3 class="en-US">Constructor method for QueryException</h3>
+     * <h4 class="en-US">Constructor method for QueryException</h4>
      * <span class="en-US">Create a new QueryException with the specified message.</span>
-     * <h3 class="zh-CN">QueryException构造方法</h3>
+     * <h4 class="zh-CN">QueryException构造方法</h4>
      * <span class="zh-CN">使用特定的信息创建 QueryException 实例对象。</span>
      *
      * @param errorCode   <span class="en-US">Error identified code</span>
@@ -48,9 +48,9 @@ public final class QueryException extends AbstractException {
     }
 
     /**
-     * <h3 class="en-US">Constructor method for QueryException</h3>
+     * <h4 class="en-US">Constructor method for QueryException</h4>
      * <span class="en-US">Create a new QueryException with the specified message and root cause.</span>
-     * <h3 class="zh-CN">QueryException构造方法</h3>
+     * <h4 class="zh-CN">QueryException构造方法</h4>
      * <span class="zh-CN">使用特定的信息以及异常信息对象实例创建 QueryException 实例对象。</span>
      *
      * @param errorCode   <span class="en-US">Error identified code</span>

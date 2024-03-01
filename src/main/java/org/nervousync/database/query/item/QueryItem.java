@@ -48,16 +48,16 @@ public final class QueryItem extends AbstractItem {
 	private QueryInfo queryInfo;
 
 	/**
-	 * <h3 class="en-US">Protect constructor method for abstract query item define</h3>
-	 * <h3 class="zh-CN">抽象查询项信息定义的构造方法</h3>
+	 * <h4 class="en-US">Protect constructor method for abstract query item define</h4>
+	 * <h4 class="zh-CN">抽象查询项信息定义的构造方法</h4>
 	 */
 	public QueryItem() {
 		super(ItemType.QUERY);
 	}
 
 	/**
-	 * <h3 class="en-US">Getter method for query information</h3>
-	 * <h3 class="zh-CN">查询信息的Getter方法</h3>
+	 * <h4 class="en-US">Getter method for query information</h4>
+	 * <h4 class="zh-CN">查询信息的Getter方法</h4>
 	 *
 	 * @return <span class="en-US">Query information</span>
 	 * <span class="zh-CN">查询信息</span>
@@ -67,8 +67,8 @@ public final class QueryItem extends AbstractItem {
 	}
 
 	/**
-	 * <h3 class="en-US">Setter method for query information</h3>
-	 * <h3 class="zh-CN">查询信息的Setter方法</h3>
+	 * <h4 class="en-US">Setter method for query information</h4>
+	 * <h4 class="zh-CN">查询信息的Setter方法</h4>
 	 *
 	 * @param queryInfo <span class="en-US">Query information</span>
 	 *                  <span class="zh-CN">查询信息</span>

@@ -35,9 +35,9 @@ public final class UpdateException extends AbstractException {
     private static final long serialVersionUID = -65295197800688838L;
 
     /**
-     * <h3 class="en-US">Constructor method for UpdateException</h3>
+     * <h4 class="en-US">Constructor method for UpdateException</h4>
      * <span class="en-US">Create a new UpdateException with the specified message.</span>
-     * <h3 class="zh-CN">UpdateException构造方法</h3>
+     * <h4 class="zh-CN">UpdateException构造方法</h4>
      * <span class="zh-CN">使用特定的信息创建 UpdateException 实例对象。</span>
      *
      * @param errorCode   <span class="en-US">Error identified code</span>
@@ -50,9 +50,9 @@ public final class UpdateException extends AbstractException {
     }
 
     /**
-     * <h3 class="en-US">Constructor method for UpdateException</h3>
+     * <h4 class="en-US">Constructor method for UpdateException</h4>
      * <span class="en-US">Create a new UpdateException with the specified message and root cause.</span>
-     * <h3 class="zh-CN">UpdateException构造方法</h3>
+     * <h4 class="zh-CN">UpdateException构造方法</h4>
      * <span class="zh-CN">使用特定的信息以及异常信息对象实例创建 UpdateException 实例对象。</span>
      *
      * @param errorCode   <span class="en-US">Error identified code</span>

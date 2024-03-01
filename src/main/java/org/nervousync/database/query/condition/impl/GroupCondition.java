@@ -53,15 +53,15 @@ public final class GroupCondition extends Condition {
     private List<Condition> conditionList = new ArrayList<>();
 
     /**
-     * <h3 class="en-US">Constructor method for query column condition information group define</h3>
-     * <h3 class="zh-CN">查询匹配条件组定义的构造方法</h3>
+     * <h4 class="en-US">Constructor method for query column condition information group define</h4>
+     * <h4 class="zh-CN">查询匹配条件组定义的构造方法</h4>
      */
     public GroupCondition() {
     }
 
     /**
-     * <h3 class="en-US">Getter method for match condition list</h3>
-     * <h3 class="zh-CN">匹配条件列表的Getter方法</h3>
+     * <h4 class="en-US">Getter method for match condition list</h4>
+     * <h4 class="zh-CN">匹配条件列表的Getter方法</h4>
      *
      * @return <span class="en-US">Match condition list</span>
      * <span class="zh-CN">匹配条件列表</span>
@@ -71,8 +71,8 @@ public final class GroupCondition extends Condition {
     }
 
     /**
-     * <h3 class="en-US">Setter method for match condition list</h3>
-     * <h3 class="zh-CN">匹配条件列表的Setter方法</h3>
+     * <h4 class="en-US">Setter method for match condition list</h4>
+     * <h4 class="zh-CN">匹配条件列表的Setter方法</h4>
      *
      * @param conditionList <span class="en-US">Match condition list</span>
      *                      <span class="zh-CN">匹配条件列表</span>

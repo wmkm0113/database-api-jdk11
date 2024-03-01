@@ -27,5 +27,19 @@ import jakarta.xml.bind.annotation.XmlEnum;
  */
 @XmlEnum
 public enum DropOption {
-	RESTRICT, CASCADE, NONE
+	/**
+     * <span class="en-US">RESTRICT</span>
+     * <span class="zh-CN">约束</span>
+	 */
+	RESTRICT,
+	/**
+     * <span class="en-US">CASCADE</span>
+     * <span class="zh-CN">级联</span>
+	 */
+	CASCADE,
+	/**
+     * <span class="en-US">NONE</span>
+     * <span class="zh-CN">不操作</span>
+	 */
+	NONE
 }

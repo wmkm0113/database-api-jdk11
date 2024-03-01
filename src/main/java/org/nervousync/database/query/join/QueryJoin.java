@@ -71,16 +71,16 @@ public final class QueryJoin extends SortedItem {
 	private List<JoinInfo> joinInfos;
 
 	/**
-	 * <h3 class="en-US">Private constructor method for query join information define</h3>
-	 * <h3 class="zh-CN">查询关联信息定义的私有构造方法</h3>
+	 * <h4 class="en-US">Private constructor method for query join information define</h4>
+	 * <h4 class="zh-CN">查询关联信息定义的私有构造方法</h4>
 	 */
 	public QueryJoin() {
 		this.joinInfos = new ArrayList<>();
 	}
 
 	/**
-	 * <h3 class="en-US">Private constructor method for query join information define</h3>
-	 * <h3 class="zh-CN">查询关联信息定义的私有构造方法</h3>
+	 * <h4 class="en-US">Private constructor method for query join information define</h4>
+	 * <h4 class="zh-CN">查询关联信息定义的私有构造方法</h4>
 	 *
 	 * @param mainEntity <span class="en-US">Driver table entity class</span>
 	 *                   <span class="zh-CN">驱动表实体类</span>
@@ -100,8 +100,8 @@ public final class QueryJoin extends SortedItem {
 	}
 
 	/**
-	 * <h3 class="en-US">Getter method for driver table entity class</h3>
-	 * <h3 class="zh-CN">驱动表实体类的Getter方法</h3>
+	 * <h4 class="en-US">Getter method for driver table entity class</h4>
+	 * <h4 class="zh-CN">驱动表实体类的Getter方法</h4>
 	 *
 	 * @return <span class="en-US">Driver table entity class</span>
 	 * <span class="zh-CN">驱动表实体类</span>
@@ -111,8 +111,8 @@ public final class QueryJoin extends SortedItem {
 	}
 
 	/**
-	 * <h3 class="en-US">Setter method for driver table entity class</h3>
-	 * <h3 class="zh-CN">驱动表实体类的Setter方法</h3>
+	 * <h4 class="en-US">Setter method for driver table entity class</h4>
+	 * <h4 class="zh-CN">驱动表实体类的Setter方法</h4>
 	 *
 	 * @param mainEntity <span class="en-US">Driver table entity class</span>
 	 *                   <span class="zh-CN">驱动表实体类</span>
@@ -122,8 +122,8 @@ public final class QueryJoin extends SortedItem {
 	}
 
 	/**
-	 * <h3 class="en-US">Getter method for reference table entity class</h3>
-	 * <h3 class="zh-CN">关联表实体类的Getter方法</h3>
+	 * <h4 class="en-US">Getter method for reference table entity class</h4>
+	 * <h4 class="zh-CN">关联表实体类的Getter方法</h4>
 	 *
 	 * @return <span class="en-US">Reference table entity class</span>
 	 * <span class="zh-CN">关联表实体类</span>
@@ -133,8 +133,8 @@ public final class QueryJoin extends SortedItem {
 	}
 
 	/**
-	 * <h3 class="en-US">Setter method for reference table entity class</h3>
-	 * <h3 class="zh-CN">关联表实体类的Setter方法</h3>
+	 * <h4 class="en-US">Setter method for reference table entity class</h4>
+	 * <h4 class="zh-CN">关联表实体类的Setter方法</h4>
 	 *
 	 * @param joinEntity <span class="en-US">Reference table entity class</span>
 	 *                   <span class="zh-CN">关联表实体类</span>
@@ -144,8 +144,8 @@ public final class QueryJoin extends SortedItem {
 	}
 
 	/**
-	 * <h3 class="en-US">Getter method for table join type</h3>
-	 * <h3 class="zh-CN">数据表关联类型的Getter方法</h3>
+	 * <h4 class="en-US">Getter method for table join type</h4>
+	 * <h4 class="zh-CN">数据表关联类型的Getter方法</h4>
 	 *
 	 * @return <span class="en-US">Table join type</span>
 	 * <span class="zh-CN">数据表关联类型</span>
@@ -155,8 +155,8 @@ public final class QueryJoin extends SortedItem {
 	}
 
 	/**
-	 * <h3 class="en-US">Setter method for table join type</h3>
-	 * <h3 class="zh-CN">数据表关联类型的Setter方法</h3>
+	 * <h4 class="en-US">Setter method for table join type</h4>
+	 * <h4 class="zh-CN">数据表关联类型的Setter方法</h4>
 	 *
 	 * @param joinType <span class="en-US">Table join type</span>
 	 *                 <span class="zh-CN">数据表关联类型</span>
@@ -166,8 +166,8 @@ public final class QueryJoin extends SortedItem {
 	}
 
 	/**
-	 * <h3 class="en-US">Getter method for join columns list</h3>
-	 * <h3 class="zh-CN">关联列信息列表的Getter方法</h3>
+	 * <h4 class="en-US">Getter method for join columns list</h4>
+	 * <h4 class="zh-CN">关联列信息列表的Getter方法</h4>
 	 *
 	 * @return <span class="en-US">Join columns list</span>
 	 * <span class="zh-CN">关联列信息列表</span>
@@ -177,8 +177,8 @@ public final class QueryJoin extends SortedItem {
 	}
 
 	/**
-	 * <h3 class="en-US">Setter method for join columns list</h3>
-	 * <h3 class="zh-CN">关联列信息列表的Setter方法</h3>
+	 * <h4 class="en-US">Setter method for join columns list</h4>
+	 * <h4 class="zh-CN">关联列信息列表的Setter方法</h4>
 	 *
 	 * @param joinInfos <span class="en-US">Join columns list</span>
 	 *                  <span class="zh-CN">关联列信息列表</span>
@@ -187,6 +187,17 @@ public final class QueryJoin extends SortedItem {
 		this.joinInfos = joinInfos;
 	}
 
+	/**
+	 * <h4 class="en-US">Match the given join table is same as current information</h4>
+	 * <h4 class="zh-CN">检查给定的关联表信息是否与当前信息一致</h4>
+	 *
+	 * @param mainEntity <span class="en-US">Driver table entity class</span>
+	 *                   <span class="zh-CN">驱动表实体类</span>
+	 * @param joinEntity <span class="en-US">Reference table entity class</span>
+	 *                   <span class="zh-CN">关联表实体类</span>
+	 * @return <span class="en-US">Match result</span>
+	 * <span class="zh-CN">匹配结果</span>
+	 */
 	public boolean match(@Nonnull final Class<?> mainEntity, @Nonnull final Class<?> joinEntity) {
 		return ObjectUtils.nullSafeEquals(mainEntity, this.mainEntity)
 				&& ObjectUtils.nullSafeEquals(joinEntity, this.joinEntity);

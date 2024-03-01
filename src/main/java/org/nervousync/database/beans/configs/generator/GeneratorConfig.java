@@ -60,15 +60,15 @@ public final class GeneratorConfig extends BeanObject {
     private SequenceConfig sequenceConfig = null;
 
     /**
-     * <h3 class="en-US">Constructor method for column data generator configure information</h3>
-     * <h3 class="zh-CN">列数据生成器配置信息的构造方法</h3>
+     * <h4 class="en-US">Constructor method for column data generator configure information</h4>
+     * <h4 class="zh-CN">列数据生成器配置信息的构造方法</h4>
      */
     public GeneratorConfig() {
     }
 
     /**
-     * <h3 class="en-US">Generate column data generator configure information instance by given annotation instance</h3>
-     * <h3 class="zh-CN">根据给定的注解实例对象生成列数据生成器配置信息实例对象</h3>
+     * <h4 class="en-US">Generate column data generator configure information instance by given annotation instance</h4>
+     * <h4 class="zh-CN">根据给定的注解实例对象生成列数据生成器配置信息实例对象</h4>
      *
      * @param generatedValue    <span class="en-US">The annotation instance of GeneratedValue</span>
      *                          <span class="zh-CN">注解 GeneratedValue 的实例对象</span>
@@ -107,8 +107,8 @@ public final class GeneratorConfig extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Getter method for generation type</h3>
-     * <h3 class="zh-CN">生成器类型的Getter方法</h3>
+     * <h4 class="en-US">Getter method for generation type</h4>
+     * <h4 class="zh-CN">生成器类型的Getter方法</h4>
      *
      * @return <span class="en-US">Generation type</span>
      * <span class="zh-CN">生成器类型</span>
@@ -118,8 +118,8 @@ public final class GeneratorConfig extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Setter method for generation type</h3>
-     * <h3 class="zh-CN">生成器类型的Setter方法</h3>
+     * <h4 class="en-US">Setter method for generation type</h4>
+     * <h4 class="zh-CN">生成器类型的Setter方法</h4>
      *
      * @param generationType <span class="en-US">Generation type</span>
      *                       <span class="zh-CN">生成器类型</span>
@@ -129,8 +129,8 @@ public final class GeneratorConfig extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Getter method for generator name</h3>
-     * <h3 class="zh-CN">生成器名称的Getter方法</h3>
+     * <h4 class="en-US">Getter method for generator name</h4>
+     * <h4 class="zh-CN">生成器名称的Getter方法</h4>
      *
      * @return <span class="en-US">Generator name</span>
      * <span class="zh-CN">生成器名称</span>
@@ -140,8 +140,8 @@ public final class GeneratorConfig extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Setter method for generator name</h3>
-     * <h3 class="zh-CN">生成器名称的Setter方法</h3>
+     * <h4 class="en-US">Setter method for generator name</h4>
+     * <h4 class="zh-CN">生成器名称的Setter方法</h4>
      *
      * @param generatorName <span class="en-US">Generator name</span>
      *                      <span class="zh-CN">生成器名称</span>
@@ -151,8 +151,8 @@ public final class GeneratorConfig extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Getter method for sequence configure information</h3>
-     * <h3 class="zh-CN">序列生成器配置信息的Getter方法</h3>
+     * <h4 class="en-US">Getter method for sequence configure information</h4>
+     * <h4 class="zh-CN">序列生成器配置信息的Getter方法</h4>
      *
      * @return <span class="en-US">Sequence configure information</span>
      * <span class="zh-CN">序列生成器配置信息</span>
@@ -162,8 +162,8 @@ public final class GeneratorConfig extends BeanObject {
     }
 
     /**
-     * <h3 class="en-US">Setter method for sequence configure information</h3>
-     * <h3 class="zh-CN">序列生成器配置信息的Setter方法</h3>
+     * <h4 class="en-US">Setter method for sequence configure information</h4>
+     * <h4 class="zh-CN">序列生成器配置信息的Setter方法</h4>
      *
      * @param sequenceConfig <span class="en-US">Sequence configure information</span>
      *                       <span class="zh-CN">序列生成器配置信息</span>

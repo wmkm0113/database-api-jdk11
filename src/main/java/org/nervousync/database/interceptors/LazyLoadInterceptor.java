@@ -40,10 +40,28 @@ import org.nervousync.utils.ReflectionUtils;
 import java.lang.reflect.Method;
 import java.util.*;
 
+/**
+ * <h2 class="en-US">Data field lazy load interceptor</h2>
+ * <h2 class="zh-CN">属性懒加载拦截器</h2>
+ *
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
+ * @version $Revision: 1.0.0 $ $Date: Mar 30, 2016 17:46:19 $
+ */
 public final class LazyLoadInterceptor {
 
 	private static final LoggerUtils.Logger LOGGER = LoggerUtils.getLogger(LazyLoadInterceptor.class);
 
+	/**
+	 * <h4 class="en-US">Interceptor method</h4>
+	 * <h4 class="zh-CN">拦截方法</h4>
+	 *
+	 * @param method    <span class="en-US">Invoke method</span>
+	 *                  <span class="zh-CN">调用方法</span>
+	 * @param arguments <span class="en-US">Parameter array for method</span>
+	 *                  <span class="zh-CN">方法的参数</span>
+	 * @param target    <span class="en-US">Invoke object instance</span>
+	 *                  <span class="zh-CN">调用对象实例</span>
+	 */
 	@Advice.OnMethodEnter
 	public static void onMethodEnter(@Advice.Origin Method method, @Advice.AllArguments Object[] arguments,
 	                                 @Advice.This Object target) {

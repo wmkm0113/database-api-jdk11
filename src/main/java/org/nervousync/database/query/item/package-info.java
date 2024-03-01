@@ -15,6 +15,13 @@
  * limitations under the License.
  */
 
+/**
+ * <h2 class="en-US">Using for annotation the namespace of query define</h2>
+ * <h2 class="zh-CN">用于查询定义的命名空间声明</h2>
+ *
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
+ * @version $Revision: 1.0.0 $ $Date: Oct 26, 2023 13:05:49 $
+ */
 @XmlSchema(namespace = "https://nervousync.org/schemas/query", elementFormDefault = XmlNsForm.QUALIFIED,
         location = "https://nervousync.org/schemas/query_1_0.xsd",
         xmlns = {
