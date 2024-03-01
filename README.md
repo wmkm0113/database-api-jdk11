@@ -1,7 +1,7 @@
 # Database Commons API
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.nervousync/database-api-jdk11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.nervousync/database-api-jdk11/)
-[![License](https://img.shields.io/github/license/wmkm0113/database-api.svg)](https://github.com/wmkm0113/database-api/blob/master/LICENSE)
+[![License](https://img.shields.io/github/license/wmkm0113/database-api-jdk11.svg)](https://github.com/wmkm0113/database-api-jdk11/blob/master/LICENSE)
 ![Language](https://img.shields.io/badge/language-Java-green)
 [![Twitter:wmkm0113](https://img.shields.io/twitter/follow/wmkm0113?label=Follow)](https://twitter.com/wmkm0113)
 
