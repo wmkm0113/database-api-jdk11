@@ -134,8 +134,8 @@ public final class TableConfig extends BeanObject {
 	private List<ReferenceConfig<?>> referenceConfigs;
 
 	/**
-	 * <h4 class="en-US">Constructor method for table configure information</h4>
-	 * <h4 class="zh-CN">数据表配置信息的构造方法</h4>
+	 * <h3 class="en-US">Constructor method for table configure information</h3>
+	 * <h3 class="zh-CN">数据表配置信息的构造方法</h3>
 	 */
 	public TableConfig() {
 		this.columnConfigs = new ArrayList<>();
@@ -144,8 +144,8 @@ public final class TableConfig extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Generate table configure information instance by given entity class</h4>
-	 * <h4 class="zh-CN">根据给定的实体类生成数据表配置信息实例对象</h4>
+	 * <h3 class="en-US">Generate table configure information instance by given entity class</h3>
+	 * <h3 class="zh-CN">根据给定的实体类生成数据表配置信息实例对象</h3>
 	 *
 	 * @param clazz <span class="en-US">Entity class</span>
 	 *              <span class="zh-CN">实体类</span>
@@ -282,8 +282,8 @@ public final class TableConfig extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Match the given entity class same as current define class</h4>
-	 * <h4 class="zh-CN">比较给定的实体类是否与当前实体类一致</h4>
+	 * <h3 class="en-US">Match the given entity class same as current define class</h3>
+	 * <h3 class="zh-CN">比较给定的实体类是否与当前实体类一致</h3>
 	 *
 	 * @param entityClass <span class="en-US">The given entity class</span>
 	 *                    <span class="zh-CN">给定的实体类</span>
@@ -295,8 +295,8 @@ public final class TableConfig extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Match the given reference class was contained in the reference configure list</h4>
-	 * <h4 class="zh-CN">检查给定的实体类是否包含在当前的关联信息列表中</h4>
+	 * <h3 class="en-US">Match the given reference class was contained in the reference configure list</h3>
+	 * <h3 class="zh-CN">检查给定的实体类是否包含在当前的关联信息列表中</h3>
 	 *
 	 * @param referenceClass <span class="en-US">Reference entity class</span>
 	 *                       <span class="zh-CN">关联实体类</span>
@@ -308,8 +308,8 @@ public final class TableConfig extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Getter method for database schema name</h4>
-	 * <h4 class="zh-CN">数据库名称的Getter方法</h4>
+	 * <h3 class="en-US">Getter method for database schema name</h3>
+	 * <h3 class="zh-CN">数据库名称的Getter方法</h3>
 	 *
 	 * @return <span class="en-US">Database schema name</span>
 	 * <span class="zh-CN">数据库名称</span>
@@ -319,8 +319,8 @@ public final class TableConfig extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Setter method for database schema name</h4>
-	 * <h4 class="zh-CN">数据库名称的Setter方法</h4>
+	 * <h3 class="en-US">Setter method for database schema name</h3>
+	 * <h3 class="zh-CN">数据库名称的Setter方法</h3>
 	 *
 	 * @param schemaName <span class="en-US">Database schema name</span>
 	 *                   <span class="zh-CN">数据库名称</span>
@@ -330,8 +330,8 @@ public final class TableConfig extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Getter method for table name</h4>
-	 * <h4 class="zh-CN">数据表名称的Getter方法</h4>
+	 * <h3 class="en-US">Getter method for table name</h3>
+	 * <h3 class="zh-CN">数据表名称的Getter方法</h3>
 	 *
 	 * @return <span class="en-US">Table name</span>
 	 * <span class="zh-CN">数据表名称</span>
@@ -341,8 +341,8 @@ public final class TableConfig extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Setter method for table name</h4>
-	 * <h4 class="zh-CN">数据表名称的Setter方法</h4>
+	 * <h3 class="en-US">Setter method for table name</h3>
+	 * <h3 class="zh-CN">数据表名称的Setter方法</h3>
 	 *
 	 * @param tableName <span class="en-US">Table name</span>
 	 *                  <span class="zh-CN">数据表名称</span>
@@ -352,8 +352,8 @@ public final class TableConfig extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Getter method for cacheable data record</h4>
-	 * <h4 class="zh-CN">缓存数据表记录的Getter方法</h4>
+	 * <h3 class="en-US">Getter method for cacheable data record</h3>
+	 * <h3 class="zh-CN">缓存数据表记录的Getter方法</h3>
 	 *
 	 * @return <span class="en-US">Cacheable data record</span>
 	 * <span class="zh-CN">缓存数据表记录</span>
@@ -363,8 +363,8 @@ public final class TableConfig extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Setter method for cacheable data record</h4>
-	 * <h4 class="zh-CN">缓存数据表记录的Setter方法</h4>
+	 * <h3 class="en-US">Setter method for cacheable data record</h3>
+	 * <h3 class="zh-CN">缓存数据表记录的Setter方法</h3>
 	 *
 	 * @param cacheable <span class="en-US">Cacheable data record</span>
 	 *                  <span class="zh-CN">缓存数据表记录</span>
@@ -374,8 +374,8 @@ public final class TableConfig extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Getter method for composite ID</h4>
-	 * <h4 class="zh-CN">联合主键的Getter方法</h4>
+	 * <h3 class="en-US">Getter method for composite ID</h3>
+	 * <h3 class="zh-CN">联合主键的Getter方法</h3>
 	 *
 	 * @return <span class="en-US">Composite ID</span>
 	 * <span class="zh-CN">联合主键</span>
@@ -385,8 +385,8 @@ public final class TableConfig extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Setter method for composite ID</h4>
-	 * <h4 class="zh-CN">联合主键的Setter方法</h4>
+	 * <h3 class="en-US">Setter method for composite ID</h3>
+	 * <h3 class="zh-CN">联合主键的Setter方法</h3>
 	 *
 	 * @param compositeId <span class="en-US">Composite ID</span>
 	 *                    <span class="zh-CN">联合主键</span>
@@ -396,8 +396,8 @@ public final class TableConfig extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Getter method for entity class</h4>
-	 * <h4 class="zh-CN">实体类的Getter方法</h4>
+	 * <h3 class="en-US">Getter method for entity class</h3>
+	 * <h3 class="zh-CN">实体类的Getter方法</h3>
 	 *
 	 * @return <span class="en-US">Entity class</span>
 	 * <span class="zh-CN">实体类</span>
@@ -407,8 +407,8 @@ public final class TableConfig extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Setter method for entity class</h4>
-	 * <h4 class="zh-CN">实体类的Setter方法</h4>
+	 * <h3 class="en-US">Setter method for entity class</h3>
+	 * <h3 class="zh-CN">实体类的Setter方法</h3>
 	 *
 	 * @param defineClass <span class="en-US">Entity class</span>
 	 *                    <span class="zh-CN">实体类</span>
@@ -418,8 +418,8 @@ public final class TableConfig extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Getter method for record lock option</h4>
-	 * <h4 class="zh-CN">数据记录锁定选项的Getter方法</h4>
+	 * <h3 class="en-US">Getter method for record lock option</h3>
+	 * <h3 class="zh-CN">数据记录锁定选项的Getter方法</h3>
 	 *
 	 * @return <span class="en-US">Record lock option</span>
 	 * <span class="zh-CN">数据记录锁定选项</span>
@@ -429,8 +429,8 @@ public final class TableConfig extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Setter method for record lock option</h4>
-	 * <h4 class="zh-CN">数据记录锁定选项的Setter方法</h4>
+	 * <h3 class="en-US">Setter method for record lock option</h3>
+	 * <h3 class="zh-CN">数据记录锁定选项的Setter方法</h3>
 	 *
 	 * @param lockOption <span class="en-US">Record lock option</span>
 	 *                   <span class="zh-CN">数据记录锁定选项</span>
@@ -440,8 +440,8 @@ public final class TableConfig extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Getter method for record drop option</h4>
-	 * <h4 class="zh-CN">数据记录删除选项的Getter方法</h4>
+	 * <h3 class="en-US">Getter method for record drop option</h3>
+	 * <h3 class="zh-CN">数据记录删除选项的Getter方法</h3>
 	 *
 	 * @return <span class="en-US">Record drop option</span>
 	 * <span class="zh-CN">数据记录删除选项</span>
@@ -451,8 +451,8 @@ public final class TableConfig extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Setter method for record drop option</h4>
-	 * <h4 class="zh-CN">数据记录删除选项的Setter方法</h4>
+	 * <h3 class="en-US">Setter method for record drop option</h3>
+	 * <h3 class="zh-CN">数据记录删除选项的Setter方法</h3>
 	 *
 	 * @param dropOption <span class="en-US">Record drop option</span>
 	 *                   <span class="zh-CN">数据记录删除选项</span>
@@ -462,8 +462,8 @@ public final class TableConfig extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Getter method for column configure information list</h4>
-	 * <h4 class="zh-CN">数据列配置信息列表的Getter方法</h4>
+	 * <h3 class="en-US">Getter method for column configure information list</h3>
+	 * <h3 class="zh-CN">数据列配置信息列表的Getter方法</h3>
 	 *
 	 * @return <span class="en-US">Column configure information list</span>
 	 * <span class="zh-CN">数据列配置信息列表</span>
@@ -473,8 +473,8 @@ public final class TableConfig extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Setter method for column configure information list</h4>
-	 * <h4 class="zh-CN">数据列配置信息列表的Setter方法</h4>
+	 * <h3 class="en-US">Setter method for column configure information list</h3>
+	 * <h3 class="zh-CN">数据列配置信息列表的Setter方法</h3>
 	 *
 	 * @param columnConfigs <span class="en-US">Column configure information list</span>
 	 *                      <span class="zh-CN">数据列配置信息列表</span>
@@ -484,8 +484,8 @@ public final class TableConfig extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Getter method for table index information list</h4>
-	 * <h4 class="zh-CN">数据表索引信息列表的Getter方法</h4>
+	 * <h3 class="en-US">Getter method for table index information list</h3>
+	 * <h3 class="zh-CN">数据表索引信息列表的Getter方法</h3>
 	 *
 	 * @return <span class="en-US">Table index information list</span>
 	 * <span class="zh-CN">数据表索引信息列表</span>
@@ -495,8 +495,8 @@ public final class TableConfig extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Setter method for table index information list</h4>
-	 * <h4 class="zh-CN">数据表索引信息列表的Setter方法</h4>
+	 * <h3 class="en-US">Setter method for table index information list</h3>
+	 * <h3 class="zh-CN">数据表索引信息列表的Setter方法</h3>
 	 *
 	 * @param indexInfos <span class="en-US">Table index information list</span>
 	 *                   <span class="zh-CN">数据表索引信息列表</span>
@@ -506,8 +506,8 @@ public final class TableConfig extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Getter method for reference configure information list</h4>
-	 * <h4 class="zh-CN">外键配置信息列表的Getter方法</h4>
+	 * <h3 class="en-US">Getter method for reference configure information list</h3>
+	 * <h3 class="zh-CN">外键配置信息列表的Getter方法</h3>
 	 *
 	 * @return <span class="en-US">Reference configure information list</span>
 	 * <span class="zh-CN">外键配置信息列表</span>
@@ -517,8 +517,8 @@ public final class TableConfig extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Setter method for reference configure information list</h4>
-	 * <h4 class="zh-CN">外键配置信息列表的Setter方法</h4>
+	 * <h3 class="en-US">Setter method for reference configure information list</h3>
+	 * <h3 class="zh-CN">外键配置信息列表的Setter方法</h3>
 	 *
 	 * @param referenceConfigs <span class="en-US">Reference configure information list</span>
 	 *                         <span class="zh-CN">外键配置信息列表</span>
@@ -528,8 +528,8 @@ public final class TableConfig extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Retrieve column name by given identify key</h4>
-	 * <h4 class="zh-CN">根据给定的识别代码查询列名称</h4>
+	 * <h3 class="en-US">Retrieve column name by given identify key</h3>
+	 * <h3 class="zh-CN">根据给定的识别代码查询列名称</h3>
 	 *
 	 * @param identifyKey <span class="en-US">Identify key</span>
 	 *                    <span class="zh-CN">识别代码</span>
@@ -543,8 +543,8 @@ public final class TableConfig extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Check the given identify key is column identify key</h4>
-	 * <h4 class="zh-CN">检查给定的识别代码是列识别代码</h4>
+	 * <h3 class="en-US">Check the given identify key is column identify key</h3>
+	 * <h3 class="zh-CN">检查给定的识别代码是列识别代码</h3>
 	 *
 	 * @param identifyKey <span class="en-US">Identify key</span>
 	 *                    <span class="zh-CN">识别代码</span>
@@ -556,8 +556,8 @@ public final class TableConfig extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Checks that the column identified by the given identification code is sensitive data</h4>
-	 * <h4 class="zh-CN">检查给定的识别代码所标识的列是敏感数据</h4>
+	 * <h3 class="en-US">Checks that the column identified by the given identification code is sensitive data</h3>
+	 * <h3 class="zh-CN">检查给定的识别代码所标识的列是敏感数据</h3>
 	 *
 	 * @param identifyKey <span class="en-US">Identify key</span>
 	 *                    <span class="zh-CN">识别代码</span>
@@ -570,8 +570,8 @@ public final class TableConfig extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Check the given identify key is lazy load column or reference</h4>
-	 * <h4 class="zh-CN">检查给定的识别代码是懒加载列或外键</h4>
+	 * <h3 class="en-US">Check the given identify key is lazy load column or reference</h3>
+	 * <h3 class="zh-CN">检查给定的识别代码是懒加载列或外键</h3>
 	 *
 	 * @param identifyKey <span class="en-US">Identify key</span>
 	 *                    <span class="zh-CN">识别代码</span>
@@ -595,8 +595,8 @@ public final class TableConfig extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Generate iterator of current reference configure list</h4>
-	 * <h4 class="zh-CN">生成当前外键配置列表的遍历器</h4>
+	 * <h3 class="en-US">Generate iterator of current reference configure list</h3>
+	 * <h3 class="zh-CN">生成当前外键配置列表的遍历器</h3>
 	 *
 	 * @return <span class="en-US">Generated iterator instance</span>
 	 * <span class="zh-CN">生成的遍历器实例对象</span>
@@ -606,8 +606,8 @@ public final class TableConfig extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Retrieve column configure instance by given identify key</h4>
-	 * <h4 class="zh-CN">根据给定的识别代码查询列配置信息实例</h4>
+	 * <h3 class="en-US">Retrieve column configure instance by given identify key</h3>
+	 * <h3 class="zh-CN">根据给定的识别代码查询列配置信息实例</h3>
 	 *
 	 * @param identifyKey <span class="en-US">Identify key</span>
 	 *                    <span class="zh-CN">识别代码</span>
@@ -625,8 +625,8 @@ public final class TableConfig extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Retrieve identify version column configure instance</h4>
-	 * <h4 class="zh-CN">查询版本识别列配置信息实例</h4>
+	 * <h3 class="en-US">Retrieve identify version column configure instance</h3>
+	 * <h3 class="zh-CN">查询版本识别列配置信息实例</h3>
 	 *
 	 * @return <span class="en-US">Retrieved column configure instance or <code>null</code> if not found</span>
 	 * <span class="zh-CN">查询到的列配置信息实例，如果未找到返回 <code>null</code></span>
@@ -642,8 +642,8 @@ public final class TableConfig extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Retrieve reference configure instance by given identify key</h4>
-	 * <h4 class="zh-CN">根据给定的识别代码查询外键配置信息实例</h4>
+	 * <h3 class="en-US">Retrieve reference configure instance by given identify key</h3>
+	 * <h3 class="zh-CN">根据给定的识别代码查询外键配置信息实例</h3>
 	 *
 	 * @param referenceClass <span class="en-US">Foreign key target entity class</span>
 	 *                       <span class="zh-CN">外键目标实体类</span>
@@ -658,8 +658,8 @@ public final class TableConfig extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Retrieve reference configure instance by given identify key</h4>
-	 * <h4 class="zh-CN">根据给定的识别代码查询外键配置信息实例</h4>
+	 * <h3 class="en-US">Retrieve reference configure instance by given identify key</h3>
+	 * <h3 class="zh-CN">根据给定的识别代码查询外键配置信息实例</h3>
 	 *
 	 * @param identifyKey <span class="en-US">Identify key</span>
 	 *                    <span class="zh-CN">识别代码</span>
@@ -674,8 +674,8 @@ public final class TableConfig extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Check the given identify key is matched with given reference configure information instance</h4>
-	 * <h4 class="zh-CN">检查给定的识别代码是否匹配给定的外键配置信息实例对象</h4>
+	 * <h3 class="en-US">Check the given identify key is matched with given reference configure information instance</h3>
+	 * <h3 class="zh-CN">检查给定的识别代码是否匹配给定的外键配置信息实例对象</h3>
 	 *
 	 * @param referenceConfig <span class="en-US">Reference configure information</span>
 	 *                        <span class="zh-CN">外键配置信息</span>
@@ -693,8 +693,8 @@ public final class TableConfig extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Retrieve the given accessible object contains join column annotation</h4>
-	 * <h4 class="zh-CN">检查给定的访问对象实例包含标注信息</h4>
+	 * <h3 class="en-US">Retrieve the given accessible object contains join column annotation</h3>
+	 * <h3 class="zh-CN">检查给定的访问对象实例包含标注信息</h3>
 	 *
 	 * @param obj <span class="en-US">AccessibleObject instance</span>
 	 *            <span class="zh-CN">注解对象实例</span>

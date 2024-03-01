@@ -61,8 +61,8 @@ public final class TransferBean<T> {
 	private final int maxIndex;
 
 	/**
-	 * <h4 class="en-US">Private constructor</h4>
-	 * <h4 class="zh-CN">私有的构造方法</h4>
+	 * <h3 class="en-US">Private constructor</h3>
+	 * <h3 class="zh-CN">私有的构造方法</h3>
 	 *
 	 * @param beanClass <span class="en-US">Data transmission class</span>
 	 *                  <span class="zh-CN">数据传输类</span>
@@ -85,8 +85,8 @@ public final class TransferBean<T> {
 	}
 
 	/**
-	 * <h4 class="en-US">Register the given field instance</h4>
-	 * <h4 class="zh-CN">注册给定的属性对象</h4>
+	 * <h3 class="en-US">Register the given field instance</h3>
+	 * <h3 class="zh-CN">注册给定的属性对象</h3>
 	 *
 	 * @param field <span class="en-US">Field instance</span>
 	 *              <span class="zh-CN">属性对象</span>
@@ -99,8 +99,8 @@ public final class TransferBean<T> {
     }
 
     /**
-     * <h4 class="en-US">Static method is used to initialize data transfer configuration information</h4>
-     * <h4 class="zh-CN">静态方法用于初始化数据传输配置信息</h4>
+     * <h3 class="en-US">Static method is used to initialize data transfer configuration information</h3>
+     * <h3 class="zh-CN">静态方法用于初始化数据传输配置信息</h3>
      *
      * @param <T>       <span class="en-US">Data transmission class</span>
      *                  <span class="zh-CN">数据传输类</span>
@@ -114,8 +114,8 @@ public final class TransferBean<T> {
     }
 
     /**
-     * <h4 class="en-US">Populate data into the given Excel file writer</h4>
-     * <h4 class="zh-CN">填充数据到给定的Excel文件写入器中</h4>
+     * <h3 class="en-US">Populate data into the given Excel file writer</h3>
+     * <h3 class="zh-CN">填充数据到给定的Excel文件写入器中</h3>
      *
      * @param excelWriter <span class="en-US">Excel file writer</span>
      *                    <span class="zh-CN">Excel文件写入器</span>
@@ -146,8 +146,8 @@ public final class TransferBean<T> {
     }
 
     /**
-     * <h4 class="en-US">Convert the given transport data mapping table to a standard data mapping table</h4>
-     * <h4 class="zh-CN">将给定的传输数据映射表转换为标准数据映射表</h4>
+     * <h3 class="en-US">Convert the given transport data mapping table to a standard data mapping table</h3>
+     * <h3 class="zh-CN">将给定的传输数据映射表转换为标准数据映射表</h3>
      *
      * @param transferMap <span class="en-US">Data mapping table</span>
      *                    <span class="zh-CN">传输数据映射表</span>
@@ -165,8 +165,8 @@ public final class TransferBean<T> {
     }
 
     /**
-     * <h4 class="en-US">Converts the given instance object to a transport data mapping table</h4>
-     * <h4 class="zh-CN">将给定的实例对象转换为传输数据映射表</h4>
+     * <h3 class="en-US">Converts the given instance object to a transport data mapping table</h3>
+     * <h3 class="zh-CN">将给定的实例对象转换为传输数据映射表</h3>
      *
      * @param object     <span class="en-US">Data transfer object instance</span>
      *                   <span class="zh-CN">数据传输类实例对象</span>
@@ -189,8 +189,8 @@ public final class TransferBean<T> {
     }
 
 	/**
-	 * <h4 class="en-US">Parse data list to data map which data list read from excel file</h4>
-	 * <h4 class="zh-CN">解析Excel读取的数据列表为数据映射表</h4>
+	 * <h3 class="en-US">Parse data list to data map which data list read from excel file</h3>
+	 * <h3 class="zh-CN">解析Excel读取的数据列表为数据映射表</h3>
 	 *
 	 * @param dataValues <span class="en-US">Data list which read from excel file</span>
 	 *                   <span class="zh-CN">Excel读取的数据列表</span>
@@ -209,8 +209,8 @@ public final class TransferBean<T> {
     }
 
     /**
-     * <h4 class="en-US">Convert the given data mapping table into a data transfer class instance object</h4>
-     * <h4 class="zh-CN">将给定的数据映射表转换为数据传输类实例对象</h4>
+     * <h3 class="en-US">Convert the given data mapping table into a data transfer class instance object</h3>
+     * <h3 class="zh-CN">将给定的数据映射表转换为数据传输类实例对象</h3>
      *
      * @param dataMap <span class="en-US">Data mapping table</span>
      *                <span class="zh-CN">数据映射表</span>

@@ -64,8 +64,8 @@ public final class FunctionItem extends AbstractItem {
     private List<AbstractParameter<?>> functionParams;
 
     /**
-     * <h4 class="en-US">Constructor method for query function information define</h4>
-     * <h4 class="zh-CN">查询数据函数信息定义的构造方法</h4>
+     * <h3 class="en-US">Constructor method for query function information define</h3>
+     * <h3 class="zh-CN">查询数据函数信息定义的构造方法</h3>
      */
     public FunctionItem() {
         super(ItemType.FUNCTION);
@@ -73,8 +73,8 @@ public final class FunctionItem extends AbstractItem {
     }
 
     /**
-     * <h4 class="en-US">Getter method for function name</h4>
-     * <h4 class="zh-CN">函数名的Getter方法</h4>
+     * <h3 class="en-US">Getter method for function name</h3>
+     * <h3 class="zh-CN">函数名的Getter方法</h3>
      *
      * @return <span class="en-US">Function name</span>
      * <span class="zh-CN">函数名</span>
@@ -84,8 +84,8 @@ public final class FunctionItem extends AbstractItem {
     }
 
     /**
-     * <h4 class="en-US">Setter method for function name</h4>
-     * <h4 class="zh-CN">函数名的Setter方法</h4>
+     * <h3 class="en-US">Setter method for function name</h3>
+     * <h3 class="zh-CN">函数名的Setter方法</h3>
      *
      * @param sqlFunction <span class="en-US">Function name</span>
      *                    <span class="zh-CN">函数名</span>
@@ -95,8 +95,8 @@ public final class FunctionItem extends AbstractItem {
     }
 
     /**
-     * <h4 class="en-US">Getter method for function arguments array</h4>
-     * <h4 class="zh-CN">函数参数数组的Getter方法</h4>
+     * <h3 class="en-US">Getter method for function arguments array</h3>
+     * <h3 class="zh-CN">函数参数数组的Getter方法</h3>
      *
      * @return <span class="en-US">Function arguments array</span>
      * <span class="zh-CN">函数参数数组</span>
@@ -106,8 +106,8 @@ public final class FunctionItem extends AbstractItem {
     }
 
     /**
-     * <h4 class="en-US">Setter method for function arguments array</h4>
-     * <h4 class="zh-CN">函数参数数组的Setter方法</h4>
+     * <h3 class="en-US">Setter method for function arguments array</h3>
+     * <h3 class="zh-CN">函数参数数组的Setter方法</h3>
      *
      * @param functionParams <span class="en-US">Function arguments array</span>
      *                       <span class="zh-CN">函数参数数组</span>

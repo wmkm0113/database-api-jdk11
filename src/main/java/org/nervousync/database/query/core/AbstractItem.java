@@ -65,8 +65,8 @@ public abstract class AbstractItem extends SortedItem {
 	private String aliasName;
 
 	/**
-	 * <h4 class="en-US">Protect constructor method for abstract query item define</h4>
-	 * <h4 class="zh-CN">抽象查询项信息定义的构造方法</h4>
+	 * <h3 class="en-US">Protect constructor method for abstract query item define</h3>
+	 * <h3 class="zh-CN">抽象查询项信息定义的构造方法</h3>
 	 *
 	 * @param itemType <span class="en-US">Query item type</span>
 	 *                 <span class="zh-CN">查询项类型</span>
@@ -76,8 +76,8 @@ public abstract class AbstractItem extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Static method for generate query column information instance</h4>
-	 * <h4 class="zh-CN">静态方法用于生成数据列查询对象实例</h4>
+	 * <h3 class="en-US">Static method for generate query column information instance</h3>
+	 * <h3 class="zh-CN">静态方法用于生成数据列查询对象实例</h3>
 	 *
 	 * @param field <span class="en-US">Field instance object</span>
 	 *              <span class="zh-CN">属性对象</span>
@@ -95,8 +95,8 @@ public abstract class AbstractItem extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Static method for generate query column information instance</h4>
-	 * <h4 class="zh-CN">静态方法用于生成数据列查询对象实例</h4>
+	 * <h3 class="en-US">Static method for generate query column information instance</h3>
+	 * <h3 class="zh-CN">静态方法用于生成数据列查询对象实例</h3>
 	 *
 	 * @param entityClass  <span class="en-US">The entity class to which the data column belongs</span>
 	 *                     <span class="zh-CN">数据列所属的实体类</span>
@@ -113,8 +113,8 @@ public abstract class AbstractItem extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Static method for generate query column information instance</h4>
-	 * <h4 class="zh-CN">静态方法用于生成数据列查询对象实例</h4>
+	 * <h3 class="en-US">Static method for generate query column information instance</h3>
+	 * <h3 class="zh-CN">静态方法用于生成数据列查询对象实例</h3>
 	 *
 	 * @param entityClass <span class="en-US">The entity class to which the data column belongs</span>
 	 *                    <span class="zh-CN">数据列所属的实体类</span>
@@ -133,8 +133,8 @@ public abstract class AbstractItem extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Static method for generate query column information instance</h4>
-	 * <h4 class="zh-CN">静态方法用于生成数据列查询对象实例</h4>
+	 * <h3 class="en-US">Static method for generate query column information instance</h3>
+	 * <h3 class="zh-CN">静态方法用于生成数据列查询对象实例</h3>
 	 *
 	 * @param entityClass <span class="en-US">The entity class to which the data column belongs</span>
 	 *                    <span class="zh-CN">数据列所属的实体类</span>
@@ -155,8 +155,8 @@ public abstract class AbstractItem extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Static method for generate query column information instance</h4>
-	 * <h4 class="zh-CN">静态方法用于生成数据列查询对象实例</h4>
+	 * <h3 class="en-US">Static method for generate query column information instance</h3>
+	 * <h3 class="zh-CN">静态方法用于生成数据列查询对象实例</h3>
 	 *
 	 * @param entityClass <span class="en-US">The entity class to which the data column belongs</span>
 	 *                    <span class="zh-CN">数据列所属的实体类</span>
@@ -192,8 +192,8 @@ public abstract class AbstractItem extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Static method for generate query function information instance</h4>
-	 * <h4 class="zh-CN">静态方法用于生成数据列函数查询对象实例</h4>
+	 * <h3 class="en-US">Static method for generate query function information instance</h3>
+	 * <h3 class="zh-CN">静态方法用于生成数据列函数查询对象实例</h3>
 	 *
 	 * @param aliasName      <span class="en-US">Item alias name</span>
 	 *                       <span class="zh-CN">查询项别名</span>
@@ -210,8 +210,8 @@ public abstract class AbstractItem extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Static method for generate query function information instance</h4>
-	 * <h4 class="zh-CN">静态方法用于生成数据列函数查询对象实例</h4>
+	 * <h3 class="en-US">Static method for generate query function information instance</h3>
+	 * <h3 class="zh-CN">静态方法用于生成数据列函数查询对象实例</h3>
 	 *
 	 * @param aliasName      <span class="en-US">Item alias name</span>
 	 *                       <span class="zh-CN">查询项别名</span>
@@ -235,8 +235,8 @@ public abstract class AbstractItem extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Static method for generate sub-query information instance</h4>
-	 * <h4 class="zh-CN">静态方法用于生成子查询对象实例</h4>
+	 * <h3 class="en-US">Static method for generate sub-query information instance</h3>
+	 * <h3 class="zh-CN">静态方法用于生成子查询对象实例</h3>
 	 *
 	 * @param queryInfo <span class="en-US">Query information</span>
 	 *                  <span class="zh-CN">查询信息</span>
@@ -248,8 +248,8 @@ public abstract class AbstractItem extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Static method for generate sub-query information instance</h4>
-	 * <h4 class="zh-CN">静态方法用于生成子查询对象实例</h4>
+	 * <h3 class="en-US">Static method for generate sub-query information instance</h3>
+	 * <h3 class="zh-CN">静态方法用于生成子查询对象实例</h3>
 	 *
 	 * @param aliasName <span class="en-US">Item alias name</span>
 	 *                  <span class="zh-CN">查询项别名</span>
@@ -263,8 +263,8 @@ public abstract class AbstractItem extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Static method for generate sub-query information instance</h4>
-	 * <h4 class="zh-CN">静态方法用于生成子查询对象实例</h4>
+	 * <h3 class="en-US">Static method for generate sub-query information instance</h3>
+	 * <h3 class="zh-CN">静态方法用于生成子查询对象实例</h3>
 	 *
 	 * @param aliasName <span class="en-US">Item alias name</span>
 	 *                  <span class="zh-CN">查询项别名</span>
@@ -286,8 +286,8 @@ public abstract class AbstractItem extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Getter method for query item type</h4>
-	 * <h4 class="zh-CN">查询项类型的Getter方法</h4>
+	 * <h3 class="en-US">Getter method for query item type</h3>
+	 * <h3 class="zh-CN">查询项类型的Getter方法</h3>
 	 *
 	 * @return <span class="en-US">Query item type</span>
 	 * <span class="zh-CN">查询项类型</span>
@@ -297,8 +297,8 @@ public abstract class AbstractItem extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Getter method for alias name</h4>
-	 * <h4 class="zh-CN">别名的Getter方法</h4>
+	 * <h3 class="en-US">Getter method for alias name</h3>
+	 * <h3 class="zh-CN">别名的Getter方法</h3>
 	 *
 	 * @return <span class="en-US">Alias name</span>
 	 * <span class="zh-CN">别名</span>
@@ -308,8 +308,8 @@ public abstract class AbstractItem extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Setter method for alias name</h4>
-	 * <h4 class="zh-CN">别名的Setter方法</h4>
+	 * <h3 class="en-US">Setter method for alias name</h3>
+	 * <h3 class="zh-CN">别名的Setter方法</h3>
 	 *
 	 * @param aliasName <span class="en-US">Alias name</span>
 	 *                  <span class="zh-CN">别名</span>

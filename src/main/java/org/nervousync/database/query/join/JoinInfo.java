@@ -61,15 +61,15 @@ public final class JoinInfo extends BeanObject {
 	private String referenceKey;
 
 	/**
-	 * <h4 class="en-US">Constructor method for join column define</h4>
-	 * <h4 class="zh-CN">关联列信息定义的构造方法</h4>
+	 * <h3 class="en-US">Constructor method for join column define</h3>
+	 * <h3 class="zh-CN">关联列信息定义的构造方法</h3>
 	 */
 	public JoinInfo() {
 	}
 
 	/**
-	 * <h4 class="en-US">Static method is used to generate join column information instance objects</h4>
-	 * <h4 class="zh-CN">静态方法用于生成关联列信息实例对象</h4>
+	 * <h3 class="en-US">Static method is used to generate join column information instance objects</h3>
+	 * <h3 class="zh-CN">静态方法用于生成关联列信息实例对象</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Query connection code</span>
 	 *                       <span class="zh-CN">查询条件连接代码</span>
@@ -97,8 +97,8 @@ public final class JoinInfo extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Static method is used to generate join column information instance objects</h4>
-	 * <h4 class="zh-CN">静态方法用于生成关联列信息实例对象</h4>
+	 * <h3 class="en-US">Static method is used to generate join column information instance objects</h3>
+	 * <h3 class="zh-CN">静态方法用于生成关联列信息实例对象</h3>
 	 *
 	 * @param joinKey <span class="en-US">The annotation of query join columns information</span>
 	 *                <span class="zh-CN">关联数据列注解</span>
@@ -118,8 +118,8 @@ public final class JoinInfo extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Static method is used to generate join column information instance objects</h4>
-	 * <h4 class="zh-CN">静态方法用于生成关联列信息实例对象</h4>
+	 * <h3 class="en-US">Static method is used to generate join column information instance objects</h3>
+	 * <h3 class="zh-CN">静态方法用于生成关联列信息实例对象</h3>
 	 *
 	 * @param joinConfig <span class="en-US">Reference join column configure</span>
 	 *                   <span class="zh-CN">外键关联列配置信息</span>
@@ -139,8 +139,8 @@ public final class JoinInfo extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Getter method for query connection code</h4>
-	 * <h4 class="zh-CN">查询条件连接代码的Getter方法</h4>
+	 * <h3 class="en-US">Getter method for query connection code</h3>
+	 * <h3 class="zh-CN">查询条件连接代码的Getter方法</h3>
 	 *
 	 * @return <span class="en-US">Query connection code</span>
 	 * <span class="zh-CN">查询条件连接代码</span>
@@ -150,8 +150,8 @@ public final class JoinInfo extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Setter method for query connection code</h4>
-	 * <h4 class="zh-CN">查询条件连接代码的Setter方法</h4>
+	 * <h3 class="en-US">Setter method for query connection code</h3>
+	 * <h3 class="zh-CN">查询条件连接代码的Setter方法</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Query connection code</span>
 	 *                       <span class="zh-CN">查询条件连接代码</span>
@@ -161,8 +161,8 @@ public final class JoinInfo extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Getter method for join column identify code</h4>
-	 * <h4 class="zh-CN">关联列识别代码的Getter方法</h4>
+	 * <h3 class="en-US">Getter method for join column identify code</h3>
+	 * <h3 class="zh-CN">关联列识别代码的Getter方法</h3>
 	 *
 	 * @return <span class="en-US">Join column identify code</span>
 	 * <span class="zh-CN">关联列识别代码</span>
@@ -172,8 +172,8 @@ public final class JoinInfo extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Setter method for join column identify code</h4>
-	 * <h4 class="zh-CN">关联列识别代码的Setter方法</h4>
+	 * <h3 class="en-US">Setter method for join column identify code</h3>
+	 * <h3 class="zh-CN">关联列识别代码的Setter方法</h3>
 	 *
 	 * @param joinKey <span class="en-US">Join column identify code</span>
 	 *                <span class="zh-CN">关联列识别代码</span>
@@ -183,8 +183,8 @@ public final class JoinInfo extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Getter method for reference column identify code</h4>
-	 * <h4 class="zh-CN">目标列识别代码的Getter方法</h4>
+	 * <h3 class="en-US">Getter method for reference column identify code</h3>
+	 * <h3 class="zh-CN">目标列识别代码的Getter方法</h3>
 	 *
 	 * @return <span class="en-US">Reference column identify code</span>
 	 * <span class="zh-CN">目标列识别代码</span>
@@ -194,8 +194,8 @@ public final class JoinInfo extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Setter method for reference column identify code</h4>
-	 * <h4 class="zh-CN">目标列识别代码的Setter方法</h4>
+	 * <h3 class="en-US">Setter method for reference column identify code</h3>
+	 * <h3 class="zh-CN">目标列识别代码的Setter方法</h3>
 	 *
 	 * @param referenceKey <span class="en-US">Reference column identify code</span>
 	 *                     <span class="zh-CN">目标列识别代码</span>
@@ -205,8 +205,8 @@ public final class JoinInfo extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Match the given join information instance is same as current information</h4>
-	 * <h4 class="zh-CN">检查给定的关联列信息是否与当前信息一致</h4>
+	 * <h3 class="en-US">Match the given join information instance is same as current information</h3>
+	 * <h3 class="zh-CN">检查给定的关联列信息是否与当前信息一致</h3>
 	 *
 	 * @param joinInfo <span class="en-US">join information instance</span>
 	 *                 <span class="zh-CN">关联列信息</span>

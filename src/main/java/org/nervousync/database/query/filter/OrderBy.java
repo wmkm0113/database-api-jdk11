@@ -61,15 +61,15 @@ public final class OrderBy extends SortedItem {
 	private OrderType orderType;
 
 	/**
-	 * <h4 class="en-US">Constructor method for query order by column define</h4>
-	 * <h4 class="zh-CN">查询排序列信息定义的构造方法</h4>
+	 * <h3 class="en-US">Constructor method for query order by column define</h3>
+	 * <h3 class="zh-CN">查询排序列信息定义的构造方法</h3>
 	 */
 	public OrderBy() {
 	}
 
 	/**
-	 * <h4 class="en-US">Constructor method for query order by column define</h4>
-	 * <h4 class="zh-CN">查询排序列信息定义的构造方法</h4>
+	 * <h3 class="en-US">Constructor method for query order by column define</h3>
+	 * <h3 class="zh-CN">查询排序列信息定义的构造方法</h3>
 	 *
 	 * @param entityClass <span class="en-US">Entity class</span>
 	 *                    <span class="zh-CN">实体类</span>
@@ -89,8 +89,8 @@ public final class OrderBy extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Getter method for entity class</h4>
-	 * <h4 class="zh-CN">实体类的Getter方法</h4>
+	 * <h3 class="en-US">Getter method for entity class</h3>
+	 * <h3 class="zh-CN">实体类的Getter方法</h3>
 	 *
 	 * @return <span class="en-US">Entity class</span>
 	 * <span class="zh-CN">实体类</span>
@@ -100,8 +100,8 @@ public final class OrderBy extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Setter method for entity class</h4>
-	 * <h4 class="zh-CN">实体类的Setter方法</h4>
+	 * <h3 class="en-US">Setter method for entity class</h3>
+	 * <h3 class="zh-CN">实体类的Setter方法</h3>
 	 *
 	 * @param entityClass <span class="en-US">Entity class</span>
 	 *                    <span class="zh-CN">实体类</span>
@@ -111,8 +111,8 @@ public final class OrderBy extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Getter method for identify key</h4>
-	 * <h4 class="zh-CN">识别代码的Getter方法</h4>
+	 * <h3 class="en-US">Getter method for identify key</h3>
+	 * <h3 class="zh-CN">识别代码的Getter方法</h3>
 	 *
 	 * @return <span class="en-US">Identify key</span>
 	 * <span class="zh-CN">识别代码</span>
@@ -122,8 +122,8 @@ public final class OrderBy extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Setter method for identify key</h4>
-	 * <h4 class="zh-CN">识别代码的Setter方法</h4>
+	 * <h3 class="en-US">Setter method for identify key</h3>
+	 * <h3 class="zh-CN">识别代码的Setter方法</h3>
 	 *
 	 * @param identifyKey <span class="en-US">Identify key</span>
 	 *                    <span class="zh-CN">识别代码</span>
@@ -133,8 +133,8 @@ public final class OrderBy extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Getter method for query order type</h4>
-	 * <h4 class="zh-CN">查询结果集排序类型的Getter方法</h4>
+	 * <h3 class="en-US">Getter method for query order type</h3>
+	 * <h3 class="zh-CN">查询结果集排序类型的Getter方法</h3>
 	 *
 	 * @return <span class="en-US">Query order type</span>
 	 * <span class="zh-CN">查询结果集排序类型</span>
@@ -144,8 +144,8 @@ public final class OrderBy extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Setter method for query order type</h4>
-	 * <h4 class="zh-CN">查询结果集排序类型的Setter方法</h4>
+	 * <h3 class="en-US">Setter method for query order type</h3>
+	 * <h3 class="zh-CN">查询结果集排序类型的Setter方法</h3>
 	 *
 	 * @param orderType <span class="en-US">Query order type</span>
 	 *                  <span class="zh-CN">查询结果集排序类型</span>
@@ -155,8 +155,8 @@ public final class OrderBy extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Checks whether the given parameter value matches the current information</h4>
-	 * <h4 class="zh-CN">检查给定的参数值是否与当前信息匹配</h4>
+	 * <h3 class="en-US">Checks whether the given parameter value matches the current information</h3>
+	 * <h3 class="zh-CN">检查给定的参数值是否与当前信息匹配</h3>
 	 *
 	 * @param entityClass <span class="en-US">Entity class</span>
 	 *                    <span class="zh-CN">实体类</span>
@@ -171,8 +171,8 @@ public final class OrderBy extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Checks whether the given parameter value matches the current information</h4>
-	 * <h4 class="zh-CN">检查给定的参数值是否与当前信息匹配</h4>
+	 * <h3 class="en-US">Checks whether the given parameter value matches the current information</h3>
+	 * <h3 class="zh-CN">检查给定的参数值是否与当前信息匹配</h3>
 	 *
 	 * @param orderBy <span class="en-US">Order by information</span>
 	 *                <span class="zh-CN">排序信息</span>

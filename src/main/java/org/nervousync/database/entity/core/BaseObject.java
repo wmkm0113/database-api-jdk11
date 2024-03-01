@@ -79,8 +79,8 @@ public abstract class BaseObject extends BeanObject {
     private final List<String> loadedFields = new ArrayList<>();
 
     /**
-     * <h4 class="en-US">Getter method for new record status</h4>
-     * <h4 class="zh-CN">新纪录状态的Getter方法</h4>
+     * <h3 class="en-US">Getter method for new record status</h3>
+     * <h3 class="zh-CN">新纪录状态的Getter方法</h3>
      *
      * @return <span class="en-US">New record status</span>
      * <span class="zh-CN">新纪录状态</span>
@@ -90,8 +90,8 @@ public abstract class BaseObject extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Getter method for update record status</h4>
-     * <h4 class="zh-CN">更新纪录状态的Getter方法</h4>
+     * <h3 class="en-US">Getter method for update record status</h3>
+     * <h3 class="zh-CN">更新纪录状态的Getter方法</h3>
      *
      * @return <span class="en-US">Update record status</span>
      * <span class="zh-CN">更新纪录状态</span>
@@ -101,8 +101,8 @@ public abstract class BaseObject extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Setter method for update record status</h4>
-     * <h4 class="zh-CN">更新纪录状态的Setter方法</h4>
+     * <h3 class="en-US">Setter method for update record status</h3>
+     * <h3 class="zh-CN">更新纪录状态的Setter方法</h3>
      *
      * @param forUpdate <span class="en-US">Update record status</span>
      *                  <span class="zh-CN">更新纪录状态</span>
@@ -115,8 +115,8 @@ public abstract class BaseObject extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Getter method for transactional identify code</h4>
-     * <h4 class="zh-CN">事务识别代码的Getter方法</h4>
+     * <h3 class="en-US">Getter method for transactional identify code</h3>
+     * <h3 class="zh-CN">事务识别代码的Getter方法</h3>
      *
      * @return <span class="en-US">Transactional identify code</span>
      * <span class="zh-CN">事务识别代码</span>
@@ -126,8 +126,8 @@ public abstract class BaseObject extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Setter method for transactional identify code</h4>
-     * <h4 class="zh-CN">事务识别代码的Setter方法</h4>
+     * <h3 class="en-US">Setter method for transactional identify code</h3>
+     * <h3 class="zh-CN">事务识别代码的Setter方法</h3>
      *
      * @param transactionalCode <span class="en-US">Transactional identify code</span>
      *                          <span class="zh-CN">事务识别代码</span>
@@ -139,8 +139,8 @@ public abstract class BaseObject extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Retrieve the modified columns identify code list</h4>
-     * <h4 class="zh-CN">检索已修改的列识别代码列表</h4>
+     * <h3 class="en-US">Retrieve the modified columns identify code list</h3>
+     * <h3 class="zh-CN">检索已修改的列识别代码列表</h3>
      *
      * @return <span class="en-US">Modified column name list</span>
      * <span class="zh-CN">修改的列名列表</span>
@@ -150,8 +150,8 @@ public abstract class BaseObject extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Check if the data of the current record has been modified</h4>
-     * <h4 class="zh-CN">检查当前记录的数据是否被修改</h4>
+     * <h3 class="en-US">Check if the data of the current record has been modified</h3>
+     * <h3 class="zh-CN">检查当前记录的数据是否被修改</h3>
      *
      * @return <span class="en-US">Check result</span>
      * <span class="zh-CN">检查结果</span>
@@ -161,8 +161,8 @@ public abstract class BaseObject extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Checks if the given field identification code has been loaded</h4>
-     * <h4 class="zh-CN">检查给定的字段识别代码是否已经加载</h4>
+     * <h3 class="en-US">Checks if the given field identification code has been loaded</h3>
+     * <h3 class="zh-CN">检查给定的字段识别代码是否已经加载</h3>
      *
      * @param fieldName <span class="en-US">Field identification code</span>
      *                  <span class="zh-CN">字段识别代码</span>
@@ -174,8 +174,8 @@ public abstract class BaseObject extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Load the field value according to the given field identification code</h4>
-     * <h4 class="zh-CN">根据给定的字段识别代码加载字段值</h4>
+     * <h3 class="en-US">Load the field value according to the given field identification code</h3>
+     * <h3 class="zh-CN">根据给定的字段识别代码加载字段值</h3>
      *
      * @param fieldName <span class="en-US">Field identification code</span>
      *                  <span class="zh-CN">字段识别代码</span>
@@ -188,8 +188,8 @@ public abstract class BaseObject extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Adds the given field identification code to the list of modified fields</h4>
-     * <h4 class="zh-CN">添加给定的字段识别代码到已修改字段列表中</h4>
+     * <h3 class="en-US">Adds the given field identification code to the list of modified fields</h3>
+     * <h3 class="zh-CN">添加给定的字段识别代码到已修改字段列表中</h3>
      *
      * @param fieldName <span class="en-US">Field identification code</span>
      *                  <span class="zh-CN">字段识别代码</span>
@@ -202,8 +202,8 @@ public abstract class BaseObject extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Desensitize column data marked as sensitive data</h4>
-     * <h4 class="zh-CN">将标注为敏感数据的列数据进行脱敏处理</h4>
+     * <h3 class="en-US">Desensitize column data marked as sensitive data</h3>
+     * <h3 class="zh-CN">将标注为敏感数据的列数据进行脱敏处理</h3>
      */
     public final void desensitization() {
         Optional.ofNullable(EntityManager.tableConfig(ClassUtils.originalClassName(this.getClass())))

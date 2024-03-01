@@ -46,8 +46,8 @@ public final class ArraysParameter extends AbstractParameter<ArrayData> {
     private ArrayData itemValue;
 
     /**
-     * <h4 class="en-US">Constructor method for condition data array parameter information define</h4>
-     * <h4 class="zh-CN">匹配值数组参数定义的构造方法</h4>
+     * <h3 class="en-US">Constructor method for condition data array parameter information define</h3>
+     * <h3 class="zh-CN">匹配值数组参数定义的构造方法</h3>
      */
     public ArraysParameter() {
         super(ItemType.ARRAY);

@@ -81,8 +81,8 @@ public final class DatabaseUtils {
 	}
 
 	/**
-	 * <h4 class="en-US">Initializes the database manager based on the given provider name</h4>
-	 * <h4 class="zh-CN">根据给定的适配器名称进行数据库管理器的初始化</h4>
+	 * <h3 class="en-US">Initializes the database manager based on the given provider name</h3>
+	 * <h3 class="zh-CN">根据给定的适配器名称进行数据库管理器的初始化</h3>
 	 *
 	 * @param managerName <span class="en-US">Provider name</span>
 	 *                    <span class="zh-CN">适配器名称</span>
@@ -108,8 +108,8 @@ public final class DatabaseUtils {
 	}
 
 	/**
-	 * <h4 class="en-US">Data table identification code</h4>
-	 * <h4 class="zh-CN">数据表识别代码</h4>
+	 * <h3 class="en-US">Data table identification code</h3>
+	 * <h3 class="zh-CN">数据表识别代码</h3>
 	 *
 	 * @param string <span class="en-US">Data table name or entity class name</span>
 	 *               <span class="zh-CN">数据表名或实体类名</span>
@@ -124,8 +124,8 @@ public final class DatabaseUtils {
 	}
 
 	/**
-	 * <h4 class="en-US">Register entity class array</h4>
-	 * <h4 class="zh-CN">注册实体类数组</h4>
+	 * <h3 class="en-US">Register entity class array</h3>
+	 * <h3 class="zh-CN">注册实体类数组</h3>
 	 *
 	 * @param entityClasses <span class="en-US">Entity class array</span>
 	 *                      <span class="zh-CN">实体类数组</span>
@@ -148,8 +148,8 @@ public final class DatabaseUtils {
 	}
 
 	/**
-	 * <h4 class="en-US">Truncate entity class array</h4>
-	 * <h4 class="zh-CN">清空实体类数组的数据记录</h4>
+	 * <h3 class="en-US">Truncate entity class array</h3>
+	 * <h3 class="zh-CN">清空实体类数组的数据记录</h3>
 	 *
 	 * @param entityClasses <span class="en-US">Entity class array</span>
 	 *                      <span class="zh-CN">实体类数组</span>
@@ -160,8 +160,8 @@ public final class DatabaseUtils {
 	}
 
 	/**
-	 * <h4 class="en-US">Delete the data table corresponding to the entity class based on the given entity class array</h4>
-	 * <h4 class="zh-CN">根据给定的实体类数组删除实体类对应的数据表</h4>
+	 * <h3 class="en-US">Delete the data table corresponding to the entity class based on the given entity class array</h3>
+	 * <h3 class="zh-CN">根据给定的实体类数组删除实体类对应的数据表</h3>
 	 *
 	 * @param entityClasses <span class="en-US">Entity class array</span>
 	 *                      <span class="zh-CN">实体类数组</span>
@@ -181,8 +181,8 @@ public final class DatabaseUtils {
 	}
 
 	/**
-	 * <h4 class="en-US">Generate database client in data restore mode</h4>
-	 * <h4 class="zh-CN">生成数据恢复模式的数据操作客户端实例对象</h4>
+	 * <h3 class="en-US">Generate database client in data restore mode</h3>
+	 * <h3 class="zh-CN">生成数据恢复模式的数据操作客户端实例对象</h3>
 	 *
 	 * @param txConfig <span class="en-US">Transactional configure information object instance</span>
 	 *                 <span class="zh-CN">事务配置信息实例对象</span>
@@ -202,8 +202,8 @@ public final class DatabaseUtils {
 	}
 
 	/**
-	 * <h4 class="en-US">Generate database client in read only mode</h4>
-	 * <h4 class="zh-CN">生成只读模式的数据操作客户端实例对象</h4>
+	 * <h3 class="en-US">Generate database client in read only mode</h3>
+	 * <h3 class="zh-CN">生成只读模式的数据操作客户端实例对象</h3>
 	 *
 	 * @return <span class="en-US">Generated database client instance</span>
 	 * <span class="zh-CN">生成的数据操作客户端实例对象</span>
@@ -213,8 +213,8 @@ public final class DatabaseUtils {
 	}
 
 	/**
-	 * <h4 class="en-US">Generate database client</h4>
-	 * <h4 class="zh-CN">生成数据操作客户端实例对象</h4>
+	 * <h3 class="en-US">Generate database client</h3>
+	 * <h3 class="zh-CN">生成数据操作客户端实例对象</h3>
 	 *
 	 * @return <span class="en-US">Generated database client instance</span>
 	 * <span class="zh-CN">生成的数据操作客户端实例对象</span>
@@ -224,8 +224,8 @@ public final class DatabaseUtils {
 	}
 
 	/**
-	 * <h4 class="en-US">Generate database client in transactional mode</h4>
-	 * <h4 class="zh-CN">生成事务模式的数据操作客户端实例对象</h4>
+	 * <h3 class="en-US">Generate database client in transactional mode</h3>
+	 * <h3 class="zh-CN">生成事务模式的数据操作客户端实例对象</h3>
 	 *
 	 * @param clazz      <span class="en-US">The database client using for class</span>
 	 *                   <span class="zh-CN">使用数据操作客户端的类</span>
@@ -239,8 +239,8 @@ public final class DatabaseUtils {
 	}
 
 	/**
-	 * <h4 class="en-US">Generate transaction mode data operation client instance objects based on given transaction configuration information</h4>
-	 * <h4 class="zh-CN">根据给定的事务配置信息生成事务模式的数据操作客户端实例对象</h4>
+	 * <h3 class="en-US">Generate transaction mode data operation client instance objects based on given transaction configuration information</h3>
+	 * <h3 class="zh-CN">根据给定的事务配置信息生成事务模式的数据操作客户端实例对象</h3>
 	 *
 	 * @param txConfig <span class="en-US">Transactional configure information</span>
 	 *                 <span class="zh-CN">事务配置信息</span>
@@ -254,8 +254,8 @@ public final class DatabaseUtils {
 	}
 
 	/**
-	 * <h4 class="en-US">Find the corresponding client instance object based on the given transaction identification code</h4>
-	 * <h4 class="zh-CN">根据给定的事务识别代码查找对应的客户端实例对象</h4>
+	 * <h3 class="en-US">Find the corresponding client instance object based on the given transaction identification code</h3>
+	 * <h3 class="zh-CN">根据给定的事务识别代码查找对应的客户端实例对象</h3>
 	 *
 	 * @param transactionalCode <span class="en-US">transaction identification code</span>
 	 *                          <span class="zh-CN">事务识别代码</span>
@@ -272,11 +272,11 @@ public final class DatabaseUtils {
 	}
 
 	/**
-	 * <h4 class="en-US">
+	 * <h3 class="en-US">
 	 * Destroys the initialized database manager and clears all registered
 	 * manager adapters and data conversion mappings.
-	 * </h4>
-	 * <h4 class="zh-CN">销毁已初始化的数据库管理器并清除所有注册的管理器适配器和数据转换映射</h4>
+	 * </h3>
+	 * <h3 class="zh-CN">销毁已初始化的数据库管理器并清除所有注册的管理器适配器和数据转换映射</h3>
 	 */
 	public static void destroy() {
 		if (DATABASE_MANAGER != null) {
@@ -290,8 +290,8 @@ public final class DatabaseUtils {
 	}
 
 	/**
-	 * <h4 class="en-US">Register the mapping relationship between Java type and JDBC type code</h4>
-	 * <h4 class="zh-CN">注册Java类型和JDBC类型代码的映射关系</h4>
+	 * <h3 class="en-US">Register the mapping relationship between Java type and JDBC type code</h3>
+	 * <h3 class="zh-CN">注册Java类型和JDBC类型代码的映射关系</h3>
 	 *
 	 * @param typeClass <span class="en-US">Java type class</span>
 	 *                  <span class="zh-CN">Java类型</span>
@@ -306,8 +306,8 @@ public final class DatabaseUtils {
 	}
 
 	/**
-	 * <h4 class="en-US">Generate a primary key data mapping table based on a given entity object instance</h4>
-	 * <h4 class="zh-CN">根据给定的实体对象实例生成主键数据映射表</h4>
+	 * <h3 class="en-US">Generate a primary key data mapping table based on a given entity object instance</h3>
+	 * <h3 class="zh-CN">根据给定的实体对象实例生成主键数据映射表</h3>
 	 *
 	 * @param object <span class="en-US">Entity object instance</span>
 	 *               <span class="zh-CN">实体对象实例</span>
@@ -319,8 +319,8 @@ public final class DatabaseUtils {
 	}
 
 	/**
-	 * <h4 class="en-US">Generate a primary key data mapping table based on a given entity object instance</h4>
-	 * <h4 class="zh-CN">根据给定的实体对象实例生成主键数据映射表</h4>
+	 * <h3 class="en-US">Generate a primary key data mapping table based on a given entity object instance</h3>
+	 * <h3 class="zh-CN">根据给定的实体对象实例生成主键数据映射表</h3>
 	 *
 	 * @param object    <span class="en-US">Entity object instance</span>
 	 *                  <span class="zh-CN">实体对象实例</span>
@@ -349,8 +349,8 @@ public final class DatabaseUtils {
 	}
 
 	/**
-	 * <h4 class="en-US">Retrieve the mapping JDBC type code by given Java type class</h4>
-	 * <h4 class="zh-CN">通过给定的 Java 类型类检索映射 JDBC 类型代码</h4>
+	 * <h3 class="en-US">Retrieve the mapping JDBC type code by given Java type class</h3>
+	 * <h3 class="zh-CN">通过给定的 Java 类型类检索映射 JDBC 类型代码</h3>
 	 *
 	 * @param typeClass <span class="en-US">Java type class</span>
 	 *                  <span class="zh-CN">Java类型</span>
@@ -365,8 +365,8 @@ public final class DatabaseUtils {
 	}
 
 	/**
-	 * <h4 class="en-US">Check the given member instance is contains annotation</h4>
-	 * <h4 class="zh-CN">检查给定的成员对象实例包含标注信息</h4>
+	 * <h3 class="en-US">Check the given member instance is contains annotation</h3>
+	 * <h3 class="zh-CN">检查给定的成员对象实例包含标注信息</h3>
 	 *
 	 * @param member <span class="en-US">Member instance</span>
 	 *               <span class="zh-CN">成员对象实例</span>
@@ -394,8 +394,8 @@ public final class DatabaseUtils {
 	}
 
 	/**
-	 * <h4 class="en-US">Check the given member instance is contains annotation</h4>
-	 * <h4 class="zh-CN">检查给定的成员对象实例包含标注信息</h4>
+	 * <h3 class="en-US">Check the given member instance is contains annotation</h3>
+	 * <h3 class="zh-CN">检查给定的成员对象实例包含标注信息</h3>
 	 *
 	 * @param member <span class="en-US">Member instance</span>
 	 *               <span class="zh-CN">成员对象实例</span>
@@ -414,15 +414,15 @@ public final class DatabaseUtils {
 	}
 
 	/**
-	 * <h4 class="en-US">Private construction methods defined by database basic tools</h4>
-	 * <h4 class="zh-CN">数据库基本工具定义的私有构造方法</h4>
+	 * <h3 class="en-US">Private construction methods defined by database basic tools</h3>
+	 * <h3 class="zh-CN">数据库基本工具定义的私有构造方法</h3>
 	 */
 	private DatabaseUtils() {
 	}
 
 	/**
-	 * <h4 class="en-US">Based on the given class name and method name, check the transaction annotation and generate the transaction configuration information instance object</h4>
-	 * <h4 class="zh-CN">根据给定的类名和方法名，检查事务注解，并生成事务配置信息实例对象</h4>
+	 * <h3 class="en-US">Based on the given class name and method name, check the transaction annotation and generate the transaction configuration information instance object</h3>
+	 * <h3 class="zh-CN">根据给定的类名和方法名，检查事务注解，并生成事务配置信息实例对象</h3>
 	 *
 	 * @param clazz      <span class="en-US">The database client using for class</span>
 	 *                   <span class="zh-CN">使用数据操作客户端的类</span>

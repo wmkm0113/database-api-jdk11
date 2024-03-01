@@ -64,15 +64,15 @@ public final class QueryResult extends BeanObject {
 	private long totalCount = Globals.DEFAULT_VALUE_LONG;
 
 	/**
-	 * <h4 class="en-US">Default constructor method for query result partial collection define</h4>
-	 * <h4 class="zh-CN">查询结果部分集合定义的默认构造方法</h4>
+	 * <h3 class="en-US">Default constructor method for query result partial collection define</h3>
+	 * <h3 class="zh-CN">查询结果部分集合定义的默认构造方法</h3>
 	 */
 	public QueryResult() {
 	}
 
 	/**
-	 * <h4 class="en-US">Getter method for record list</h4>
-	 * <h4 class="zh-CN">数据记录列表的Getter方法</h4>
+	 * <h3 class="en-US">Getter method for record list</h3>
+	 * <h3 class="zh-CN">数据记录列表的Getter方法</h3>
 	 *
 	 * @return <span class="en-US">Record list</span>
 	 * <span class="zh-CN">数据记录列表</span>
@@ -82,8 +82,8 @@ public final class QueryResult extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Setter method for record list</h4>
-	 * <h4 class="zh-CN">数据记录列表的Setter方法</h4>
+	 * <h3 class="en-US">Setter method for record list</h3>
+	 * <h3 class="zh-CN">数据记录列表的Setter方法</h3>
 	 *
 	 * @param resultList <span class="en-US">Record list</span>
 	 *                   <span class="zh-CN">数据记录列表</span>
@@ -93,8 +93,8 @@ public final class QueryResult extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Getter method for total record count</h4>
-	 * <h4 class="zh-CN">总记录数的Getter方法</h4>
+	 * <h3 class="en-US">Getter method for total record count</h3>
+	 * <h3 class="zh-CN">总记录数的Getter方法</h3>
 	 *
 	 * @return <span class="en-US">Total record count</span>
 	 * <span class="zh-CN">总记录数</span>
@@ -104,8 +104,8 @@ public final class QueryResult extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Setter method for total record count</h4>
-	 * <h4 class="zh-CN">总记录数的Setter方法</h4>
+	 * <h3 class="en-US">Setter method for total record count</h3>
+	 * <h3 class="zh-CN">总记录数的Setter方法</h3>
 	 *
 	 * @param totalCount <span class="en-US">Total record count</span>
 	 *                   <span class="zh-CN">总记录数</span>
@@ -115,8 +115,8 @@ public final class QueryResult extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Retrieve current record list size</h4>
-	 * <h4 class="zh-CN">检索当前结果集记录数</h4>
+	 * <h3 class="en-US">Retrieve current record list size</h3>
+	 * <h3 class="zh-CN">检索当前结果集记录数</h3>
 	 *
 	 * @return <span class="en-US">current record list count</span>
 	 * <span class="zh-CN">当前结果集记录数</span>
@@ -126,8 +126,8 @@ public final class QueryResult extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Convert current data list to the given target entity class instance list</h4>
-	 * <h4 class="zh-CN">转换当前记录集为给定实体类实例数组</h4>
+	 * <h3 class="en-US">Convert current data list to the given target entity class instance list</h3>
+	 * <h3 class="zh-CN">转换当前记录集为给定实体类实例数组</h3>
 	 *
 	 * @param <T>         <span class="en-US">Target entity class</span>
 	 *                    <span class="zh-CN">目标实体类</span>
@@ -143,8 +143,8 @@ public final class QueryResult extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Generate cache data</h4>
-	 * <h4 class="zh-CN">生成缓存数据</h4>
+	 * <h3 class="en-US">Generate cache data</h3>
+	 * <h3 class="zh-CN">生成缓存数据</h3>
 	 *
 	 * @return <span class="en-US">Generated cache data string</span>
 	 * <span class="zh-CN">生成的缓存数据字符串</span>
@@ -164,8 +164,8 @@ public final class QueryResult extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Add record data to current list</h4>
-	 * <h4 class="zh-CN">添加数据记录到当前列表</h4>
+	 * <h3 class="en-US">Add record data to current list</h3>
+	 * <h3 class="zh-CN">添加数据记录到当前列表</h3>
 	 *
 	 * @param recordObject <span class="en-US">Data record instance</span>
 	 *                     <span class="zh-CN">数据记录实例对象</span>
@@ -177,8 +177,8 @@ public final class QueryResult extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Convert record data instance to string</h4>
-	 * <h4 class="zh-CN">转换数据记录实例对象为字符串</h4>
+	 * <h3 class="en-US">Convert record data instance to string</h3>
+	 * <h3 class="zh-CN">转换数据记录实例对象为字符串</h3>
 	 *
 	 * @param recordObject <span class="en-US">Data record instance</span>
 	 *                     <span class="zh-CN">数据记录实例对象</span>
@@ -193,8 +193,8 @@ public final class QueryResult extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Convert string to record data instance</h4>
-	 * <h4 class="zh-CN">转换字符串为数据记录实例对象</h4>
+	 * <h3 class="en-US">Convert string to record data instance</h3>
+	 * <h3 class="zh-CN">转换字符串为数据记录实例对象</h3>
 	 *
 	 * @param <T>         <span class="en-US">Target entity class</span>
 	 *                    <span class="zh-CN">目标实体类</span>
@@ -222,8 +222,8 @@ public final class QueryResult extends BeanObject {
 	}
 
 	/**
-	 * <h4 class="en-US">Static method for parse cache data string and generate PartialCollection instance</h4>
-	 * <h4 class="zh-CN">静态方法用于解析缓存数据字符串并生成查询结果部分集合实例对象</h4>
+	 * <h3 class="en-US">Static method for parse cache data string and generate PartialCollection instance</h3>
+	 * <h3 class="zh-CN">静态方法用于解析缓存数据字符串并生成查询结果部分集合实例对象</h3>
 	 *
 	 * @param cacheData <span class="en-US">Cache data string</span>
 	 *                  <span class="zh-CN">缓存数据字符串</span>

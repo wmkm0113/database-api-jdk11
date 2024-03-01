@@ -35,9 +35,9 @@ public final class DatabaseException extends AbstractException {
     private static final long serialVersionUID = -5091093783392482804L;
 
     /**
-     * <h4 class="en-US">Constructor method for DatabaseException</h4>
+     * <h3 class="en-US">Constructor method for DatabaseException</h3>
      * <span class="en-US">Create a new DatabaseException with the specified message.</span>
-     * <h4 class="zh-CN">DatabaseException构造方法</h4>
+     * <h3 class="zh-CN">DatabaseException构造方法</h3>
      * <span class="zh-CN">使用特定的信息创建 DatabaseException 实例对象。</span>
      *
      * @param errorCode   <span class="en-US">Error identified code</span>
@@ -50,9 +50,9 @@ public final class DatabaseException extends AbstractException {
     }
 
     /**
-     * <h4 class="en-US">Constructor method for DatabaseException</h4>
+     * <h3 class="en-US">Constructor method for DatabaseException</h3>
      * <span class="en-US">Create a new DatabaseException with the specified message and root cause.</span>
-     * <h4 class="zh-CN">DatabaseException构造方法</h4>
+     * <h3 class="zh-CN">DatabaseException构造方法</h3>
      * <span class="zh-CN">使用特定的信息以及异常信息对象实例创建 DatabaseException 实例对象。</span>
      *
      * @param errorCode   <span class="en-US">Error identified code</span>

@@ -46,8 +46,8 @@ public final class ColumnParameter extends AbstractParameter<ColumnItem> {
     private ColumnItem itemValue;
 
     /**
-     * <h4 class="en-US">Constructor method for query column parameter information define</h4>
-     * <h4 class="zh-CN">数据列参数定义的构造方法</h4>
+     * <h3 class="en-US">Constructor method for query column parameter information define</h3>
+     * <h3 class="zh-CN">数据列参数定义的构造方法</h3>
      */
     public ColumnParameter() {
         super(ItemType.COLUMN);

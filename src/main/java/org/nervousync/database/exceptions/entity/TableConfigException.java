@@ -33,9 +33,9 @@ public final class TableConfigException extends AbstractException {
     private static final long serialVersionUID = 5937753553304837818L;
 
     /**
-     * <h4 class="en-US">Constructor method for TableConfigException</h4>
+     * <h3 class="en-US">Constructor method for TableConfigException</h3>
      * <span class="en-US">Create a new TableConfigException with the specified message.</span>
-     * <h4 class="zh-CN">TableConfigException构造方法</h4>
+     * <h3 class="zh-CN">TableConfigException构造方法</h3>
      * <span class="zh-CN">使用特定的信息创建 TableConfigException 实例对象。</span>
      *
      * @param errorCode   <span class="en-US">Error identified code</span>
@@ -48,9 +48,9 @@ public final class TableConfigException extends AbstractException {
     }
 
     /**
-     * <h4 class="en-US">Constructor method for TableConfigException</h4>
+     * <h3 class="en-US">Constructor method for TableConfigException</h3>
      * <span class="en-US">Create a new TableConfigException with the specified message and root cause.</span>
-     * <h4 class="zh-CN">TableConfigException构造方法</h4>
+     * <h3 class="zh-CN">TableConfigException构造方法</h3>
      * <span class="zh-CN">使用特定的信息以及异常信息对象实例创建 TableConfigException 实例对象。</span>
      *
      * @param errorCode   <span class="en-US">Error identified code</span>

@@ -120,16 +120,16 @@ public final class ColumnConfig extends BeanObject {
     private final List<String> identifyKeys;
 
     /**
-     * <h4 class="en-US">Constructor method for column configure information</h4>
-     * <h4 class="zh-CN">列配置信息的构造方法</h4>
+     * <h3 class="en-US">Constructor method for column configure information</h3>
+     * <h3 class="zh-CN">列配置信息的构造方法</h3>
      */
     public ColumnConfig() {
         this.identifyKeys = new ArrayList<>();
     }
 
     /**
-     * <h4 class="en-US">Generate column configure information instance by given field instance and default value</h4>
-     * <h4 class="zh-CN">根据给定的反射获得的属性实例对象和默认值生成列配置信息实例对象</h4>
+     * <h3 class="en-US">Generate column configure information instance by given field instance and default value</h3>
+     * <h3 class="zh-CN">根据给定的反射获得的属性实例对象和默认值生成列配置信息实例对象</h3>
      *
      * @param field        <span class="en-US">Field instance</span>
      *                     <span class="zh-CN">反射获得的属性实例对象</span>
@@ -192,8 +192,8 @@ public final class ColumnConfig extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Match given identify key contains in identify key list</h4>
-     * <h4 class="zh-CN">检查给定的识别码包含在列识别值列表中</h4>
+     * <h3 class="en-US">Match given identify key contains in identify key list</h3>
+     * <h3 class="zh-CN">检查给定的识别码包含在列识别值列表中</h3>
      *
      * @param identifyKey <span class="en-US">Identify key</span>
      *                    <span class="zh-CN">识别码</span>
@@ -208,8 +208,8 @@ public final class ColumnConfig extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Getter method for column information</h4>
-     * <h4 class="zh-CN">列基本信息的Getter方法</h4>
+     * <h3 class="en-US">Getter method for column information</h3>
+     * <h3 class="zh-CN">列基本信息的Getter方法</h3>
      *
      * @return <span class="en-US">Column information</span>
      * <span class="zh-CN">列基本信息</span>
@@ -219,8 +219,8 @@ public final class ColumnConfig extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Setter method for column information</h4>
-     * <h4 class="zh-CN">列基本信息的Setter方法</h4>
+     * <h3 class="en-US">Setter method for column information</h3>
+     * <h3 class="zh-CN">列基本信息的Setter方法</h3>
      *
      * @param columnInfo <span class="en-US">Column information</span>
      *                   <span class="zh-CN">列基本信息</span>
@@ -236,8 +236,8 @@ public final class ColumnConfig extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Getter method for column mapping field name</h4>
-     * <h4 class="zh-CN">列映射的属性名的Getter方法</h4>
+     * <h3 class="en-US">Getter method for column mapping field name</h3>
+     * <h3 class="zh-CN">列映射的属性名的Getter方法</h3>
      *
      * @return <span class="en-US">Column mapping field name</span>
      * <span class="zh-CN">列映射的属性名</span>
@@ -247,8 +247,8 @@ public final class ColumnConfig extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Setter method for column mapping field name</h4>
-     * <h4 class="zh-CN">列映射的属性名的Setter方法</h4>
+     * <h3 class="en-US">Setter method for column mapping field name</h3>
+     * <h3 class="zh-CN">列映射的属性名的Setter方法</h3>
      *
      * @param fieldName <span class="en-US">Column mapping field name</span>
      *                  <span class="zh-CN">列映射的属性名</span>
@@ -264,8 +264,8 @@ public final class ColumnConfig extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Getter method for column mapping field type class</h4>
-     * <h4 class="zh-CN">列映射的属性类型的Getter方法</h4>
+     * <h3 class="en-US">Getter method for column mapping field type class</h3>
+     * <h3 class="zh-CN">列映射的属性类型的Getter方法</h3>
      *
      * @return <span class="en-US">Column mapping field type class</span>
      * <span class="zh-CN">列映射的属性类型</span>
@@ -275,8 +275,8 @@ public final class ColumnConfig extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Setter method for column mapping field type class</h4>
-     * <h4 class="zh-CN">列映射的属性类型的Setter方法</h4>
+     * <h3 class="en-US">Setter method for column mapping field type class</h3>
+     * <h3 class="zh-CN">列映射的属性类型的Setter方法</h3>
      *
      * @param fieldType <span class="en-US">Column mapping field type class</span>
      *                  <span class="zh-CN">列映射的属性类型</span>
@@ -286,8 +286,8 @@ public final class ColumnConfig extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Getter method for column is primary key</h4>
-     * <h4 class="zh-CN">列是主键的Getter方法</h4>
+     * <h3 class="en-US">Getter method for column is primary key</h3>
+     * <h3 class="zh-CN">列是主键的Getter方法</h3>
      *
      * @return <span class="en-US">Column is primary key</span>
      * <span class="zh-CN">列是主键</span>
@@ -297,8 +297,8 @@ public final class ColumnConfig extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Setter method for column is primary key</h4>
-     * <h4 class="zh-CN">列是主键的Setter方法</h4>
+     * <h3 class="en-US">Setter method for column is primary key</h3>
+     * <h3 class="zh-CN">列是主键的Setter方法</h3>
      *
      * @param primaryKey <span class="en-US">Column is primary key</span>
      *                   <span class="zh-CN">列是主键</span>
@@ -308,8 +308,8 @@ public final class ColumnConfig extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Getter method for column value can updatable</h4>
-     * <h4 class="zh-CN">列值允许更新的Getter方法</h4>
+     * <h3 class="en-US">Getter method for column value can updatable</h3>
+     * <h3 class="zh-CN">列值允许更新的Getter方法</h3>
      *
      * @return <span class="en-US">Column value can updatable</span>
      * <span class="zh-CN">列值允许更新</span>
@@ -319,8 +319,8 @@ public final class ColumnConfig extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Setter method for column value can updatable</h4>
-     * <h4 class="zh-CN">列值允许更新的Setter方法</h4>
+     * <h3 class="en-US">Setter method for column value can updatable</h3>
+     * <h3 class="zh-CN">列值允许更新的Setter方法</h3>
      *
      * @param updatable <span class="en-US">Column value can updatable</span>
      *                  <span class="zh-CN">列值允许更新</span>
@@ -330,8 +330,8 @@ public final class ColumnConfig extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Getter method for column value is unique</h4>
-     * <h4 class="zh-CN">列值是唯一的Getter方法</h4>
+     * <h3 class="en-US">Getter method for column value is unique</h3>
+     * <h3 class="zh-CN">列值是唯一的Getter方法</h3>
      *
      * @return <span class="en-US">Column value is unique</span>
      * <span class="zh-CN">列值是唯一的</span>
@@ -341,8 +341,8 @@ public final class ColumnConfig extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Setter method for column value is unique</h4>
-     * <h4 class="zh-CN">列值是唯一的Setter方法</h4>
+     * <h3 class="en-US">Setter method for column value is unique</h3>
+     * <h3 class="zh-CN">列值是唯一的Setter方法</h3>
      *
      * @param unique <span class="en-US">Column value is unique</span>
      *               <span class="zh-CN">列值是唯一的</span>
@@ -352,8 +352,8 @@ public final class ColumnConfig extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Getter method for column value is sensitive data</h4>
-     * <h4 class="zh-CN">列值是敏感信息的Getter方法</h4>
+     * <h3 class="en-US">Getter method for column value is sensitive data</h3>
+     * <h3 class="zh-CN">列值是敏感信息的Getter方法</h3>
      *
      * @return <span class="en-US">Column value is sensitive data</span>
      * <span class="zh-CN">列值是敏感信息</span>
@@ -363,8 +363,8 @@ public final class ColumnConfig extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Setter method for column value is sensitive data</h4>
-     * <h4 class="zh-CN">列值是敏感信息的Setter方法</h4>
+     * <h3 class="en-US">Setter method for column value is sensitive data</h3>
+     * <h3 class="zh-CN">列值是敏感信息的Setter方法</h3>
      *
      * @param sensitiveData <span class="en-US">Column value is sensitive data</span>
      *                      <span class="zh-CN">列值是敏感信息</span>
@@ -374,8 +374,8 @@ public final class ColumnConfig extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Getter method for sensitive information type</h4>
-     * <h4 class="zh-CN">敏感信息类型的Getter方法</h4>
+     * <h3 class="en-US">Getter method for sensitive information type</h3>
+     * <h3 class="zh-CN">敏感信息类型的Getter方法</h3>
      *
      * @return <span class="en-US">Sensitive information type</span>
      * <span class="zh-CN">敏感信息类型</span>
@@ -385,8 +385,8 @@ public final class ColumnConfig extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Setter method for sensitive information type</h4>
-     * <h4 class="zh-CN">敏感信息类型的Setter方法</h4>
+     * <h3 class="en-US">Setter method for sensitive information type</h3>
+     * <h3 class="zh-CN">敏感信息类型的Setter方法</h3>
      *
      * @param sensitiveType <span class="en-US">Sensitive information type</span>
      *                      <span class="zh-CN">敏感信息类型</span>
@@ -396,8 +396,8 @@ public final class ColumnConfig extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Getter method for sensitive information encryption storage field</h4>
-     * <h4 class="zh-CN">敏感信息加密存储属性的Getter方法</h4>
+     * <h3 class="en-US">Getter method for sensitive information encryption storage field</h3>
+     * <h3 class="zh-CN">敏感信息加密存储属性的Getter方法</h3>
      *
      * @return <span class="en-US">Sensitive information encryption storage field</span>
      * <span class="zh-CN">敏感信息加密存储属性</span>
@@ -407,8 +407,8 @@ public final class ColumnConfig extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Setter method for sensitive information encryption storage field</h4>
-     * <h4 class="zh-CN">敏感信息加密存储属性的Setter方法</h4>
+     * <h3 class="en-US">Setter method for sensitive information encryption storage field</h3>
+     * <h3 class="zh-CN">敏感信息加密存储属性的Setter方法</h3>
      *
      * @param encField <span class="en-US">Sensitive information encryption storage field</span>
      *                 <span class="zh-CN">敏感信息加密存储属性</span>
@@ -418,8 +418,8 @@ public final class ColumnConfig extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Getter method for sensitive information encryption configure name</h4>
-     * <h4 class="zh-CN">敏感信息加密配置名称的Getter方法</h4>
+     * <h3 class="en-US">Getter method for sensitive information encryption configure name</h3>
+     * <h3 class="zh-CN">敏感信息加密配置名称的Getter方法</h3>
      *
      * @return <span class="en-US">Sensitive information encryption configure name</span>
      * <span class="zh-CN">敏感信息加密配置名称</span>
@@ -429,8 +429,8 @@ public final class ColumnConfig extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Setter method for sensitive information encryption configure name</h4>
-     * <h4 class="zh-CN">敏感信息加密配置名称的Setter方法</h4>
+     * <h3 class="en-US">Setter method for sensitive information encryption configure name</h3>
+     * <h3 class="zh-CN">敏感信息加密配置名称的Setter方法</h3>
      *
      * @param secureName <span class="en-US">Sensitive information encryption configure name</span>
      *                   <span class="zh-CN">敏感信息加密配置名称</span>
@@ -440,8 +440,8 @@ public final class ColumnConfig extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Getter method for column value is lazy load</h4>
-     * <h4 class="zh-CN">列值懒加载的Getter方法</h4>
+     * <h3 class="en-US">Getter method for column value is lazy load</h3>
+     * <h3 class="zh-CN">列值懒加载的Getter方法</h3>
      *
      * @return <span class="en-US">Column value is lazy load</span>
      * <span class="zh-CN">列值懒加载</span>
@@ -451,8 +451,8 @@ public final class ColumnConfig extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Setter method for column value is lazy load</h4>
-     * <h4 class="zh-CN">列值懒加载的Setter方法</h4>
+     * <h3 class="en-US">Setter method for column value is lazy load</h3>
+     * <h3 class="zh-CN">列值懒加载的Setter方法</h3>
      *
      * @param lazyLoad <span class="en-US">Column value is lazy load</span>
      *                 <span class="zh-CN">列值懒加载</span>
@@ -462,8 +462,8 @@ public final class ColumnConfig extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Getter method for column is version identify</h4>
-     * <h4 class="zh-CN">列值是版本识别的Getter方法</h4>
+     * <h3 class="en-US">Getter method for column is version identify</h3>
+     * <h3 class="zh-CN">列值是版本识别的Getter方法</h3>
      *
      * @return <span class="en-US">Column is version identify</span>
      * <span class="zh-CN">列值是版本识别</span>
@@ -473,8 +473,8 @@ public final class ColumnConfig extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Setter method for column is version identify</h4>
-     * <h4 class="zh-CN">列值是版本识别的Setter方法</h4>
+     * <h3 class="en-US">Setter method for column is version identify</h3>
+     * <h3 class="zh-CN">列值是版本识别的Setter方法</h3>
      *
      * @param identifyVersion <span class="en-US">Column is version identify</span>
      *                        <span class="zh-CN">列值是版本识别</span>
@@ -484,8 +484,8 @@ public final class ColumnConfig extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Getter method for column value generator configure</h4>
-     * <h4 class="zh-CN">数据生成器配置的Getter方法</h4>
+     * <h3 class="en-US">Getter method for column value generator configure</h3>
+     * <h3 class="zh-CN">数据生成器配置的Getter方法</h3>
      *
      * @return <span class="en-US">Column value generator configure</span>
      * <span class="zh-CN">数据生成器配置</span>
@@ -495,8 +495,8 @@ public final class ColumnConfig extends BeanObject {
     }
 
     /**
-     * <h4 class="en-US">Setter method for column value generator configure</h4>
-     * <h4 class="zh-CN">数据生成器配置的Setter方法</h4>
+     * <h3 class="en-US">Setter method for column value generator configure</h3>
+     * <h3 class="zh-CN">数据生成器配置的Setter方法</h3>
      *
      * @param generatorConfig <span class="en-US">Column value generator configure</span>
      *                        <span class="zh-CN">数据生成器配置</span>

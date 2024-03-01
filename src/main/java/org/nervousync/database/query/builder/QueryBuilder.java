@@ -118,8 +118,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	private LockOption lockOption = LockOption.NONE;
 
 	/**
-	 * <h4 class="en-US">Private constructor method for querying information builder</h4>
-	 * <h4 class="zh-CN">查询信息构建器的私有构造方法</h4>
+	 * <h3 class="en-US">Private constructor method for querying information builder</h3>
+	 * <h3 class="zh-CN">查询信息构建器的私有构造方法</h3>
 	 *
 	 * @param mainEntity <span class="en-US">Query driven table entity class</span>
 	 *                   <span class="zh-CN">查询驱动表实体类</span>
@@ -134,8 +134,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Static method used to initialize query builder</h4>
-	 * <h4 class="zh-CN">静态方法用于初始化查询信息构建器</h4>
+	 * <h3 class="en-US">Static method used to initialize query builder</h3>
+	 * <h3 class="zh-CN">静态方法用于初始化查询信息构建器</h3>
 	 *
 	 * @param mainEntity <span class="en-US">Query driven table entity class</span>
 	 *                   <span class="zh-CN">查询驱动表实体类</span>
@@ -152,8 +152,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Generate query information instance by given information</h4>
-	 * <h4 class="zh-CN">根据给定的信息生成查询信息实例对象</h4>
+	 * <h3 class="en-US">Generate query information instance by given information</h3>
+	 * <h3 class="zh-CN">根据给定的信息生成查询信息实例对象</h3>
 	 *
 	 * @param targetClass <span class="en-US">Query result JavaBean class</span>
 	 *                    <span class="zh-CN">查询结果实体类</span>
@@ -170,8 +170,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Generate query information instance by given information</h4>
-	 * <h4 class="zh-CN">根据给定的信息生成查询信息实例对象</h4>
+	 * <h3 class="en-US">Generate query information instance by given information</h3>
+	 * <h3 class="zh-CN">根据给定的信息生成查询信息实例对象</h3>
 	 *
 	 * @param targetClass <span class="en-US">Query result JavaBean class</span>
 	 *                    <span class="zh-CN">查询结果实体类</span>
@@ -191,8 +191,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Generate query information instance by given information</h4>
-	 * <h4 class="zh-CN">根据给定的信息生成查询信息实例对象</h4>
+	 * <h3 class="en-US">Generate query information instance by given information</h3>
+	 * <h3 class="zh-CN">根据给定的信息生成查询信息实例对象</h3>
 	 *
 	 * @param targetClass <span class="en-US">Query result JavaBean class</span>
 	 *                    <span class="zh-CN">查询结果实体类</span>
@@ -213,8 +213,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Generate query information instance by given information</h4>
-	 * <h4 class="zh-CN">根据给定的信息生成查询信息实例对象</h4>
+	 * <h3 class="en-US">Generate query information instance by given information</h3>
+	 * <h3 class="zh-CN">根据给定的信息生成查询信息实例对象</h3>
 	 *
 	 * @param targetClass <span class="en-US">Query result JavaBean class</span>
 	 *                    <span class="zh-CN">查询结果实体类</span>
@@ -238,8 +238,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Generate query information instance by given information</h4>
-	 * <h4 class="zh-CN">根据给定的信息生成查询信息实例对象</h4>
+	 * <h3 class="en-US">Generate query information instance by given information</h3>
+	 * <h3 class="zh-CN">根据给定的信息生成查询信息实例对象</h3>
 	 *
 	 * @param targetClass   <span class="en-US">Query result JavaBean class</span>
 	 *                      <span class="zh-CN">查询结果实体类</span>
@@ -256,8 +256,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Generate query information instance by given information</h4>
-	 * <h4 class="zh-CN">根据给定的信息生成查询信息实例对象</h4>
+	 * <h3 class="en-US">Generate query information instance by given information</h3>
+	 * <h3 class="zh-CN">根据给定的信息生成查询信息实例对象</h3>
 	 *
 	 * @param targetClass   <span class="en-US">Query result JavaBean class</span>
 	 *                      <span class="zh-CN">查询结果实体类</span>
@@ -276,8 +276,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Generate query information instance by given information</h4>
-	 * <h4 class="zh-CN">根据给定的信息生成查询信息实例对象</h4>
+	 * <h3 class="en-US">Generate query information instance by given information</h3>
+	 * <h3 class="zh-CN">根据给定的信息生成查询信息实例对象</h3>
 	 *
 	 * @param targetClass   <span class="en-US">Query result JavaBean class</span>
 	 *                      <span class="zh-CN">查询结果实体类</span>
@@ -298,8 +298,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Generate query information instance by given information</h4>
-	 * <h4 class="zh-CN">根据给定的信息生成查询信息实例对象</h4>
+	 * <h3 class="en-US">Generate query information instance by given information</h3>
+	 * <h3 class="zh-CN">根据给定的信息生成查询信息实例对象</h3>
 	 *
 	 * @param targetClass   <span class="en-US">Query result JavaBean class</span>
 	 *                      <span class="zh-CN">查询结果实体类</span>
@@ -372,8 +372,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Generate query information instance</h4>
-	 * <h4 class="zh-CN">生成查询信息实例对象</h4>
+	 * <h3 class="en-US">Generate query information instance</h3>
+	 * <h3 class="zh-CN">生成查询信息实例对象</h3>
 	 *
 	 * @return <span class="en-US">Generated query information instance</span>
 	 * <span class="zh-CN">生成的查询信息实例对象</span>
@@ -409,8 +409,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Setting for query identification name</h4>
-	 * <h4 class="zh-CN">设置查询名称</h4>
+	 * <h3 class="en-US">Setting for query identification name</h3>
+	 * <h3 class="zh-CN">设置查询名称</h3>
 	 *
 	 * @param identifyName <span class="en-US">query identification name</span>
 	 *                     <span class="zh-CN">查询名称</span>
@@ -425,8 +425,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Static method for generate query column information instance</h4>
-	 * <h4 class="zh-CN">静态方法用于生成数据列查询对象实例</h4>
+	 * <h3 class="en-US">Static method for generate query column information instance</h3>
+	 * <h3 class="zh-CN">静态方法用于生成数据列查询对象实例</h3>
 	 *
 	 * @param entityClass <span class="en-US">Entity class</span>
 	 *                    <span class="zh-CN">实体类</span>
@@ -443,8 +443,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Static method for generate query column information instance</h4>
-	 * <h4 class="zh-CN">静态方法用于生成数据列查询对象实例</h4>
+	 * <h3 class="en-US">Static method for generate query column information instance</h3>
+	 * <h3 class="zh-CN">静态方法用于生成数据列查询对象实例</h3>
 	 *
 	 * @param entityClass <span class="en-US">Entity class</span>
 	 *                    <span class="zh-CN">实体类</span>
@@ -463,8 +463,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Static method for generate query column information instance</h4>
-	 * <h4 class="zh-CN">静态方法用于生成数据列查询对象实例</h4>
+	 * <h3 class="en-US">Static method for generate query column information instance</h3>
+	 * <h3 class="zh-CN">静态方法用于生成数据列查询对象实例</h3>
 	 *
 	 * @param entityClass <span class="en-US">Entity class</span>
 	 *                    <span class="zh-CN">实体类</span>
@@ -485,8 +485,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add query column information instance</h4>
-	 * <h4 class="zh-CN">添加数据列查询对象实例</h4>
+	 * <h3 class="en-US">Add query column information instance</h3>
+	 * <h3 class="zh-CN">添加数据列查询对象实例</h3>
 	 *
 	 * @param entityClass <span class="en-US">Entity class</span>
 	 *                    <span class="zh-CN">实体类</span>
@@ -511,8 +511,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add query function information instance</h4>
-	 * <h4 class="zh-CN">添加数据列函数查询对象实例</h4>
+	 * <h3 class="en-US">Add query function information instance</h3>
+	 * <h3 class="zh-CN">添加数据列函数查询对象实例</h3>
 	 *
 	 * @param aliasName      <span class="en-US">Item alias name</span>
 	 *                       <span class="zh-CN">查询项别名</span>
@@ -529,8 +529,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add query function information instance</h4>
-	 * <h4 class="zh-CN">添加数据列函数查询对象实例</h4>
+	 * <h3 class="en-US">Add query function information instance</h3>
+	 * <h3 class="zh-CN">添加数据列函数查询对象实例</h3>
 	 *
 	 * @param aliasName      <span class="en-US">Item alias name</span>
 	 *                       <span class="zh-CN">查询项别名</span>
@@ -550,8 +550,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add sub-query information instance</h4>
-	 * <h4 class="zh-CN">添加子函数查询对象实例</h4>
+	 * <h3 class="en-US">Add sub-query information instance</h3>
+	 * <h3 class="zh-CN">添加子函数查询对象实例</h3>
 	 *
 	 * @param queryInfo <span class="en-US">Query information</span>
 	 *                  <span class="zh-CN">查询信息</span>
@@ -563,8 +563,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add sub-query information instance</h4>
-	 * <h4 class="zh-CN">添加子函数查询对象实例</h4>
+	 * <h3 class="en-US">Add sub-query information instance</h3>
+	 * <h3 class="zh-CN">添加子函数查询对象实例</h3>
 	 *
 	 * @param aliasName <span class="en-US">Item alias name</span>
 	 *                  <span class="zh-CN">查询项别名</span>
@@ -578,8 +578,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add sub-query information instance</h4>
-	 * <h4 class="zh-CN">添加子函数查询对象实例</h4>
+	 * <h3 class="en-US">Add sub-query information instance</h3>
+	 * <h3 class="zh-CN">添加子函数查询对象实例</h3>
 	 *
 	 * @param aliasName <span class="en-US">Item alias name</span>
 	 *                  <span class="zh-CN">查询项别名</span>
@@ -596,8 +596,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add associated query information table</h4>
-	 * <h4 class="zh-CN">添加关联查询信息表</h4>
+	 * <h3 class="en-US">Add associated query information table</h3>
+	 * <h3 class="zh-CN">添加关联查询信息表</h3>
 	 *
 	 * @param mainEntity <span class="en-US">Driver table entity class</span>
 	 *                   <span class="zh-CN">驱动表实体类</span>
@@ -611,8 +611,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add associated query information table</h4>
-	 * <h4 class="zh-CN">添加关联查询信息表</h4>
+	 * <h3 class="en-US">Add associated query information table</h3>
+	 * <h3 class="zh-CN">添加关联查询信息表</h3>
 	 *
 	 * @param mainEntity <span class="en-US">Driver table entity class</span>
 	 *                   <span class="zh-CN">驱动表实体类</span>
@@ -628,8 +628,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add associated query information table</h4>
-	 * <h4 class="zh-CN">添加关联查询信息表</h4>
+	 * <h3 class="en-US">Add associated query information table</h3>
+	 * <h3 class="zh-CN">添加关联查询信息表</h3>
 	 *
 	 * @param mainEntity <span class="en-US">Driver table entity class</span>
 	 *                   <span class="zh-CN">驱动表实体类</span>
@@ -654,8 +654,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add associated query information table</h4>
-	 * <h4 class="zh-CN">添加关联查询信息表</h4>
+	 * <h3 class="en-US">Add associated query information table</h3>
+	 * <h3 class="zh-CN">添加关联查询信息表</h3>
 	 *
 	 * @param mainEntity <span class="en-US">Driver table entity class</span>
 	 *                   <span class="zh-CN">驱动表实体类</span>
@@ -699,8 +699,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition greater than a certain value</h4>
-	 * <h4 class="zh-CN">添加大于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition greater than a certain value</h3>
+	 * <h3 class="zh-CN">添加大于某值的查询条件</h3>
 	 *
 	 * @param entityClass <span class="en-US">Entity class</span>
 	 *                    <span class="zh-CN">实体类</span>
@@ -719,8 +719,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition greater than a certain value</h4>
-	 * <h4 class="zh-CN">添加大于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition greater than a certain value</h3>
+	 * <h3 class="zh-CN">添加大于某值的查询条件</h3>
 	 *
 	 * @param entityClass    <span class="en-US">Data table entity class</span>
 	 *                       <span class="zh-CN">数据表实体类</span>
@@ -742,8 +742,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition greater than a certain value</h4>
-	 * <h4 class="zh-CN">添加大于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition greater than a certain value</h3>
+	 * <h3 class="zh-CN">添加大于某值的查询条件</h3>
 	 *
 	 * @param entityClass <span class="en-US">Data table entity class</span>
 	 *                    <span class="zh-CN">数据表实体类</span>
@@ -762,8 +762,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition greater than a certain value</h4>
-	 * <h4 class="zh-CN">添加大于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition greater than a certain value</h3>
+	 * <h3 class="zh-CN">添加大于某值的查询条件</h3>
 	 *
 	 * @param entityClass <span class="en-US">Data table entity class</span>
 	 *                    <span class="zh-CN">数据表实体类</span>
@@ -784,8 +784,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition greater than or equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加大于等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition greater than or equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加大于等于某值的查询条件</h3>
 	 *
 	 * @param entityClass <span class="en-US">Entity class</span>
 	 *                    <span class="zh-CN">实体类</span>
@@ -804,8 +804,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition greater than or equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加大于等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition greater than or equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加大于等于某值的查询条件</h3>
 	 *
 	 * @param entityClass    <span class="en-US">Data table entity class</span>
 	 *                       <span class="zh-CN">数据表实体类</span>
@@ -827,8 +827,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition greater than or equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加大于等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition greater than or equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加大于等于某值的查询条件</h3>
 	 *
 	 * @param entityClass <span class="en-US">Data table entity class</span>
 	 *                    <span class="zh-CN">数据表实体类</span>
@@ -847,8 +847,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition greater than or equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加大于等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition greater than or equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加大于等于某值的查询条件</h3>
 	 *
 	 * @param entityClass <span class="en-US">Data table entity class</span>
 	 *                    <span class="zh-CN">数据表实体类</span>
@@ -869,8 +869,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition less than a certain value</h4>
-	 * <h4 class="zh-CN">添加小于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition less than a certain value</h3>
+	 * <h3 class="zh-CN">添加小于某值的查询条件</h3>
 	 *
 	 * @param entityClass <span class="en-US">Entity class</span>
 	 *                    <span class="zh-CN">实体类</span>
@@ -889,8 +889,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition less than a certain value</h4>
-	 * <h4 class="zh-CN">添加小于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition less than a certain value</h3>
+	 * <h3 class="zh-CN">添加小于某值的查询条件</h3>
 	 *
 	 * @param entityClass    <span class="en-US">Data table entity class</span>
 	 *                       <span class="zh-CN">数据表实体类</span>
@@ -912,8 +912,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition less than a certain value</h4>
-	 * <h4 class="zh-CN">添加小于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition less than a certain value</h3>
+	 * <h3 class="zh-CN">添加小于某值的查询条件</h3>
 	 *
 	 * @param entityClass <span class="en-US">Data table entity class</span>
 	 *                    <span class="zh-CN">数据表实体类</span>
@@ -932,8 +932,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition less than a certain value</h4>
-	 * <h4 class="zh-CN">添加小于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition less than a certain value</h3>
+	 * <h3 class="zh-CN">添加小于某值的查询条件</h3>
 	 *
 	 * @param entityClass <span class="en-US">Data table entity class</span>
 	 *                    <span class="zh-CN">数据表实体类</span>
@@ -954,8 +954,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition less than or equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加小于等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition less than or equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加小于等于某值的查询条件</h3>
 	 *
 	 * @param entityClass <span class="en-US">Entity class</span>
 	 *                    <span class="zh-CN">实体类</span>
@@ -974,8 +974,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition less than or equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加小于等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition less than or equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加小于等于某值的查询条件</h3>
 	 *
 	 * @param entityClass    <span class="en-US">Entity class</span>
 	 *                       <span class="zh-CN">实体类</span>
@@ -997,8 +997,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition less than or equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加小于等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition less than or equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加小于等于某值的查询条件</h3>
 	 *
 	 * @param entityClass <span class="en-US">Data table entity class</span>
 	 *                    <span class="zh-CN">数据表实体类</span>
@@ -1017,8 +1017,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition less than or equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加小于等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition less than or equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加小于等于某值的查询条件</h3>
 	 *
 	 * @param entityClass <span class="en-US">Data table entity class</span>
 	 *                    <span class="zh-CN">数据表实体类</span>
@@ -1039,8 +1039,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加等于某值的查询条件</h3>
 	 *
 	 * @param entityClass <span class="en-US">Entity class</span>
 	 *                    <span class="zh-CN">实体类</span>
@@ -1059,8 +1059,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加等于某值的查询条件</h3>
 	 *
 	 * @param entityClass    <span class="en-US">Entity class</span>
 	 *                       <span class="zh-CN">实体类</span>
@@ -1082,8 +1082,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加等于某值的查询条件</h3>
 	 *
 	 * @param entityClass <span class="en-US">Data table entity class</span>
 	 *                    <span class="zh-CN">数据表实体类</span>
@@ -1102,8 +1102,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加等于某值的查询条件</h3>
 	 *
 	 * @param entityClass <span class="en-US">Data table entity class</span>
 	 *                    <span class="zh-CN">数据表实体类</span>
@@ -1124,8 +1124,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition not equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加不等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition not equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加不等于某值的查询条件</h3>
 	 *
 	 * @param entityClass <span class="en-US">Entity class</span>
 	 *                    <span class="zh-CN">实体类</span>
@@ -1144,8 +1144,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition not equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加不等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition not equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加不等于某值的查询条件</h3>
 	 *
 	 * @param entityClass    <span class="en-US">Entity class</span>
 	 *                       <span class="zh-CN">实体类</span>
@@ -1167,8 +1167,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition not equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加不等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition not equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加不等于某值的查询条件</h3>
 	 *
 	 * @param entityClass <span class="en-US">Data table entity class</span>
 	 *                    <span class="zh-CN">数据表实体类</span>
@@ -1187,8 +1187,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition not equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加不等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition not equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加不等于某值的查询条件</h3>
 	 *
 	 * @param entityClass <span class="en-US">Data table entity class</span>
 	 *                    <span class="zh-CN">数据表实体类</span>
@@ -1209,8 +1209,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition between certain two values</h4>
-	 * <h4 class="zh-CN">添加介于某两个值之间的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition between certain two values</h3>
+	 * <h3 class="zh-CN">添加介于某两个值之间的查询条件</h3>
 	 *
 	 * @param entityClass <span class="en-US">Entity class</span>
 	 *                    <span class="zh-CN">实体类</span>
@@ -1231,8 +1231,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition not between certain two values</h4>
-	 * <h4 class="zh-CN">添加不介于某两个值之间的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition not between certain two values</h3>
+	 * <h3 class="zh-CN">添加不介于某两个值之间的查询条件</h3>
 	 *
 	 * @param entityClass <span class="en-US">Entity class</span>
 	 *                    <span class="zh-CN">实体类</span>
@@ -1253,8 +1253,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add query conditions for fuzzy matching values</h4>
-	 * <h4 class="zh-CN">添加模糊匹配值的查询条件</h4>
+	 * <h3 class="en-US">Add query conditions for fuzzy matching values</h3>
+	 * <h3 class="zh-CN">添加模糊匹配值的查询条件</h3>
 	 *
 	 * @param entityClass <span class="en-US">Entity class</span>
 	 *                    <span class="zh-CN">实体类</span>
@@ -1273,8 +1273,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add query conditions for not fuzzy matching values</h4>
-	 * <h4 class="zh-CN">添加非模糊匹配值的查询条件</h4>
+	 * <h3 class="en-US">Add query conditions for not fuzzy matching values</h3>
+	 * <h3 class="zh-CN">添加非模糊匹配值的查询条件</h3>
 	 *
 	 * @param entityClass <span class="en-US">Entity class</span>
 	 *                    <span class="zh-CN">实体类</span>
@@ -1293,8 +1293,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add query condition with null value</h4>
-	 * <h4 class="zh-CN">添加空值的查询条件</h4>
+	 * <h3 class="en-US">Add query condition with null value</h3>
+	 * <h3 class="zh-CN">添加空值的查询条件</h3>
 	 *
 	 * @param entityClass <span class="en-US">Entity class</span>
 	 *                    <span class="zh-CN">实体类</span>
@@ -1310,8 +1310,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add query condition with not null value</h4>
-	 * <h4 class="zh-CN">添加非空值的查询条件</h4>
+	 * <h3 class="en-US">Add query condition with not null value</h3>
+	 * <h3 class="zh-CN">添加非空值的查询条件</h3>
 	 *
 	 * @param entityClass <span class="en-US">Entity class</span>
 	 *                    <span class="zh-CN">实体类</span>
@@ -1327,8 +1327,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Adds a query condition where the value is contained in the given data</h4>
-	 * <h4 class="zh-CN">添加值包含在给定数据中的查询条件</h4>
+	 * <h3 class="en-US">Adds a query condition where the value is contained in the given data</h3>
+	 * <h3 class="zh-CN">添加值包含在给定数据中的查询条件</h3>
 	 *
 	 * @param entityClass  <span class="en-US">Entity class</span>
 	 *                     <span class="zh-CN">实体类</span>
@@ -1347,8 +1347,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Adds a query condition where the value is contained in the given data</h4>
-	 * <h4 class="zh-CN">添加值包含在给定数据中的查询条件</h4>
+	 * <h3 class="en-US">Adds a query condition where the value is contained in the given data</h3>
+	 * <h3 class="zh-CN">添加值包含在给定数据中的查询条件</h3>
 	 *
 	 * @param entityClass <span class="en-US">Entity class</span>
 	 *                    <span class="zh-CN">实体类</span>
@@ -1367,8 +1367,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Adds a query condition where the value is contained in the given data</h4>
-	 * <h4 class="zh-CN">添加值包含在给定数据中的查询条件</h4>
+	 * <h3 class="en-US">Adds a query condition where the value is contained in the given data</h3>
+	 * <h3 class="zh-CN">添加值包含在给定数据中的查询条件</h3>
 	 *
 	 * @param entityClass <span class="en-US">Entity class</span>
 	 *                    <span class="zh-CN">实体类</span>
@@ -1389,8 +1389,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Adds a query condition where the value is not contained in the given data</h4>
-	 * <h4 class="zh-CN">添加值没有包含在给定数据中的查询条件</h4>
+	 * <h3 class="en-US">Adds a query condition where the value is not contained in the given data</h3>
+	 * <h3 class="zh-CN">添加值没有包含在给定数据中的查询条件</h3>
 	 *
 	 * @param entityClass  <span class="en-US">Entity class</span>
 	 *                     <span class="zh-CN">实体类</span>
@@ -1409,8 +1409,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Adds a query condition where the value is not contained in the given data</h4>
-	 * <h4 class="zh-CN">添加值没有包含在给定数据中的查询条件</h4>
+	 * <h3 class="en-US">Adds a query condition where the value is not contained in the given data</h3>
+	 * <h3 class="zh-CN">添加值没有包含在给定数据中的查询条件</h3>
 	 *
 	 * @param entityClass <span class="en-US">Entity class</span>
 	 *                    <span class="zh-CN">实体类</span>
@@ -1429,8 +1429,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Adds a query condition where the value is not contained in the given data</h4>
-	 * <h4 class="zh-CN">添加值没有包含在给定数据中的查询条件</h4>
+	 * <h3 class="en-US">Adds a query condition where the value is not contained in the given data</h3>
+	 * <h3 class="zh-CN">添加值没有包含在给定数据中的查询条件</h3>
 	 *
 	 * @param entityClass <span class="en-US">Entity class</span>
 	 *                    <span class="zh-CN">实体类</span>
@@ -1451,8 +1451,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add query conditions for condition groups</h4>
-	 * <h4 class="zh-CN">添加条件组的查询条件</h4>
+	 * <h3 class="en-US">Add query conditions for condition groups</h3>
+	 * <h3 class="zh-CN">添加条件组的查询条件</h3>
 	 *
 	 * @param Conditions <span class="en-US">Query conditions array</span>
 	 *                   <span class="zh-CN">查询条件数组</span>
@@ -1464,8 +1464,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition greater than a certain value</h4>
-	 * <h4 class="zh-CN">添加大于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition greater than a certain value</h3>
+	 * <h3 class="zh-CN">添加大于某值的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Connection type code</span>
 	 *                       <span class="zh-CN">连接类型代码</span>
@@ -1486,8 +1486,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition greater than a certain value</h4>
-	 * <h4 class="zh-CN">添加大于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition greater than a certain value</h3>
+	 * <h3 class="zh-CN">添加大于某值的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Query connection code</span>
 	 *                       <span class="zh-CN">查询条件连接代码</span>
@@ -1508,8 +1508,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition greater than a certain value</h4>
-	 * <h4 class="zh-CN">添加大于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition greater than a certain value</h3>
+	 * <h3 class="zh-CN">添加大于某值的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Connection type code</span>
 	 *                       <span class="zh-CN">连接类型代码</span>
@@ -1534,8 +1534,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition greater than a certain value</h4>
-	 * <h4 class="zh-CN">添加大于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition greater than a certain value</h3>
+	 * <h3 class="zh-CN">添加大于某值的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Query connection code</span>
 	 *                       <span class="zh-CN">查询条件连接代码</span>
@@ -1560,8 +1560,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition greater than or equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加大于等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition greater than or equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加大于等于某值的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Connection type code</span>
 	 *                       <span class="zh-CN">连接类型代码</span>
@@ -1582,8 +1582,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition greater than or equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加大于等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition greater than or equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加大于等于某值的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Query connection code</span>
 	 *                       <span class="zh-CN">查询条件连接代码</span>
@@ -1604,8 +1604,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition greater than or equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加大于等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition greater than or equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加大于等于某值的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Query connection code</span>
 	 *                       <span class="zh-CN">查询条件连接代码</span>
@@ -1630,8 +1630,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition greater than or equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加大于等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition greater than or equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加大于等于某值的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Query connection code</span>
 	 *                       <span class="zh-CN">查询条件连接代码</span>
@@ -1656,8 +1656,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition less than a certain value</h4>
-	 * <h4 class="zh-CN">添加小于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition less than a certain value</h3>
+	 * <h3 class="zh-CN">添加小于某值的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Connection type code</span>
 	 *                       <span class="zh-CN">连接类型代码</span>
@@ -1678,8 +1678,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition less than a certain value</h4>
-	 * <h4 class="zh-CN">添加小于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition less than a certain value</h3>
+	 * <h3 class="zh-CN">添加小于某值的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Query connection code</span>
 	 *                       <span class="zh-CN">查询条件连接代码</span>
@@ -1704,8 +1704,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition less than a certain value</h4>
-	 * <h4 class="zh-CN">添加小于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition less than a certain value</h3>
+	 * <h3 class="zh-CN">添加小于某值的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Query connection code</span>
 	 *                       <span class="zh-CN">查询条件连接代码</span>
@@ -1726,8 +1726,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition less than a certain value</h4>
-	 * <h4 class="zh-CN">添加小于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition less than a certain value</h3>
+	 * <h3 class="zh-CN">添加小于某值的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Query connection code</span>
 	 *                       <span class="zh-CN">查询条件连接代码</span>
@@ -1751,8 +1751,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition less than or equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加小于等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition less than or equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加小于等于某值的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Connection type code</span>
 	 *                       <span class="zh-CN">连接类型代码</span>
@@ -1773,8 +1773,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition less than or equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加小于等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition less than or equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加小于等于某值的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Connection type code</span>
 	 *                       <span class="zh-CN">连接类型代码</span>
@@ -1799,8 +1799,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition less than or equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加小于等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition less than or equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加小于等于某值的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Query connection code</span>
 	 *                       <span class="zh-CN">查询条件连接代码</span>
@@ -1821,8 +1821,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition less than or equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加小于等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition less than or equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加小于等于某值的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Query connection code</span>
 	 *                       <span class="zh-CN">查询条件连接代码</span>
@@ -1847,8 +1847,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加等于某值的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Connection type code</span>
 	 *                       <span class="zh-CN">连接类型代码</span>
@@ -1869,8 +1869,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加等于某值的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Connection type code</span>
 	 *                       <span class="zh-CN">连接类型代码</span>
@@ -1895,8 +1895,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加等于某值的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Query connection code</span>
 	 *                       <span class="zh-CN">查询条件连接代码</span>
@@ -1917,8 +1917,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加等于某值的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Query connection code</span>
 	 *                       <span class="zh-CN">查询条件连接代码</span>
@@ -1943,8 +1943,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition not equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加不等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition not equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加不等于某值的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Connection type code</span>
 	 *                       <span class="zh-CN">连接类型代码</span>
@@ -1965,8 +1965,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition not equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加不等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition not equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加不等于某值的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Connection type code</span>
 	 *                       <span class="zh-CN">连接类型代码</span>
@@ -1991,8 +1991,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition not equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加不等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition not equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加不等于某值的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Query connection code</span>
 	 *                       <span class="zh-CN">查询条件连接代码</span>
@@ -2013,8 +2013,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition not equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加不等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition not equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加不等于某值的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Query connection code</span>
 	 *                       <span class="zh-CN">查询条件连接代码</span>
@@ -2039,8 +2039,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition between certain two values</h4>
-	 * <h4 class="zh-CN">添加介于某两个值之间的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition between certain two values</h3>
+	 * <h3 class="zh-CN">添加介于某两个值之间的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Connection type code</span>
 	 *                       <span class="zh-CN">连接类型代码</span>
@@ -2065,8 +2065,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition not between certain two values</h4>
-	 * <h4 class="zh-CN">添加不介于某两个值之间的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition not between certain two values</h3>
+	 * <h3 class="zh-CN">添加不介于某两个值之间的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Connection type code</span>
 	 *                       <span class="zh-CN">连接类型代码</span>
@@ -2091,8 +2091,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add query conditions for fuzzy matching values</h4>
-	 * <h4 class="zh-CN">添加模糊匹配值的查询条件</h4>
+	 * <h3 class="en-US">Add query conditions for fuzzy matching values</h3>
+	 * <h3 class="zh-CN">添加模糊匹配值的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Connection type code</span>
 	 *                       <span class="zh-CN">连接类型代码</span>
@@ -2113,8 +2113,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add query conditions for not fuzzy matching values</h4>
-	 * <h4 class="zh-CN">添加非模糊匹配值的查询条件</h4>
+	 * <h3 class="en-US">Add query conditions for not fuzzy matching values</h3>
+	 * <h3 class="zh-CN">添加非模糊匹配值的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Connection type code</span>
 	 *                       <span class="zh-CN">连接类型代码</span>
@@ -2135,8 +2135,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add query condition with null value</h4>
-	 * <h4 class="zh-CN">添加空值的查询条件</h4>
+	 * <h3 class="en-US">Add query condition with null value</h3>
+	 * <h3 class="zh-CN">添加空值的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Connection type code</span>
 	 *                       <span class="zh-CN">连接类型代码</span>
@@ -2155,8 +2155,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add query condition with not null value</h4>
-	 * <h4 class="zh-CN">添加非空值的查询条件</h4>
+	 * <h3 class="en-US">Add query condition with not null value</h3>
+	 * <h3 class="zh-CN">添加非空值的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Connection type code</span>
 	 *                       <span class="zh-CN">连接类型代码</span>
@@ -2175,8 +2175,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Adds a query condition where the value is contained in the given data</h4>
-	 * <h4 class="zh-CN">添加值包含在给定数据中的查询条件</h4>
+	 * <h3 class="en-US">Adds a query condition where the value is contained in the given data</h3>
+	 * <h3 class="zh-CN">添加值包含在给定数据中的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Connection type code</span>
 	 *                       <span class="zh-CN">连接类型代码</span>
@@ -2197,8 +2197,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Adds a query condition where the value is contained in the given data</h4>
-	 * <h4 class="zh-CN">添加值包含在给定数据中的查询条件</h4>
+	 * <h3 class="en-US">Adds a query condition where the value is contained in the given data</h3>
+	 * <h3 class="zh-CN">添加值包含在给定数据中的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Connection type code</span>
 	 *                       <span class="zh-CN">连接类型代码</span>
@@ -2219,8 +2219,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Adds a query condition where the value is contained in the given data</h4>
-	 * <h4 class="zh-CN">添加值包含在给定数据中的查询条件</h4>
+	 * <h3 class="en-US">Adds a query condition where the value is contained in the given data</h3>
+	 * <h3 class="zh-CN">添加值包含在给定数据中的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Connection type code</span>
 	 *                       <span class="zh-CN">连接类型代码</span>
@@ -2243,8 +2243,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Adds a query condition where the value is not contained in the given data</h4>
-	 * <h4 class="zh-CN">添加值没有包含在给定数据中的查询条件</h4>
+	 * <h3 class="en-US">Adds a query condition where the value is not contained in the given data</h3>
+	 * <h3 class="zh-CN">添加值没有包含在给定数据中的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Connection type code</span>
 	 *                       <span class="zh-CN">连接类型代码</span>
@@ -2265,8 +2265,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Adds a query condition where the value is not contained in the given data</h4>
-	 * <h4 class="zh-CN">添加值没有包含在给定数据中的查询条件</h4>
+	 * <h3 class="en-US">Adds a query condition where the value is not contained in the given data</h3>
+	 * <h3 class="zh-CN">添加值没有包含在给定数据中的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Connection type code</span>
 	 *                       <span class="zh-CN">连接类型代码</span>
@@ -2287,8 +2287,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Adds a query condition where the value is not contained in the given data</h4>
-	 * <h4 class="zh-CN">添加值没有包含在给定数据中的查询条件</h4>
+	 * <h3 class="en-US">Adds a query condition where the value is not contained in the given data</h3>
+	 * <h3 class="zh-CN">添加值没有包含在给定数据中的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Connection type code</span>
 	 *                       <span class="zh-CN">连接类型代码</span>
@@ -2312,8 +2312,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add query conditions for condition groups</h4>
-	 * <h4 class="zh-CN">添加条件组的查询条件</h4>
+	 * <h3 class="en-US">Add query conditions for condition groups</h3>
+	 * <h3 class="zh-CN">添加条件组的查询条件</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Connection type code</span>
 	 *                       <span class="zh-CN">连接类型代码</span>
@@ -2327,8 +2327,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition greater than a certain value</h4>
-	 * <h4 class="zh-CN">添加大于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition greater than a certain value</h3>
+	 * <h3 class="zh-CN">添加大于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -2353,8 +2353,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition greater than a certain value</h4>
-	 * <h4 class="zh-CN">添加大于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition greater than a certain value</h3>
+	 * <h3 class="zh-CN">添加大于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -2381,8 +2381,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition greater than a certain value</h4>
-	 * <h4 class="zh-CN">添加大于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition greater than a certain value</h3>
+	 * <h3 class="zh-CN">添加大于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -2410,8 +2410,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition greater than a certain value</h4>
-	 * <h4 class="zh-CN">添加大于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition greater than a certain value</h3>
+	 * <h3 class="zh-CN">添加大于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -2435,8 +2435,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition greater than or equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加大于等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition greater than or equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加大于等于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -2461,8 +2461,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition greater than or equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加大于等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition greater than or equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加大于等于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -2491,8 +2491,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition greater than or equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加大于等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition greater than or equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加大于等于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -2520,8 +2520,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition greater than or equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加大于等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition greater than or equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加大于等于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -2546,8 +2546,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition less than a certain value</h4>
-	 * <h4 class="zh-CN">添加小于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition less than a certain value</h3>
+	 * <h3 class="zh-CN">添加小于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -2572,8 +2572,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition less than a certain value</h4>
-	 * <h4 class="zh-CN">添加小于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition less than a certain value</h3>
+	 * <h3 class="zh-CN">添加小于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -2600,8 +2600,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition less than a certain value</h4>
-	 * <h4 class="zh-CN">添加小于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition less than a certain value</h3>
+	 * <h3 class="zh-CN">添加小于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -2629,8 +2629,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition less than a certain value</h4>
-	 * <h4 class="zh-CN">添加小于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition less than a certain value</h3>
+	 * <h3 class="zh-CN">添加小于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -2655,8 +2655,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition less than or equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加小于等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition less than or equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加小于等于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -2681,8 +2681,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition less than or equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加小于等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition less than or equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加小于等于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -2709,8 +2709,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition less than or equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加小于等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition less than or equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加小于等于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -2739,8 +2739,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition less than or equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加小于等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition less than or equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加小于等于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -2765,8 +2765,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加等于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -2791,8 +2791,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加等于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -2819,8 +2819,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加等于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -2849,8 +2849,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加等于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -2875,8 +2875,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition not equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加不等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition not equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加不等于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -2901,8 +2901,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition not equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加不等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition not equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加不等于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -2929,8 +2929,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition not equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加不等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition not equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加不等于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -2958,8 +2958,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition not equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加不等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition not equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加不等于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -2984,8 +2984,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition between certain two values</h4>
-	 * <h4 class="zh-CN">添加介于某两个值之间的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition between certain two values</h3>
+	 * <h3 class="zh-CN">添加介于某两个值之间的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -3012,8 +3012,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition not between certain two values</h4>
-	 * <h4 class="zh-CN">添加不介于某两个值之间的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition not between certain two values</h3>
+	 * <h3 class="zh-CN">添加不介于某两个值之间的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -3040,8 +3040,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add query conditions for fuzzy matching values</h4>
-	 * <h4 class="zh-CN">添加模糊匹配值的查询条件</h4>
+	 * <h3 class="en-US">Add query conditions for fuzzy matching values</h3>
+	 * <h3 class="zh-CN">添加模糊匹配值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -3066,8 +3066,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add query conditions for not fuzzy matching values</h4>
-	 * <h4 class="zh-CN">添加非模糊匹配值的查询条件</h4>
+	 * <h3 class="en-US">Add query conditions for not fuzzy matching values</h3>
+	 * <h3 class="zh-CN">添加非模糊匹配值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -3092,8 +3092,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add query condition with null value</h4>
-	 * <h4 class="zh-CN">添加空值的查询条件</h4>
+	 * <h3 class="en-US">Add query condition with null value</h3>
+	 * <h3 class="zh-CN">添加空值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -3115,8 +3115,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add query condition with not null value</h4>
-	 * <h4 class="zh-CN">添加非空值的查询条件</h4>
+	 * <h3 class="en-US">Add query condition with not null value</h3>
+	 * <h3 class="zh-CN">添加非空值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -3138,8 +3138,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Adds a query condition where the value is contained in the given data</h4>
-	 * <h4 class="zh-CN">添加值包含在给定数据中的查询条件</h4>
+	 * <h3 class="en-US">Adds a query condition where the value is contained in the given data</h3>
+	 * <h3 class="zh-CN">添加值包含在给定数据中的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -3163,8 +3163,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Adds a query condition where the value is contained in the given data</h4>
-	 * <h4 class="zh-CN">添加值包含在给定数据中的查询条件</h4>
+	 * <h3 class="en-US">Adds a query condition where the value is contained in the given data</h3>
+	 * <h3 class="zh-CN">添加值包含在给定数据中的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -3189,8 +3189,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Adds a query condition where the value is contained in the given data</h4>
-	 * <h4 class="zh-CN">添加值包含在给定数据中的查询条件</h4>
+	 * <h3 class="en-US">Adds a query condition where the value is contained in the given data</h3>
+	 * <h3 class="zh-CN">添加值包含在给定数据中的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -3217,8 +3217,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Adds a query condition where the value is not contained in the given data</h4>
-	 * <h4 class="zh-CN">添加值没有包含在给定数据中的查询条件</h4>
+	 * <h3 class="en-US">Adds a query condition where the value is not contained in the given data</h3>
+	 * <h3 class="zh-CN">添加值没有包含在给定数据中的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -3243,8 +3243,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Adds a query condition where the value is not contained in the given data</h4>
-	 * <h4 class="zh-CN">添加值没有包含在给定数据中的查询条件</h4>
+	 * <h3 class="en-US">Adds a query condition where the value is not contained in the given data</h3>
+	 * <h3 class="zh-CN">添加值没有包含在给定数据中的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -3271,8 +3271,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Adds a query condition where the value is not contained in the given data</h4>
-	 * <h4 class="zh-CN">添加值没有包含在给定数据中的查询条件</h4>
+	 * <h3 class="en-US">Adds a query condition where the value is not contained in the given data</h3>
+	 * <h3 class="zh-CN">添加值没有包含在给定数据中的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -3297,8 +3297,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add query conditions for condition groups</h4>
-	 * <h4 class="zh-CN">添加条件组的查询条件</h4>
+	 * <h3 class="en-US">Add query conditions for condition groups</h3>
+	 * <h3 class="zh-CN">添加条件组的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -3316,8 +3316,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add or update sort types</h4>
-	 * <h4 class="zh-CN">添加或更新排序类型</h4>
+	 * <h3 class="en-US">Add or update sort types</h3>
+	 * <h3 class="zh-CN">添加或更新排序类型</h3>
 	 *
 	 * @param entityClass <span class="en-US">Entity class</span>
 	 *                    <span class="zh-CN">实体类</span>
@@ -3331,8 +3331,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add or update sort types</h4>
-	 * <h4 class="zh-CN">添加或更新排序类型</h4>
+	 * <h3 class="en-US">Add or update sort types</h3>
+	 * <h3 class="zh-CN">添加或更新排序类型</h3>
 	 *
 	 * @param entityClass <span class="en-US">Entity class</span>
 	 *                    <span class="zh-CN">实体类</span>
@@ -3349,8 +3349,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add or update sort types</h4>
-	 * <h4 class="zh-CN">添加或更新排序类型</h4>
+	 * <h3 class="en-US">Add or update sort types</h3>
+	 * <h3 class="zh-CN">添加或更新排序类型</h3>
 	 *
 	 * @param entityClass <span class="en-US">Entity class</span>
 	 *                    <span class="zh-CN">实体类</span>
@@ -3381,8 +3381,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add or update group information</h4>
-	 * <h4 class="zh-CN">添加或更新分组信息</h4>
+	 * <h3 class="en-US">Add or update group information</h3>
+	 * <h3 class="zh-CN">添加或更新分组信息</h3>
 	 *
 	 * @param entityClass <span class="en-US">Entity class</span>
 	 *                    <span class="zh-CN">实体类</span>
@@ -3396,8 +3396,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Add or update group information</h4>
-	 * <h4 class="zh-CN">添加或更新分组信息</h4>
+	 * <h3 class="en-US">Add or update group information</h3>
+	 * <h3 class="zh-CN">添加或更新分组信息</h3>
 	 *
 	 * @param entityClass <span class="en-US">Entity class</span>
 	 *                    <span class="zh-CN">实体类</span>
@@ -3425,8 +3425,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Configure current query using cache</h4>
-	 * <h4 class="zh-CN">设置当前查询使用缓存</h4>
+	 * <h3 class="en-US">Configure current query using cache</h3>
+	 * <h3 class="zh-CN">设置当前查询使用缓存</h3>
 	 *
 	 * @param cacheables <span class="en-US">Using cache status</span>
 	 *                   <span class="zh-CN">使用缓存状态</span>
@@ -3439,8 +3439,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Configure current query will using for update record</h4>
-	 * <h4 class="zh-CN">设置当前查询是为了更新记录</h4>
+	 * <h3 class="en-US">Configure current query will using for update record</h3>
+	 * <h3 class="zh-CN">设置当前查询是为了更新记录</h3>
 	 *
 	 * @param forUpdate <span class="en-US">For update status</span>
 	 *                  <span class="zh-CN">为更新记录状态</span>
@@ -3453,8 +3453,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Configure lock option for update record</h4>
-	 * <h4 class="zh-CN">设置更新记录的锁定选项</h4>
+	 * <h3 class="en-US">Configure lock option for update record</h3>
+	 * <h3 class="zh-CN">设置更新记录的锁定选项</h3>
 	 *
 	 * @param lockOption <span class="en-US">Lock option</span>
 	 *                   <span class="zh-CN">锁定选项</span>
@@ -3467,8 +3467,8 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	}
 
 	/**
-	 * <h4 class="en-US">Configure pager information of current query</h4>
-	 * <h4 class="zh-CN">设置当前查询的分页配置</h4>
+	 * <h3 class="en-US">Configure pager information of current query</h3>
+	 * <h3 class="zh-CN">设置当前查询的分页配置</h3>
 	 *
 	 * @param pageNo    <span class="en-US">Current page number</span>
 	 *                  <span class="zh-CN">当前页数</span>

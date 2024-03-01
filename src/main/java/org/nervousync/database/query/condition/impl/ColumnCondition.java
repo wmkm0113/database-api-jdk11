@@ -67,15 +67,15 @@ public final class ColumnCondition extends Condition {
     private AbstractParameter<?> conditionParameter;
 
     /**
-     * <h4 class="en-US">Constructor method for query column condition information define</h4>
-     * <h4 class="zh-CN">数据列查询匹配条件定义的构造方法</h4>
+     * <h3 class="en-US">Constructor method for query column condition information define</h3>
+     * <h3 class="zh-CN">数据列查询匹配条件定义的构造方法</h3>
      */
     public ColumnCondition() {
     }
 
     /**
-     * <h4 class="en-US">Getter method for the entity class to which the data column belongs</h4>
-     * <h4 class="zh-CN">数据列所属的实体类的Getter方法</h4>
+     * <h3 class="en-US">Getter method for the entity class to which the data column belongs</h3>
+     * <h3 class="zh-CN">数据列所属的实体类的Getter方法</h3>
      *
      * @return <span class="en-US">The entity class to which the data column belongs</span>
      * <span class="zh-CN">数据列所属的实体类</span>
@@ -85,8 +85,8 @@ public final class ColumnCondition extends Condition {
     }
 
     /**
-     * <h4 class="en-US">Setter method for the entity class to which the data column belongs</h4>
-     * <h4 class="zh-CN">数据列所属的实体类的Setter方法</h4>
+     * <h3 class="en-US">Setter method for the entity class to which the data column belongs</h3>
+     * <h3 class="zh-CN">数据列所属的实体类的Setter方法</h3>
      *
      * @param entityClass <span class="en-US">The entity class to which the data column belongs</span>
      *                    <span class="zh-CN">数据列所属的实体类</span>
@@ -96,8 +96,8 @@ public final class ColumnCondition extends Condition {
     }
 
     /**
-     * <h4 class="en-US">Getter method for identify key</h4>
-     * <h4 class="zh-CN">识别代码的Getter方法</h4>
+     * <h3 class="en-US">Getter method for identify key</h3>
+     * <h3 class="zh-CN">识别代码的Getter方法</h3>
      *
      * @return <span class="en-US">Identify key</span>
      * <span class="zh-CN">识别代码</span>
@@ -107,8 +107,8 @@ public final class ColumnCondition extends Condition {
     }
 
     /**
-     * <h4 class="en-US">Setter method for identify key</h4>
-     * <h4 class="zh-CN">识别代码的Setter方法</h4>
+     * <h3 class="en-US">Setter method for identify key</h3>
+     * <h3 class="zh-CN">识别代码的Setter方法</h3>
      *
      * @param identifyKey <span class="en-US">Identify key</span>
      *                    <span class="zh-CN">识别代码</span>
@@ -118,8 +118,8 @@ public final class ColumnCondition extends Condition {
     }
 
     /**
-     * <h4 class="en-US">Getter method for match condition</h4>
-     * <h4 class="zh-CN">匹配结果的Getter方法</h4>
+     * <h3 class="en-US">Getter method for match condition</h3>
+     * <h3 class="zh-CN">匹配结果的Getter方法</h3>
      *
      * @return <span class="en-US">Match condition</span>
      * <span class="zh-CN">匹配结果</span>
@@ -129,8 +129,8 @@ public final class ColumnCondition extends Condition {
     }
 
     /**
-     * <h4 class="en-US">Setter method for match condition</h4>
-     * <h4 class="zh-CN">匹配结果的Setter方法</h4>
+     * <h3 class="en-US">Setter method for match condition</h3>
+     * <h3 class="zh-CN">匹配结果的Setter方法</h3>
      *
      * @param conditionParameter <span class="en-US">Match condition</span>
      *                           <span class="zh-CN">匹配结果</span>

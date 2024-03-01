@@ -31,14 +31,14 @@ import java.util.List;
 public interface TaskProvider {
 
     /**
-     * <h4 class="en-US">Initialize adapter</h4>
-     * <h4 class="zh-CN">初始化适配器</h4>
+     * <h3 class="en-US">Initialize adapter</h3>
+     * <h3 class="zh-CN">初始化适配器</h3>
      */
     void initialize();
 
     /**
-     * <h4 class="en-US">Read adapter name</h4>
-     * <h4 class="zh-CN">读取适配器名称</h4>
+     * <h3 class="en-US">Read adapter name</h3>
+     * <h3 class="zh-CN">读取适配器名称</h3>
      *
      * @param languageCode <span class="en-US">Language code</span>
      *                     <span class="zh-CN">语言代码</span>
@@ -48,14 +48,14 @@ public interface TaskProvider {
     String name(final String languageCode);
 
     /**
-     * <h4 class="en-US">Destroy the current adapter</h4>
-     * <h4 class="zh-CN">销毁当前适配器</h4>
+     * <h3 class="en-US">Destroy the current adapter</h3>
+     * <h3 class="zh-CN">销毁当前适配器</h3>
      */
     void destroy();
 
     /**
-     * <h4 class="en-US">Add data task</h4>
-     * <h4 class="zh-CN">添加数据任务</h4>
+     * <h3 class="en-US">Add data task</h3>
+     * <h3 class="zh-CN">添加数据任务</h3>
      *
      * @param taskInfo <span class="en-US">Data task information</span>
      *                 <span class="zh-CN">数据任务信息</span>
@@ -65,8 +65,8 @@ public interface TaskProvider {
     boolean addTask(@Nonnull final AbstractTask taskInfo);
 
     /**
-     * <h4 class="en-US">Update task status code</h4>
-     * <h4 class="zh-CN">更新任务状态代码</h4>
+     * <h3 class="en-US">Update task status code</h3>
+     * <h3 class="zh-CN">更新任务状态代码</h3>
      *
      * @param taskCode     <span class="en-US">Data task identification code</span>
      *                     <span class="zh-CN">数据任务识别代码</span>
@@ -76,8 +76,8 @@ public interface TaskProvider {
     void processTask(@Nonnull final Long taskCode, final String identifyCode);
 
     /**
-     * <h4 class="en-US">Delete data tasks before a given expiration time</h4>
-     * <h4 class="zh-CN">删除给定过期时间以前的数据任务</h4>
+     * <h3 class="en-US">Delete data tasks before a given expiration time</h3>
+     * <h3 class="zh-CN">删除给定过期时间以前的数据任务</h3>
      *
      * @param expireTime <span class="en-US">Expiration time</span>
      *                   <span class="zh-CN">过期时间</span>
@@ -85,8 +85,8 @@ public interface TaskProvider {
     void dropTask(@Nonnull final Long expireTime);
 
     /**
-     * <h4 class="en-US">Drop data task</h4>
-     * <h4 class="zh-CN">删除数据任务</h4>
+     * <h3 class="en-US">Drop data task</h3>
+     * <h3 class="zh-CN">删除数据任务</h3>
      *
      * @param userCode <span class="en-US">User identification code</span>
      *                 <span class="zh-CN">用户识别代码</span>
@@ -98,8 +98,8 @@ public interface TaskProvider {
     boolean dropTask(@Nonnull final Long userCode, @Nonnull final Long taskCode);
 
     /**
-     * <h4 class="en-US">Read next task details</h4>
-     * <h4 class="zh-CN">读取下一个任务详细信息</h4>
+     * <h3 class="en-US">Read next task details</h3>
+     * <h3 class="zh-CN">读取下一个任务详细信息</h3>
      *
      * @param identifyCode <span class="en-US">Current node identify code, generate by system.</span>
      *                     <span class="zh-CN">当前节点的唯一识别代码，系统自动生成</span>
@@ -109,8 +109,8 @@ public interface TaskProvider {
     AbstractTask nextTask(@Nonnull final String identifyCode);
 
     /**
-     * <h4 class="en-US">Complete current task</h4>
-     * <h4 class="zh-CN">完成当前任务</h4>
+     * <h3 class="en-US">Complete current task</h3>
+     * <h3 class="zh-CN">完成当前任务</h3>
      *
      * @param taskCode     <span class="en-US">Data task identification code</span>
      *                     <span class="zh-CN">数据任务识别代码</span>
@@ -122,8 +122,8 @@ public interface TaskProvider {
     void finishTask(@Nonnull final Long taskCode, @Nonnull final Boolean hasError, @Nonnull final String errorMessage);
 
     /**
-     * <h4 class="en-US">Read data task status information list</h4>
-     * <h4 class="zh-CN">读取数据任务状态信息列表</h4>
+     * <h3 class="en-US">Read data task status information list</h3>
+     * <h3 class="zh-CN">读取数据任务状态信息列表</h3>
      *
      * @param userCode  <span class="en-US">User identification code</span>
      *                  <span class="zh-CN">用户识别代码</span>
@@ -137,8 +137,8 @@ public interface TaskProvider {
     List<AbstractTask> taskList(@Nonnull final Long userCode, final Integer pageNo, final Integer limitSize);
 
     /**
-     * <h4 class="en-US">Read data task details</h4>
-     * <h4 class="zh-CN">读取数据任务详细信息</h4>
+     * <h3 class="en-US">Read data task details</h3>
+     * <h3 class="zh-CN">读取数据任务详细信息</h3>
      *
      * @param userCode <span class="en-US">User identification code</span>
      *                 <span class="zh-CN">用户识别代码</span>

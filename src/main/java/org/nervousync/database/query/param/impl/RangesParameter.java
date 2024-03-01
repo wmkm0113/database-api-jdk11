@@ -46,8 +46,8 @@ public final class RangesParameter extends AbstractParameter<RangesData> {
     private RangesData itemValue;
 
     /**
-     * <h4 class="en-US">Constructor method for ranges data parameter information define</h4>
-     * <h4 class="zh-CN">范围值参数定义的构造方法</h4>
+     * <h3 class="en-US">Constructor method for ranges data parameter information define</h3>
+     * <h3 class="zh-CN">范围值参数定义的构造方法</h3>
      */
     public RangesParameter() {
         super(ItemType.RANGE);

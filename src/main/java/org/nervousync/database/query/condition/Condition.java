@@ -62,8 +62,8 @@ public abstract class Condition extends SortedItem {
 	private ConnectionCode connectionCode;
 
 	/**
-	 * <h4 class="en-US">Getter method for query condition code</h4>
-	 * <h4 class="zh-CN">查询条件运算代码的Getter方法</h4>
+	 * <h3 class="en-US">Getter method for query condition code</h3>
+	 * <h3 class="zh-CN">查询条件运算代码的Getter方法</h3>
 	 *
 	 * @return <span class="en-US">Query condition code</span>
 	 * <span class="zh-CN">查询条件运算代码</span>
@@ -73,8 +73,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Setter method for query condition code</h4>
-	 * <h4 class="zh-CN">查询条件运算代码的Setter方法</h4>
+	 * <h3 class="en-US">Setter method for query condition code</h3>
+	 * <h3 class="zh-CN">查询条件运算代码的Setter方法</h3>
 	 *
 	 * @param conditionCode <span class="en-US">Query condition code</span>
 	 *                      <span class="zh-CN">查询条件运算代码</span>
@@ -84,8 +84,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Getter method for query connection code</h4>
-	 * <h4 class="zh-CN">查询条件连接代码的Getter方法</h4>
+	 * <h3 class="en-US">Getter method for query connection code</h3>
+	 * <h3 class="zh-CN">查询条件连接代码的Getter方法</h3>
 	 *
 	 * @return <span class="en-US">Query connection code</span>
 	 * <span class="zh-CN">查询条件连接代码</span>
@@ -95,8 +95,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Setter method for query connection code</h4>
-	 * <h4 class="zh-CN">查询条件连接代码的Setter方法</h4>
+	 * <h3 class="en-US">Setter method for query connection code</h3>
+	 * <h3 class="zh-CN">查询条件连接代码的Setter方法</h3>
 	 *
 	 * @param connectionCode <span class="en-US">Query connection code</span>
 	 *                       <span class="zh-CN">查询条件连接代码</span>
@@ -106,8 +106,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition greater than a certain value</h4>
-	 * <h4 class="zh-CN">添加大于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition greater than a certain value</h3>
+	 * <h3 class="zh-CN">添加大于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -132,8 +132,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition greater than a certain value</h4>
-	 * <h4 class="zh-CN">添加大于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition greater than a certain value</h3>
+	 * <h3 class="zh-CN">添加大于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -160,8 +160,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition greater than a certain value</h4>
-	 * <h4 class="zh-CN">添加大于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition greater than a certain value</h3>
+	 * <h3 class="zh-CN">添加大于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -189,8 +189,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition greater than a certain value</h4>
-	 * <h4 class="zh-CN">添加大于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition greater than a certain value</h3>
+	 * <h3 class="zh-CN">添加大于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -215,8 +215,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition greater than or equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加大于等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition greater than or equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加大于等于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -244,8 +244,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition greater than or equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加大于等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition greater than or equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加大于等于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -273,8 +273,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition greater than or equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加大于等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition greater than or equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加大于等于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -299,8 +299,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition greater than or equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加大于等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition greater than or equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加大于等于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -325,8 +325,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition less than a certain value</h4>
-	 * <h4 class="zh-CN">添加大于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition less than a certain value</h3>
+	 * <h3 class="zh-CN">添加大于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -353,8 +353,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition less than a certain value</h4>
-	 * <h4 class="zh-CN">添加大于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition less than a certain value</h3>
+	 * <h3 class="zh-CN">添加大于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -382,8 +382,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition less than a certain value</h4>
-	 * <h4 class="zh-CN">添加大于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition less than a certain value</h3>
+	 * <h3 class="zh-CN">添加大于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -408,8 +408,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition less than a certain value</h4>
-	 * <h4 class="zh-CN">添加大于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition less than a certain value</h3>
+	 * <h3 class="zh-CN">添加大于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -434,8 +434,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition less than or equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加大于等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition less than or equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加大于等于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -463,8 +463,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition less than or equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加大于等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition less than or equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加大于等于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -492,8 +492,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition less than or equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加大于等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition less than or equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加大于等于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -518,8 +518,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition less than or equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加大于等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition less than or equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加大于等于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -544,8 +544,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加等于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -572,8 +572,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加等于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -601,8 +601,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加等于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -627,8 +627,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加等于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -653,8 +653,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition not equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加不等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition not equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加不等于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -681,8 +681,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition not equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加不等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition not equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加不等于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -710,8 +710,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition not equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加不等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition not equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加不等于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -736,8 +736,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition not equal to a certain value</h4>
-	 * <h4 class="zh-CN">添加不等于某值的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition not equal to a certain value</h3>
+	 * <h3 class="zh-CN">添加不等于某值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -762,8 +762,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition between certain two values</h4>
-	 * <h4 class="zh-CN">添加介于某两个值之间的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition between certain two values</h3>
+	 * <h3 class="zh-CN">添加介于某两个值之间的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -790,8 +790,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Add a query condition not between certain two values</h4>
-	 * <h4 class="zh-CN">添加不介于某两个值之间的查询条件</h4>
+	 * <h3 class="en-US">Add a query condition not between certain two values</h3>
+	 * <h3 class="zh-CN">添加不介于某两个值之间的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -818,8 +818,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Add query conditions for fuzzy matching values</h4>
-	 * <h4 class="zh-CN">添加模糊匹配值的查询条件</h4>
+	 * <h3 class="en-US">Add query conditions for fuzzy matching values</h3>
+	 * <h3 class="zh-CN">添加模糊匹配值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -844,8 +844,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Add query conditions for not fuzzy matching values</h4>
-	 * <h4 class="zh-CN">添加非模糊匹配值的查询条件</h4>
+	 * <h3 class="en-US">Add query conditions for not fuzzy matching values</h3>
+	 * <h3 class="zh-CN">添加非模糊匹配值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -870,8 +870,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Add query condition with null value</h4>
-	 * <h4 class="zh-CN">添加空值的查询条件</h4>
+	 * <h3 class="en-US">Add query condition with null value</h3>
+	 * <h3 class="zh-CN">添加空值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -893,8 +893,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Add query condition with not null value</h4>
-	 * <h4 class="zh-CN">添加非空值的查询条件</h4>
+	 * <h3 class="en-US">Add query condition with not null value</h3>
+	 * <h3 class="zh-CN">添加非空值的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -915,8 +915,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Adds a query condition where the value is contained in the given data</h4>
-	 * <h4 class="zh-CN">添加值包含在给定数据中的查询条件</h4>
+	 * <h3 class="en-US">Adds a query condition where the value is contained in the given data</h3>
+	 * <h3 class="zh-CN">添加值包含在给定数据中的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -941,8 +941,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Adds a query condition where the value is contained in the given data</h4>
-	 * <h4 class="zh-CN">添加值包含在给定数据中的查询条件</h4>
+	 * <h3 class="en-US">Adds a query condition where the value is contained in the given data</h3>
+	 * <h3 class="zh-CN">添加值包含在给定数据中的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -967,8 +967,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Adds a query condition where the value is not contained in the given data</h4>
-	 * <h4 class="zh-CN">添加值非包含在给定数据中的查询条件</h4>
+	 * <h3 class="en-US">Adds a query condition where the value is not contained in the given data</h3>
+	 * <h3 class="zh-CN">添加值非包含在给定数据中的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -993,8 +993,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Adds a query condition where the value is not contained in the given data</h4>
-	 * <h4 class="zh-CN">添加值非包含在给定数据中的查询条件</h4>
+	 * <h3 class="en-US">Adds a query condition where the value is not contained in the given data</h3>
+	 * <h3 class="zh-CN">添加值非包含在给定数据中的查询条件</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -1019,8 +1019,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Static method is used to generate query matching condition group instance objects</h4>
-	 * <h4 class="zh-CN">静态方法用于生成查询匹配条件组实例对象</h4>
+	 * <h3 class="en-US">Static method is used to generate query matching condition group instance objects</h3>
+	 * <h3 class="zh-CN">静态方法用于生成查询匹配条件组实例对象</h3>
 	 *
 	 * @param sortCode       <span class="en-US">Sort code</span>
 	 *                       <span class="zh-CN">排序代码</span>
@@ -1047,8 +1047,8 @@ public abstract class Condition extends SortedItem {
 	}
 
 	/**
-	 * <h4 class="en-US">Static method is used to generate query data column matching condition instance object</h4>
-	 * <h4 class="zh-CN">静态方法用于生成查询数据列匹配条件实例对象</h4>
+	 * <h3 class="en-US">Static method is used to generate query data column matching condition instance object</h3>
+	 * <h3 class="zh-CN">静态方法用于生成查询数据列匹配条件实例对象</h3>
 	 *
 	 * @param sortCode              <span class="en-US">Sort code</span>
 	 *                              <span class="zh-CN">排序代码</span>
