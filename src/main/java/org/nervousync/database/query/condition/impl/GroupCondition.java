@@ -27,7 +27,7 @@ import java.util.List;
  * <h2 class="en-US">Query column condition information group define</h2>
  * <h2 class="zh-CN">查询匹配条件组定义</h2>
  *
- * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Oct 9, 2020 19:12:02 $
  */
 @XmlType(name = "group_condition", namespace = "https://nervousync.org/schemas/query")

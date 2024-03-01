@@ -20,6 +20,7 @@ package org.nervousync.database.query.condition;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlTransient;
 import org.nervousync.commons.Globals;
+import org.nervousync.database.entity.EntityManager;
 import org.nervousync.database.enumerations.query.ConditionCode;
 import org.nervousync.database.query.QueryInfo;
 import org.nervousync.database.query.condition.impl.ColumnCondition;
@@ -27,6 +28,7 @@ import org.nervousync.database.query.condition.impl.GroupCondition;
 import org.nervousync.database.query.core.SortedItem;
 import org.nervousync.database.query.param.AbstractParameter;
 import org.nervousync.enumerations.core.ConnectionCode;
+import org.nervousync.exceptions.builder.BuilderException;
 
 import java.util.Arrays;
 
@@ -34,7 +36,7 @@ import java.util.Arrays;
  * <h2 class="en-US">Abstract class for query condition information define</h2>
  * <h2 class="zh-CN">查询匹配条件定义抽象类</h2>
  *
- * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Oct 9, 2020 19:10:21 $
  */
 @XmlTransient
@@ -119,10 +121,12 @@ public abstract class Condition extends SortedItem {
 	 *                       <span class="zh-CN">匹配值</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition greater(final int sortCode, final ConnectionCode connectionCode,
 	                                      final Class<?> entityClass, final String identifyKey,
-	                                      final Object matchValue) {
+	                                      final Object matchValue) throws BuilderException {
 		return column(sortCode, connectionCode, ConditionCode.GREATER, entityClass, identifyKey,
 				AbstractParameter.constant(matchValue));
 	}
@@ -145,10 +149,12 @@ public abstract class Condition extends SortedItem {
 	 *                       <span class="zh-CN">目标数据列识别名称</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition greater(final int sortCode, final ConnectionCode connectionCode,
 	                                      final Class<?> entityClass, final String identifyKey,
-	                                      final Class<?> targetClass, final String columnKey) {
+	                                      final Class<?> targetClass, final String columnKey) throws BuilderException {
 		return column(sortCode, connectionCode, ConditionCode.GREATER, entityClass, identifyKey,
 				AbstractParameter.column(targetClass, columnKey, Globals.DEFAULT_VALUE_STRING));
 	}
@@ -171,10 +177,13 @@ public abstract class Condition extends SortedItem {
 	 *                       <span class="zh-CN">函数参数值</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition greater(final int sortCode, final ConnectionCode connectionCode,
 	                                      final Class<?> entityClass, final String identifyKey,
-	                                      final String sqlFunction, final AbstractParameter<?>... functionParams) {
+	                                      final String sqlFunction, final AbstractParameter<?>... functionParams)
+			throws BuilderException {
 		return column(sortCode, connectionCode, ConditionCode.GREATER, entityClass, identifyKey,
 				AbstractParameter.function(sqlFunction, functionParams));
 	}
@@ -195,10 +204,12 @@ public abstract class Condition extends SortedItem {
 	 *                       <span class="zh-CN">子查询实例对象</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition greater(final int sortCode, final ConnectionCode connectionCode,
 	                                      final Class<?> entityClass, final String identifyKey,
-	                                      final QueryInfo subQuery) {
+	                                      final QueryInfo subQuery) throws BuilderException {
 		return column(sortCode, connectionCode, ConditionCode.GREATER, entityClass, identifyKey,
 				AbstractParameter.subQuery(subQuery));
 	}
@@ -221,10 +232,13 @@ public abstract class Condition extends SortedItem {
 	 *                       <span class="zh-CN">目标数据列识别名称</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition greaterEqual(final int sortCode, final ConnectionCode connectionCode,
 	                                           final Class<?> entityClass, final String identifyKey,
-	                                           final Class<?> targetClass, final String columnKey) {
+	                                           final Class<?> targetClass, final String columnKey)
+			throws BuilderException {
 		return column(sortCode, connectionCode, ConditionCode.GREATER_EQUAL, entityClass, identifyKey,
 				AbstractParameter.column(targetClass, columnKey, Globals.DEFAULT_VALUE_STRING));
 	}
@@ -247,10 +261,13 @@ public abstract class Condition extends SortedItem {
 	 *                       <span class="zh-CN">函数参数值</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition greaterEqual(final int sortCode, final ConnectionCode connectionCode,
 	                                           final Class<?> entityClass, final String identifyKey,
-	                                           final String sqlFunction, final AbstractParameter<?>... functionParams) {
+	                                           final String sqlFunction, final AbstractParameter<?>... functionParams)
+			throws BuilderException {
 		return column(sortCode, connectionCode, ConditionCode.GREATER_EQUAL, entityClass, identifyKey,
 				AbstractParameter.function(sqlFunction, functionParams));
 	}
@@ -271,10 +288,12 @@ public abstract class Condition extends SortedItem {
 	 *                       <span class="zh-CN">子查询实例对象</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition greaterEqual(final int sortCode, final ConnectionCode connectionCode,
 	                                           final Class<?> entityClass, final String identifyKey,
-	                                           final QueryInfo subQuery) {
+	                                           final QueryInfo subQuery) throws BuilderException {
 		return column(sortCode, connectionCode, ConditionCode.GREATER_EQUAL, entityClass, identifyKey,
 				AbstractParameter.subQuery(subQuery));
 	}
@@ -295,10 +314,12 @@ public abstract class Condition extends SortedItem {
 	 *                       <span class="zh-CN">匹配值</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition greaterEqual(final int sortCode, final ConnectionCode connectionCode,
 	                                           final Class<?> entityClass, final String identifyKey,
-	                                           final Object matchValue) {
+	                                           final Object matchValue) throws BuilderException {
 		return column(sortCode, connectionCode, ConditionCode.GREATER_EQUAL, entityClass, identifyKey,
 				AbstractParameter.constant(matchValue));
 	}
@@ -321,10 +342,12 @@ public abstract class Condition extends SortedItem {
 	 *                       <span class="zh-CN">目标数据列识别名称</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition less(final int sortCode, final ConnectionCode connectionCode,
 	                                   final Class<?> entityClass, final String identifyKey,
-	                                   final Class<?> targetClass, final String columnKey) {
+	                                   final Class<?> targetClass, final String columnKey) throws BuilderException {
 		return column(sortCode, connectionCode, ConditionCode.LESS, entityClass, identifyKey,
 				AbstractParameter.column(targetClass, columnKey, Globals.DEFAULT_VALUE_STRING));
 	}
@@ -347,10 +370,13 @@ public abstract class Condition extends SortedItem {
 	 *                       <span class="zh-CN">函数参数值</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition less(final int sortCode, final ConnectionCode connectionCode,
 	                                   final Class<?> entityClass, final String identifyKey,
-	                                   final String sqlFunction, final AbstractParameter<?>... functionParams) {
+	                                   final String sqlFunction, final AbstractParameter<?>... functionParams)
+			throws BuilderException {
 		return column(sortCode, connectionCode, ConditionCode.LESS, entityClass, identifyKey,
 				AbstractParameter.function(sqlFunction, functionParams));
 	}
@@ -371,10 +397,12 @@ public abstract class Condition extends SortedItem {
 	 *                       <span class="zh-CN">子查询实例对象</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition less(final int sortCode, final ConnectionCode connectionCode,
 	                                   final Class<?> entityClass, final String identifyKey,
-	                                   final QueryInfo subQuery) {
+	                                   final QueryInfo subQuery) throws BuilderException {
 		return column(sortCode, connectionCode, ConditionCode.LESS, entityClass, identifyKey,
 				AbstractParameter.subQuery(subQuery));
 	}
@@ -395,10 +423,12 @@ public abstract class Condition extends SortedItem {
 	 *                       <span class="zh-CN">匹配值</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition less(final int sortCode, final ConnectionCode connectionCode,
 	                                   final Class<?> entityClass, final String identifyKey,
-	                                   final Object matchValue) {
+	                                   final Object matchValue) throws BuilderException {
 		return column(sortCode, connectionCode, ConditionCode.LESS, entityClass, identifyKey,
 				AbstractParameter.constant(matchValue));
 	}
@@ -421,10 +451,13 @@ public abstract class Condition extends SortedItem {
 	 *                       <span class="zh-CN">目标数据列识别名称</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition lessEqual(final int sortCode, final ConnectionCode connectionCode,
 	                                        final Class<?> entityClass, final String identifyKey,
-	                                        final Class<?> targetClass, final String columnKey) {
+	                                        final Class<?> targetClass, final String columnKey)
+			throws BuilderException {
 		return column(sortCode, connectionCode, ConditionCode.LESS_EQUAL, entityClass, identifyKey,
 				AbstractParameter.column(targetClass, columnKey, Globals.DEFAULT_VALUE_STRING));
 	}
@@ -447,10 +480,13 @@ public abstract class Condition extends SortedItem {
 	 *                       <span class="zh-CN">函数参数值</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition lessEqual(final int sortCode, final ConnectionCode connectionCode,
 	                                        final Class<?> entityClass, final String identifyKey,
-	                                        final String sqlFunction, final AbstractParameter<?>... functionParams) {
+	                                        final String sqlFunction, final AbstractParameter<?>... functionParams)
+			throws BuilderException {
 		return column(sortCode, connectionCode, ConditionCode.LESS_EQUAL, entityClass, identifyKey,
 				AbstractParameter.function(sqlFunction, functionParams));
 	}
@@ -471,10 +507,12 @@ public abstract class Condition extends SortedItem {
 	 *                       <span class="zh-CN">子查询实例对象</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition lessEqual(final int sortCode, final ConnectionCode connectionCode,
 	                                        final Class<?> entityClass, final String identifyKey,
-	                                        final QueryInfo subQuery) {
+	                                        final QueryInfo subQuery) throws BuilderException {
 		return column(sortCode, connectionCode, ConditionCode.LESS_EQUAL, entityClass, identifyKey,
 				AbstractParameter.subQuery(subQuery));
 	}
@@ -495,10 +533,12 @@ public abstract class Condition extends SortedItem {
 	 *                       <span class="zh-CN">匹配值</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition lessEqual(final int sortCode, final ConnectionCode connectionCode,
 	                                        final Class<?> entityClass, final String identifyKey,
-	                                        final Object matchValue) {
+	                                        final Object matchValue) throws BuilderException {
 		return column(sortCode, connectionCode, ConditionCode.LESS_EQUAL, entityClass, identifyKey,
 				AbstractParameter.constant(matchValue));
 	}
@@ -521,10 +561,12 @@ public abstract class Condition extends SortedItem {
 	 *                       <span class="zh-CN">目标数据列识别名称</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition equalTo(final int sortCode, final ConnectionCode connectionCode,
 	                                      final Class<?> entityClass, final String identifyKey,
-	                                      final Class<?> targetClass, final String columnKey) {
+	                                      final Class<?> targetClass, final String columnKey) throws BuilderException {
 		return column(sortCode, connectionCode, ConditionCode.EQUAL, entityClass, identifyKey,
 				AbstractParameter.column(targetClass, columnKey, Globals.DEFAULT_VALUE_STRING));
 	}
@@ -547,10 +589,13 @@ public abstract class Condition extends SortedItem {
 	 *                       <span class="zh-CN">函数参数值</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition equalTo(final int sortCode, final ConnectionCode connectionCode,
 	                                      final Class<?> entityClass, final String identifyKey,
-	                                      final String sqlFunction, final AbstractParameter<?>... functionParams) {
+	                                      final String sqlFunction, final AbstractParameter<?>... functionParams)
+			throws BuilderException {
 		return column(sortCode, connectionCode, ConditionCode.EQUAL, entityClass, identifyKey,
 				AbstractParameter.function(sqlFunction, functionParams));
 	}
@@ -571,10 +616,12 @@ public abstract class Condition extends SortedItem {
 	 *                       <span class="zh-CN">子查询实例对象</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition equalTo(final int sortCode, final ConnectionCode connectionCode,
 	                                      final Class<?> entityClass, final String identifyKey,
-	                                      final QueryInfo subQuery) {
+	                                      final QueryInfo subQuery) throws BuilderException {
 		return column(sortCode, connectionCode, ConditionCode.EQUAL, entityClass, identifyKey,
 				AbstractParameter.subQuery(subQuery));
 	}
@@ -595,10 +642,12 @@ public abstract class Condition extends SortedItem {
 	 *                       <span class="zh-CN">匹配值</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition equalTo(final int sortCode, final ConnectionCode connectionCode,
 	                                      final Class<?> entityClass, final String identifyKey,
-	                                      final Object matchValue) {
+	                                      final Object matchValue) throws BuilderException {
 		return column(sortCode, connectionCode, ConditionCode.EQUAL, entityClass, identifyKey,
 				AbstractParameter.constant(matchValue));
 	}
@@ -621,10 +670,12 @@ public abstract class Condition extends SortedItem {
 	 *                       <span class="zh-CN">目标数据列识别名称</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition notEqual(final int sortCode, final ConnectionCode connectionCode,
 	                                       final Class<?> entityClass, final String identifyKey,
-	                                       final Class<?> targetClass, final String columnKey) {
+	                                       final Class<?> targetClass, final String columnKey) throws BuilderException {
 		return column(sortCode, connectionCode, ConditionCode.NOT_EQUAL, entityClass, identifyKey,
 				AbstractParameter.column(targetClass, columnKey, Globals.DEFAULT_VALUE_STRING));
 	}
@@ -647,10 +698,13 @@ public abstract class Condition extends SortedItem {
 	 *                       <span class="zh-CN">函数参数值</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition notEqual(final int sortCode, final ConnectionCode connectionCode,
 	                                       final Class<?> entityClass, final String identifyKey,
-	                                       final String sqlFunction, final AbstractParameter<?>... functionParams) {
+	                                       final String sqlFunction, final AbstractParameter<?>... functionParams)
+			throws BuilderException {
 		return column(sortCode, connectionCode, ConditionCode.NOT_EQUAL, entityClass, identifyKey,
 				AbstractParameter.function(sqlFunction, functionParams));
 	}
@@ -671,10 +725,12 @@ public abstract class Condition extends SortedItem {
 	 *                       <span class="zh-CN">子查询实例对象</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition notEqual(final int sortCode, final ConnectionCode connectionCode,
 	                                       final Class<?> entityClass, final String identifyKey,
-	                                       final QueryInfo subQuery) {
+	                                       final QueryInfo subQuery) throws BuilderException {
 		return column(sortCode, connectionCode, ConditionCode.NOT_EQUAL, entityClass, identifyKey,
 				AbstractParameter.subQuery(subQuery));
 	}
@@ -695,10 +751,12 @@ public abstract class Condition extends SortedItem {
 	 *                       <span class="zh-CN">匹配值</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition notEqual(final int sortCode, final ConnectionCode connectionCode,
 	                                       final Class<?> entityClass, final String identifyKey,
-	                                       final Object matchValue) {
+	                                       final Object matchValue) throws BuilderException {
 		return column(sortCode, connectionCode, ConditionCode.NOT_EQUAL, entityClass, identifyKey,
 				AbstractParameter.constant(matchValue));
 	}
@@ -721,10 +779,12 @@ public abstract class Condition extends SortedItem {
 	 *                       <span class="zh-CN">终止值</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition inRanges(final int sortCode, final ConnectionCode connectionCode,
 	                                       final Class<?> entityClass, final String identifyKey,
-	                                       final Object beginValue, final Object endValue) {
+	                                       final Object beginValue, final Object endValue) throws BuilderException {
 		return column(sortCode, connectionCode, ConditionCode.BETWEEN_AND, entityClass, identifyKey,
 				AbstractParameter.ranges(beginValue, endValue));
 	}
@@ -747,10 +807,12 @@ public abstract class Condition extends SortedItem {
 	 *                       <span class="zh-CN">终止值</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition notInRanges(final int sortCode, final ConnectionCode connectionCode,
 	                                          final Class<?> entityClass, final String identifyKey,
-	                                          final Object beginValue, final Object endValue) {
+	                                          final Object beginValue, final Object endValue) throws BuilderException {
 		return column(sortCode, connectionCode, ConditionCode.NOT_BETWEEN_AND, entityClass, identifyKey,
 				AbstractParameter.ranges(beginValue, endValue));
 	}
@@ -771,9 +833,12 @@ public abstract class Condition extends SortedItem {
 	 *                       <span class="zh-CN">匹配规则字符串</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition like(final int sortCode, final ConnectionCode connectionCode,
-	                                   final Class<?> entityClass, final String identifyKey, final String matchRule) {
+	                                   final Class<?> entityClass, final String identifyKey, final String matchRule)
+			throws BuilderException {
 		return column(sortCode, connectionCode, ConditionCode.LIKE, entityClass, identifyKey,
 				AbstractParameter.constant(matchRule));
 	}
@@ -794,9 +859,12 @@ public abstract class Condition extends SortedItem {
 	 *                       <span class="zh-CN">匹配规则字符串</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition notLike(final int sortCode, final ConnectionCode connectionCode,
-	                                      final Class<?> entityClass, final String identifyKey, final String matchRule) {
+	                                      final Class<?> entityClass, final String identifyKey, final String matchRule)
+			throws BuilderException {
 		return column(sortCode, connectionCode, ConditionCode.NOT_LIKE, entityClass, identifyKey,
 				AbstractParameter.constant(matchRule));
 	}
@@ -815,9 +883,12 @@ public abstract class Condition extends SortedItem {
 	 *                       <span class="zh-CN">识别代码</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition matchNull(final int sortCode, final ConnectionCode connectionCode,
-	                                        final Class<?> entityClass, final String identifyKey) {
+	                                        final Class<?> entityClass, final String identifyKey)
+			throws BuilderException {
 		return column(sortCode, connectionCode, ConditionCode.IS_NULL, entityClass, identifyKey, null);
 	}
 
@@ -835,9 +906,11 @@ public abstract class Condition extends SortedItem {
 	 *                       <span class="zh-CN">识别代码</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition notNull(final int sortCode, final ConnectionCode connectionCode,
-	                                      final Class<?> entityClass, final String identifyKey) {
+	                                      final Class<?> entityClass, final String identifyKey) throws BuilderException {
 		return column(sortCode, connectionCode, ConditionCode.NOT_NULL, entityClass, identifyKey, null);
 	}
 
@@ -857,10 +930,12 @@ public abstract class Condition extends SortedItem {
 	 *                       <span class="zh-CN">子查询实例对象</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition in(final int sortCode, final ConnectionCode connectionCode,
 	                                 final Class<?> entityClass, final String identifyKey,
-	                                 final QueryInfo subQuery) {
+	                                 final QueryInfo subQuery) throws BuilderException {
 		return column(sortCode, connectionCode, ConditionCode.IN, entityClass, identifyKey,
 				AbstractParameter.subQuery(subQuery));
 	}
@@ -881,9 +956,12 @@ public abstract class Condition extends SortedItem {
 	 *                       <span class="zh-CN">匹配值数组</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition in(final int sortCode, final ConnectionCode connectionCode,
-	                                 final Class<?> entityClass, final String identifyKey, final Object... matchValues) {
+	                                 final Class<?> entityClass, final String identifyKey, final Object... matchValues)
+			throws BuilderException {
 		return column(sortCode, connectionCode, ConditionCode.IN, entityClass, identifyKey,
 				AbstractParameter.arrays(matchValues));
 	}
@@ -904,10 +982,12 @@ public abstract class Condition extends SortedItem {
 	 *                       <span class="zh-CN">子查询实例对象</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition notIn(final int sortCode, final ConnectionCode connectionCode,
 	                                    final Class<?> entityClass, final String identifyKey,
-	                                    final QueryInfo subQuery) {
+	                                    final QueryInfo subQuery) throws BuilderException {
 		return column(sortCode, connectionCode, ConditionCode.NOT_IN, entityClass, identifyKey,
 				AbstractParameter.subQuery(subQuery));
 	}
@@ -928,10 +1008,12 @@ public abstract class Condition extends SortedItem {
 	 *                       <span class="zh-CN">匹配值数组</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition notIn(final int sortCode, final ConnectionCode connectionCode,
 	                                    final Class<?> entityClass, final String identifyKey,
-	                                    final Object... matchValues) {
+	                                    final Object... matchValues) throws BuilderException {
 		return column(sortCode, connectionCode, ConditionCode.NOT_IN, entityClass, identifyKey,
 				AbstractParameter.arrays(matchValues));
 	}
@@ -982,12 +1064,21 @@ public abstract class Condition extends SortedItem {
 	 *                              <span class="zh-CN">匹配结果</span>
 	 * @return <span class="en-US">Generated object instance</span>
 	 * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public static ColumnCondition column(final int sortCode, final ConnectionCode connectionCode,
 	                                     final ConditionCode conditionCode, final Class<?> entityClass,
-	                                     final String identifyKey, final AbstractParameter<?> conditionParameter) {
+	                                     final String identifyKey, final AbstractParameter<?> conditionParameter)
+			throws BuilderException {
 		if (ConditionCode.GROUP.equals(conditionCode)) {
 			return null;
+		}
+		if (!EntityManager.tableExists(entityClass)) {
+			throw new BuilderException(0x00DB00000001L);
+		}
+		if (!EntityManager.columnExists(entityClass, identifyKey)) {
+			throw new BuilderException(0x00DB00000002L);
 		}
 		ColumnCondition columnCondition = new ColumnCondition();
 

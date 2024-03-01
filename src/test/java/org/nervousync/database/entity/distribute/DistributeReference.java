@@ -22,7 +22,7 @@ import org.nervousync.utils.StringUtils;
 /**
  * The type Distribute reference.
  *
- * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
  * @version $Revision: 1.0 $ $Date: 3/16/2021 02:30 PM $
  */
 @XmlRootElement(name = "distribute_reference")

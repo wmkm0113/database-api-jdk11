@@ -7,6 +7,7 @@
 
 [English](README.md)
 简体中文
+[繁體中文](README_zh_TW.md)
 
 为数据处理平台打造的接口工具包，提供统一数据平台的查询输入输出格式、数据导入导出工具、懒加载数据列或关联数据等功能，同时还可以根据注解自动对敏感数据进行加密/解密、查询条件拆分等操作，
 
@@ -72,7 +73,7 @@ libraryDependencies += "org.nervousync" % "database-api-jdk11" % "${version}" % 
 在项目中引用包含数据库管理器实现类的项目支持
 
 ### 3、初始化数据库管理器
-在系统初始化的过程中调用 org.nervousync.database.commons.DatabaseUtils 的 initialize 静态方法，传入的参数为需要使用的数据库管理器实现类的识别代码（org.nervousync.annotations.provider.Provider 注解的 name 参数），工具包会自动生成数据库管理器实现类对象并调用管理器的 initialize 方法执行初始化操作，如果在初始化的过程中出现异常，则会抛出异常代码为0x00DB00000005的异常信息。
+在系统初始化的过程中调用 org.nervousync.database.commons.DatabaseUtils 的 initialize 静态方法，传入的参数为需要使用的数据库管理器实现类的识别代码（org.nervousync.annotations.provider.Provider 注解的 name 参数），工具包会自动生成数据库管理器实现类对象并调用管理器的 initialize 方法执行初始化操作，如果在初始化的过程中出现异常，则会抛出异常代码为0x00DB00000004的异常信息。
 
 ### 4、获取数据库客户端并执行相关操作
 **获取只读模式的数据库客户端：**   

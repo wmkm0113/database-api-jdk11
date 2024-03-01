@@ -18,7 +18,7 @@
 package org.nervousync.database.annotations.query;
 
 import org.nervousync.commons.Globals;
-import org.nervousync.database.annotations.query.join.JoinConfig;
+import org.nervousync.database.annotations.query.join.JoinEntities;
 import org.nervousync.database.enumerations.lock.LockOption;
 
 import java.lang.annotation.*;
@@ -27,7 +27,7 @@ import java.lang.annotation.*;
  * <h2 class="en-US">The annotation of query result set</h2>
  * <h2 class="zh-CN">查询结果集的注解</h2>
  *
- * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Nov 15, 2023 15:21:18 $
  */
 @Documented
@@ -51,7 +51,7 @@ public @interface ResultSet {
 	 * @return <span class="en-US">Related query information</span>
 	 * <span class="zh-CN">关联查询信息</span>
      */
-    JoinConfig[] joinConfigs() default {};
+    JoinEntities[] joinConfigs() default {};
 
     /**
      * @return <span class="en-US">Sort data column definition array</span>

@@ -25,7 +25,7 @@ import java.lang.annotation.*;
  * <h2 class="en-US">The annotation of data record options</h2>
  * <h2 class="zh-CN">数据记录选项的注解</h2>
  *
- * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Apr 11, 2018 17:36:43 $
  */
 @Documented

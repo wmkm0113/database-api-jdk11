@@ -12,75 +12,31 @@
     },
     {
       "code": "0x00DB00000003",
-      "key": "Join_Builder_Not_Found_Error"
-    },
-    {
-      "code": "0x00DB00000004",
       "key": "Manager_Provider_Not_Found_Error"
     },
     {
-      "code": "0x00DB00000005",
+      "code": "0x00DB00000004",
       "key": "Manager_Initialize_Error"
     },
     {
-      "code": "0x00DB00000006",
+      "code": "0x00DB00000005",
       "key": "Data_Header_Bytes_Error"
     },
     {
-      "code": "0x00DB00000007",
+      "code": "0x00DB00000006",
       "key": "Data_Path_Not_Found_Error"
     },
     {
-      "code": "0x00DB00000008",
+      "code": "0x00DB00000007",
       "key": "Data_Parser_Init_Error"
     },
     {
-      "code": "0x00DB00000009",
+      "code": "0x00DB00000008",
       "key": "Data_Parser_Process_Error"
     },
     {
-      "code": "0x00DB00000010",
-      "key": "Entity_Class_Not_Matched"
-    },
-    {
-      "code": "0x00DB00000011",
-      "key": "Item_Type_Invalid"
-    },
-    {
-      "code": "0x00DB00000012",
-      "key": "Reference_Define_Not_Found_Error"
-    },
-    {
-      "code": "0x00DB00000013",
-      "key": "Schema_Match_Error"
-    },
-    {
-      "code": "0x00DB00000014",
-      "key": "Previous_Query_Not_Found_Error"
-    },
-    {
-      "code": "0x00DB00000015",
-      "key": "Query_Empty_Error"
-    },
-    {
-      "code": "0x00DB00000016",
-      "key": "Condition_Item_Empty_Error"
-    },
-    {
-      "code": "0x00DB00000017",
-      "key": "Query_Item_Empty_Error"
-    },
-    {
-      "code": "0x00DB00000018",
-      "key": "Sub_Query_Not_Found"
-    },
-    {
-      "code": "0x00DB00000019",
+      "code": "0x00DB00000009",
       "key": "Annotation_Not_Found_Error"
-    },
-    {
-      "code": "0x00DB00000020",
-      "key": "Join_Chain_Entity_Match_Error"
     }
   ],
   "languages": [
@@ -95,10 +51,6 @@
         {
           "key": "Column_Not_Found_Error",
           "content": "Column configure information didn't find, identify key: {0}"
-        },
-        {
-          "key": "Join_Builder_Not_Found_Error",
-          "content": "Reference information builder not found"
         },
         {
           "key": "Manager_Provider_Not_Found_Error",
@@ -153,24 +105,16 @@
           "content": "The current transaction was not found, transaction identification code: {0}"
         },
         {
+          "key": "Data_Task_Schedule_Error",
+          "content": "Schedule execute the data import/export task error."
+        },
+        {
           "key": "Data_Parse_Result",
           "content": "Process data: remove operate: {0}, Entity class name: {1}, primary key: {2}, data info: {3}"
         },
         {
           "key": "Data_Utils_Config",
           "content": "Data import and export tool configuration information: Maximum number of threads: {0}, expiration time: {1}"
-        },
-        {
-          "key": "Entity_Class_Not_Matched",
-          "content": "Entity class not matched! "
-        },
-        {
-          "key": "Item_Type_Invalid",
-          "content": "Query item type invalid! "
-        },
-        {
-          "key": "Reference_Define_Not_Found_Error",
-          "content": "Reference table define not found! "
         }
       ]
     },
@@ -185,10 +129,6 @@
         {
           "key": "Column_Not_Found_Error",
           "content": "数据列定义未找到，识别代码：{0}"
-        },
-        {
-          "key": "Join_Builder_Not_Found_Error",
-          "content": "关联信息构建器未找到"
         },
         {
           "key": "Manager_Provider_Not_Found_Error",
@@ -253,18 +193,6 @@
         {
           "key": "Data_Utils_Config",
           "content": "数据导入导出工具配置信息：最大线程数：{0}，过期时间：{1}"
-        },
-        {
-          "key": "Entity_Class_Not_Matched",
-          "content": "实体类信息比对出错"
-        },
-        {
-          "key": "Item_Type_Invalid",
-          "content": "查询项目的类型错误"
-        },
-        {
-          "key": "Reference_Define_Not_Found_Error",
-          "content": "关联信息数据表定义未找到"
         }
       ]
     }

@@ -28,7 +28,7 @@ import java.util.*;
  * <h2 class="en-US">Query function information define</h2>
  * <h2 class="zh-CN">查询数据函数信息定义</h2>
  *
- * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Oct 9, 2020 11:42:19 $
  */
 @XmlType(name = "function_item", namespace = "https://nervousync.org/schemas/query")

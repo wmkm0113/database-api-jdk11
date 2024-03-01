@@ -22,7 +22,7 @@ import java.sql.Connection;
  * <h2 class="en-US">Enumeration value of transactional isolation</h2>
  * <h2 class="zh-CN">事务等级的枚举值</h2>
  *
- * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Mar 30, 2016 15:52:00 $
  */
 public enum Isolation {

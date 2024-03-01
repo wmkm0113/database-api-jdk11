@@ -42,7 +42,7 @@ import java.util.List;
  * <h2 class="en-US">Column information</h2>
  * <h2 class="zh-CN">列基本信息</h2>
  *
- * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Jun 27, 2018 23:02:27 $
  */
 @XmlType(name = "column_info")

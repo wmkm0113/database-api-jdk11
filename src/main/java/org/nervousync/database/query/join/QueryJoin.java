@@ -32,7 +32,7 @@ import java.util.List;
  * <h2 class="en-US">Query join information define</h2>
  * <h2 class="zh-CN">查询关联信息定义</h2>
  *
- * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Jul 30, 2023 15:57:33 $
  */
 @XmlType(name = "query_join", namespace = "https://nervousync.org/schemas/query")
@@ -40,153 +40,155 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.NONE)
 public final class QueryJoin extends SortedItem {
 
-    private static final long serialVersionUID = 8868119078098035574L;
+	private static final long serialVersionUID = 8868119078098035574L;
 
-    /**
-     * <span class="en-US">Driver table entity class</span>
-     * <span class="zh-CN">驱动表实体类</span>
-     */
-    @XmlElement(name = "main_entity")
-    @XmlJavaTypeAdapter(ClassAdapter.class)
-    private Class<?> mainEntity;
-    /**
-     * <span class="en-US">Reference table entity class</span>
-     * <span class="zh-CN">关联表实体类</span>
-     */
-    @XmlElement(name = "join_entity")
-    @XmlJavaTypeAdapter(ClassAdapter.class)
-    private Class<?> joinEntity;
-    /**
-     * <span class="en-US">Table join type</span>
-     * <span class="zh-CN">数据表关联类型</span>
-     */
-    @XmlElement(name = "join_type")
-    private JoinType joinType;
-    /**
-     * <span class="en-US">Join columns list</span>
-     * <span class="zh-CN">关联列信息列表</span>
-     */
-    @XmlElement(name = "join_info")
-    @XmlElementWrapper(name = "join_info_list")
-    private List<JoinInfo> joinInfos;
+	/**
+	 * <span class="en-US">Driver table entity class</span>
+	 * <span class="zh-CN">驱动表实体类</span>
+	 */
+	@XmlElement(name = "main_entity")
+	@XmlJavaTypeAdapter(ClassAdapter.class)
+	private Class<?> mainEntity;
+	/**
+	 * <span class="en-US">Reference table entity class</span>
+	 * <span class="zh-CN">关联表实体类</span>
+	 */
+	@XmlElement(name = "join_entity")
+	@XmlJavaTypeAdapter(ClassAdapter.class)
+	private Class<?> joinEntity;
+	/**
+	 * <span class="en-US">Table join type</span>
+	 * <span class="zh-CN">数据表关联类型</span>
+	 */
+	@XmlElement(name = "join_type")
+	private JoinType joinType;
+	/**
+	 * <span class="en-US">Join columns list</span>
+	 * <span class="zh-CN">关联列信息列表</span>
+	 */
+	@XmlElement(name = "join_info")
+	@XmlElementWrapper(name = "join_info_list")
+	private List<JoinInfo> joinInfos;
 
-    /**
-     * <h3 class="en-US">Private constructor method for query join information define</h3>
-     * <h3 class="zh-CN">查询关联信息定义的私有构造方法</h3>
-     */
-    public QueryJoin() {
-        this.joinInfos = new ArrayList<>();
-    }
+	/**
+	 * <h3 class="en-US">Private constructor method for query join information define</h3>
+	 * <h3 class="zh-CN">查询关联信息定义的私有构造方法</h3>
+	 */
+	public QueryJoin() {
+		this.joinInfos = new ArrayList<>();
+	}
 
-    /**
-     * <h3 class="en-US">Private constructor method for query join information define</h3>
-     * <h3 class="zh-CN">查询关联信息定义的私有构造方法</h3>
-     *
-     * @param mainEntity <span class="en-US">Driver table entity class</span>
-     *                   <span class="zh-CN">驱动表实体类</span>
-     * @param joinEntity <span class="en-US">Reference table entity class</span>
-     *                   <span class="zh-CN">关联表实体类</span>
-     * @param joinType   <span class="en-US">Table join type</span>
-     *                   <span class="zh-CN">数据表关联类型</span>
-     */
-    public QueryJoin(@Nonnull final Class<?> mainEntity, @Nonnull final Class<?> joinEntity,
-                     @Nonnull final JoinType joinType, @Nonnull final List<JoinInfo> joinInfos) {
-        this.mainEntity = mainEntity;
-        this.joinEntity = joinEntity;
-        this.joinType = joinType;
-        this.joinInfos = joinInfos;
-    }
+	/**
+	 * <h3 class="en-US">Private constructor method for query join information define</h3>
+	 * <h3 class="zh-CN">查询关联信息定义的私有构造方法</h3>
+	 *
+	 * @param mainEntity <span class="en-US">Driver table entity class</span>
+	 *                   <span class="zh-CN">驱动表实体类</span>
+	 * @param joinEntity <span class="en-US">Reference table entity class</span>
+	 *                   <span class="zh-CN">关联表实体类</span>
+	 * @param joinType   <span class="en-US">Table join type</span>
+	 *                   <span class="zh-CN">数据表关联类型</span>
+	 * @param joinInfos  <span class="en-US">Join columns list</span>
+	 *                   <span class="zh-CN">关联列信息列表</span>
+	 */
+	public QueryJoin(@Nonnull final Class<?> mainEntity, @Nonnull final Class<?> joinEntity,
+	                 @Nonnull final JoinType joinType, @Nonnull final List<JoinInfo> joinInfos) {
+		this.mainEntity = mainEntity;
+		this.joinEntity = joinEntity;
+		this.joinType = joinType;
+		this.joinInfos = joinInfos;
+	}
 
-    /**
-     * <h3 class="en-US">Getter method for driver table entity class</h3>
-     * <h3 class="zh-CN">驱动表实体类的Getter方法</h3>
-     *
-     * @return <span class="en-US">Driver table entity class</span>
-     * <span class="zh-CN">驱动表实体类</span>
-     */
-    public Class<?> getMainEntity() {
-        return mainEntity;
-    }
+	/**
+	 * <h3 class="en-US">Getter method for driver table entity class</h3>
+	 * <h3 class="zh-CN">驱动表实体类的Getter方法</h3>
+	 *
+	 * @return <span class="en-US">Driver table entity class</span>
+	 * <span class="zh-CN">驱动表实体类</span>
+	 */
+	public Class<?> getMainEntity() {
+		return mainEntity;
+	}
 
-    /**
-     * <h3 class="en-US">Setter method for driver table entity class</h3>
-     * <h3 class="zh-CN">驱动表实体类的Setter方法</h3>
-     *
-     * @param mainEntity <span class="en-US">Driver table entity class</span>
-     *                   <span class="zh-CN">驱动表实体类</span>
-     */
-    public void setMainEntity(Class<?> mainEntity) {
-        this.mainEntity = mainEntity;
-    }
+	/**
+	 * <h3 class="en-US">Setter method for driver table entity class</h3>
+	 * <h3 class="zh-CN">驱动表实体类的Setter方法</h3>
+	 *
+	 * @param mainEntity <span class="en-US">Driver table entity class</span>
+	 *                   <span class="zh-CN">驱动表实体类</span>
+	 */
+	public void setMainEntity(Class<?> mainEntity) {
+		this.mainEntity = mainEntity;
+	}
 
-    /**
-     * <h3 class="en-US">Getter method for reference table entity class</h3>
-     * <h3 class="zh-CN">关联表实体类的Getter方法</h3>
-     *
-     * @return <span class="en-US">Reference table entity class</span>
-     * <span class="zh-CN">关联表实体类</span>
-     */
-    public Class<?> getJoinEntity() {
-        return joinEntity;
-    }
+	/**
+	 * <h3 class="en-US">Getter method for reference table entity class</h3>
+	 * <h3 class="zh-CN">关联表实体类的Getter方法</h3>
+	 *
+	 * @return <span class="en-US">Reference table entity class</span>
+	 * <span class="zh-CN">关联表实体类</span>
+	 */
+	public Class<?> getJoinEntity() {
+		return joinEntity;
+	}
 
-    /**
-     * <h3 class="en-US">Setter method for reference table entity class</h3>
-     * <h3 class="zh-CN">关联表实体类的Setter方法</h3>
-     *
-     * @param joinEntity <span class="en-US">Reference table entity class</span>
-     *                   <span class="zh-CN">关联表实体类</span>
-     */
-    public void setJoinEntity(Class<?> joinEntity) {
-        this.joinEntity = joinEntity;
-    }
+	/**
+	 * <h3 class="en-US">Setter method for reference table entity class</h3>
+	 * <h3 class="zh-CN">关联表实体类的Setter方法</h3>
+	 *
+	 * @param joinEntity <span class="en-US">Reference table entity class</span>
+	 *                   <span class="zh-CN">关联表实体类</span>
+	 */
+	public void setJoinEntity(Class<?> joinEntity) {
+		this.joinEntity = joinEntity;
+	}
 
-    /**
-     * <h3 class="en-US">Getter method for table join type</h3>
-     * <h3 class="zh-CN">数据表关联类型的Getter方法</h3>
-     *
-     * @return <span class="en-US">Table join type</span>
-     * <span class="zh-CN">数据表关联类型</span>
-     */
-    public JoinType getJoinType() {
-        return joinType;
-    }
+	/**
+	 * <h3 class="en-US">Getter method for table join type</h3>
+	 * <h3 class="zh-CN">数据表关联类型的Getter方法</h3>
+	 *
+	 * @return <span class="en-US">Table join type</span>
+	 * <span class="zh-CN">数据表关联类型</span>
+	 */
+	public JoinType getJoinType() {
+		return joinType;
+	}
 
-    /**
-     * <h3 class="en-US">Setter method for table join type</h3>
-     * <h3 class="zh-CN">数据表关联类型的Setter方法</h3>
-     *
-     * @param joinType <span class="en-US">Table join type</span>
-     *                 <span class="zh-CN">数据表关联类型</span>
-     */
-    public void setJoinType(JoinType joinType) {
-        this.joinType = joinType;
-    }
+	/**
+	 * <h3 class="en-US">Setter method for table join type</h3>
+	 * <h3 class="zh-CN">数据表关联类型的Setter方法</h3>
+	 *
+	 * @param joinType <span class="en-US">Table join type</span>
+	 *                 <span class="zh-CN">数据表关联类型</span>
+	 */
+	public void setJoinType(JoinType joinType) {
+		this.joinType = joinType;
+	}
 
-    /**
-     * <h3 class="en-US">Getter method for join columns list</h3>
-     * <h3 class="zh-CN">关联列信息列表的Getter方法</h3>
-     *
-     * @return <span class="en-US">Join columns list</span>
-     * <span class="zh-CN">关联列信息列表</span>
-     */
-    public List<JoinInfo> getJoinInfos() {
-        return joinInfos;
-    }
+	/**
+	 * <h3 class="en-US">Getter method for join columns list</h3>
+	 * <h3 class="zh-CN">关联列信息列表的Getter方法</h3>
+	 *
+	 * @return <span class="en-US">Join columns list</span>
+	 * <span class="zh-CN">关联列信息列表</span>
+	 */
+	public List<JoinInfo> getJoinInfos() {
+		return joinInfos;
+	}
 
-    /**
-     * <h3 class="en-US">Setter method for join columns list</h3>
-     * <h3 class="zh-CN">关联列信息列表的Setter方法</h3>
-     *
-     * @param joinInfos <span class="en-US">Join columns list</span>
-     *                  <span class="zh-CN">关联列信息列表</span>
-     */
-    public void setJoinInfos(List<JoinInfo> joinInfos) {
-        this.joinInfos = joinInfos;
-    }
+	/**
+	 * <h3 class="en-US">Setter method for join columns list</h3>
+	 * <h3 class="zh-CN">关联列信息列表的Setter方法</h3>
+	 *
+	 * @param joinInfos <span class="en-US">Join columns list</span>
+	 *                  <span class="zh-CN">关联列信息列表</span>
+	 */
+	public void setJoinInfos(List<JoinInfo> joinInfos) {
+		this.joinInfos = joinInfos;
+	}
 
-    public boolean match(@Nonnull final Class<?> mainEntity, @Nonnull final Class<?> joinEntity) {
-        return ObjectUtils.nullSafeEquals(mainEntity, this.mainEntity)
-                && ObjectUtils.nullSafeEquals(joinEntity, this.joinEntity);
-    }
+	public boolean match(@Nonnull final Class<?> mainEntity, @Nonnull final Class<?> joinEntity) {
+		return ObjectUtils.nullSafeEquals(mainEntity, this.mainEntity)
+				&& ObjectUtils.nullSafeEquals(joinEntity, this.joinEntity);
+	}
 }

@@ -1,6 +1,5 @@
 package org.nervousync.database.commons;
 
-import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 import org.nervousync.annotations.provider.Provider;
 import org.nervousync.commons.Globals;
@@ -10,16 +9,9 @@ import org.nervousync.database.api.DatabaseClient;
 import org.nervousync.database.api.DatabaseManager;
 import org.nervousync.database.beans.configs.column.ColumnConfig;
 import org.nervousync.database.beans.configs.transactional.TransactionalConfig;
-import org.nervousync.database.dialects.Converter;
 import org.nervousync.database.entity.EntityManager;
-import org.nervousync.database.entity.core.BaseObject;
-import org.nervousync.database.enumerations.join.JoinType;
 import org.nervousync.database.enumerations.lock.LockOption;
-import org.nervousync.database.enumerations.query.OrderType;
 import org.nervousync.database.exceptions.core.DatabaseException;
-import org.nervousync.database.query.filter.GroupBy;
-import org.nervousync.database.query.filter.OrderBy;
-import org.nervousync.database.query.join.JoinInfo;
 import org.nervousync.utils.*;
 
 import java.lang.reflect.Field;
@@ -29,13 +21,12 @@ import java.math.BigDecimal;
 import java.sql.Types;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Predicate;
 
 /**
  * <h2 class="en-US">Database utilities define</h2>
  * <h2 class="zh-CN">数据库基本工具定义</h2>
  *
- * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Mar 30, 2016 17:05:12 $
  */
 public final class DatabaseUtils {
@@ -102,7 +93,7 @@ public final class DatabaseUtils {
 		DatabaseManager databaseManager =
 				Optional.ofNullable(REGISTERED_DATABASE_MANAGER_PROVIDERS.get(managerName))
 						.map(managerClass -> (DatabaseManager) ObjectUtils.newInstance(managerClass))
-						.orElseThrow(() -> new DatabaseException(0x00DB00000004L));
+						.orElseThrow(() -> new DatabaseException(0x00DB00000003L));
 		if (databaseManager.initialize()) {
 			if (DATABASE_MANAGER == null) {
 				Runtime.getRuntime().addShutdownHook(new Thread(DatabaseUtils::destroy));
@@ -113,7 +104,7 @@ public final class DatabaseUtils {
 			DATABASE_MANAGER = databaseManager;
 			return;
 		}
-		throw new DatabaseException(0x00DB00000005L);
+		throw new DatabaseException(0x00DB00000004L);
 	}
 
 	public static String tableKey(final String string) {
@@ -306,95 +297,6 @@ public final class DatabaseUtils {
 	}
 
 	/**
-	 * <h3 class="en-US">Generates an immutable information identification string based on a given entity object instance</h3>
-	 * <h3 class="zh-CN">根据给定的实体对象实例生成不可变信息识别字符串</h3>
-	 *
-	 * @param object <span class="en-US">Entity object instance</span>
-	 *               <span class="zh-CN">实体对象实例</span>
-	 * @return <span class="en-US">Generated cache key string</span>
-	 * <span class="zh-CN">生成的缓存键值</span>
-	 */
-	public static String uniqueKey(@Nonnull final Object object) {
-		return identifyKey(primaryKeyMap(object), object.getClass(), DataType.UNIQUE, Globals.DEFAULT_VALUE_STRING);
-	}
-
-	/**
-	 * <h3 class="en-US">Generate an immutable information identification string based on the given data mapping table and entity class information</h3>
-	 * <h3 class="zh-CN">根据给定的数据映射表和实体类信息生成不可变信息识别字符串</h3>
-	 *
-	 * @param dataMap     <span class="en-US">Primary key data mapping table</span>
-	 *                    <span class="zh-CN">主键数据映射表</span>
-	 * @param defineClass <span class="en-US">Entity define class</span>
-	 *                    <span class="zh-CN">实体类定义</span>
-	 * @return <span class="en-US">Generated cache key string</span>
-	 * <span class="zh-CN">生成的缓存键值</span>
-	 */
-	public static String uniqueKey(@Nonnull final Map<String, Object> dataMap, final Class<?> defineClass) {
-		return identifyKey(dataMap, defineClass, DataType.UNIQUE, Globals.DEFAULT_VALUE_STRING);
-	}
-
-	/**
-	 * <h3 class="en-US">Generate an updatable information identification string based on a given entity object instance</h3>
-	 * <h3 class="zh-CN">根据给定的实体对象实例生成可更新信息识别字符串</h3>
-	 *
-	 * @param object <span class="en-US">Entity object instance</span>
-	 *               <span class="zh-CN">实体对象实例</span>
-	 * @return <span class="en-US">Generated cache key string</span>
-	 * <span class="zh-CN">生成的缓存键值</span>
-	 */
-	public static String updatableKey(@Nonnull final Object object) {
-		return identifyKey(primaryKeyMap(object), object.getClass(), DataType.UPDATABLE, Globals.DEFAULT_VALUE_STRING);
-	}
-
-	/**
-	 * <h3 class="en-US">Generate an updatable information identification string based on the given data mapping table and entity class information</h3>
-	 * <h3 class="zh-CN">根据给定的数据映射表和实体类信息生成可更新信息识别字符串</h3>
-	 *
-	 * @param dataMap     <span class="en-US">Primary key data mapping table</span>
-	 *                    <span class="zh-CN">主键数据映射表</span>
-	 * @param defineClass <span class="en-US">Entity define class</span>
-	 *                    <span class="zh-CN">实体类定义</span>
-	 * @return <span class="en-US">Generated cache key string</span>
-	 * <span class="zh-CN">生成的缓存键值</span>
-	 */
-	public static String updatableKey(@Nonnull final Map<String, Object> dataMap, final Class<?> defineClass) {
-		return identifyKey(dataMap, defineClass, DataType.UPDATABLE, Globals.DEFAULT_VALUE_STRING);
-	}
-
-	/**
-	 * <h3 class="en-US">Generate lazy loading information identification string based on the given entity object instance and lazy loading identification code</h3>
-	 * <h3 class="zh-CN">根据给定的实体对象实例和懒加载识别代码生成懒加载信息识别字符串</h3>
-	 *
-	 * @param object      <span class="en-US">Entity object instance</span>
-	 *                    <span class="zh-CN">实体对象实例</span>
-	 * @param identifyKey <span class="en-US">Lazy load item identify key</span>
-	 *                    <span class="zh-CN">懒加载项识别代码</span>
-	 * @return <span class="en-US">Generated cache key string</span>
-	 * <span class="zh-CN">生成的缓存键值</span>
-	 */
-	public static String lazyLoadKey(@Nonnull final Object object, @Nonnull final String identifyKey) {
-		return identifyKey(primaryKeyMap(object), object.getClass(), DataType.LAZY_LOAD, identifyKey);
-	}
-
-	/**
-	 * <h3 class="en-US">Generate lazy loading information identification string based on the given data mapping table, entity class information and lazy loading identification code</h3>
-	 * <h3 class="zh-CN">根据给定的数据映射表、实体类信息和懒加载识别代码生成懒加载信息识别字符串</h3>
-	 *
-	 * @param dataMap     <span class="en-US">Primary key data mapping table</span>
-	 *                    <span class="zh-CN">主键数据映射表</span>
-	 * @param defineClass <span class="en-US">Entity define class</span>
-	 *                    <span class="zh-CN">实体类定义</span>
-	 * @param identifyKey <span class="en-US">Lazy load item identify key</span>
-	 *                    <span class="zh-CN">懒加载项识别代码</span>
-	 * @return <span class="en-US">Generated cache key string</span>
-	 * <span class="zh-CN">生成的缓存键值</span>
-	 */
-	public static String lazyLoadKey(@Nonnull final Map<String, Object> dataMap, final Class<?> defineClass,
-	                                 @Nonnull final String identifyKey) {
-		return identifyKey(dataMap, defineClass, DataType.LAZY_LOAD, identifyKey);
-	}
-
-	/**
 	 * <h3 class="en-US">Generate a primary key data mapping table based on a given entity object instance</h3>
 	 * <h3 class="zh-CN">根据给定的实体对象实例生成主键数据映射表</h3>
 	 *
@@ -432,114 +334,6 @@ public final class DatabaseUtils {
 						tableConfig.versionColumn()
 								.ifPresent(columnConfig -> parameterMap.put(columnConfig.columnName().toUpperCase(),
 										ReflectionUtils.getFieldValue(columnConfig.getFieldName(), object)));
-					}
-				});
-		return parameterMap;
-	}
-
-	/**
-	 * <h3 class="en-US">Generate a can't updatable data mapping table based on the given entity object instance</h3>
-	 * <h3 class="zh-CN">根据给定的实体对象实例生成不可更新数据映射表</h3>
-	 *
-	 * @param object <span class="en-US">Entity object instance</span>
-	 *               <span class="zh-CN">实体对象实例</span>
-	 * @return <span class="en-US">Generated data mapping table</span>
-	 * <span class="zh-CN">生成的数据映射表</span>
-	 */
-	public static Map<String, Object> uniqueFieldMap(final Object object) {
-		return fieldDataMap(object, columnConfig -> !columnConfig.isLazyLoad() && !columnConfig.isUpdatable());
-	}
-
-	/**
-	 * <h3 class="en-US">Generate a updatable data mapping table based on the given entity object instance</h3>
-	 * <h3 class="zh-CN">根据给定的实体对象实例生成可更新数据映射表</h3>
-	 *
-	 * @param object <span class="en-US">Entity object instance</span>
-	 *               <span class="zh-CN">实体对象实例</span>
-	 * @return <span class="en-US">Generated data mapping table</span>
-	 * <span class="zh-CN">生成的数据映射表</span>
-	 */
-	public static Map<String, Object> updatableFieldMap(final Object object) {
-		return fieldDataMap(object, columnConfig -> !columnConfig.isLazyLoad() && columnConfig.isUpdatable());
-	}
-
-	/**
-	 * <h3 class="en-US">Generate a lazy load data mapping table based on the given entity object instance</h3>
-	 * <h3 class="zh-CN">根据给定的实体对象实例生成懒加载数据映射表</h3>
-	 *
-	 * @param object <span class="en-US">Entity object instance</span>
-	 *               <span class="zh-CN">实体对象实例</span>
-	 * @return <span class="en-US">Generated data mapping table</span>
-	 * <span class="zh-CN">生成的数据映射表</span>
-	 */
-	public static Map<String, Object> lazyLoadFieldMap(final Object object) {
-		return fieldDataMap(object, ColumnConfig::isLazyLoad);
-	}
-
-	/**
-	 * <h3 class="en-US">Generate a data mapping table based on a given entity object instance</h3>
-	 * <h3 class="zh-CN">根据给定的实体对象实例生成数据映射表</h3>
-	 *
-	 * @param object <span class="en-US">Entity object instance</span>
-	 *               <span class="zh-CN">实体对象实例</span>
-	 * @return <span class="en-US">Generated data mapping table</span>
-	 * <span class="zh-CN">生成的数据映射表</span>
-	 */
-	public static SortedMap<String, Object> dataMap(final Object object) {
-		return dataMap(object, null);
-	}
-
-	/**
-	 * <h3 class="en-US">Generate a data mapping table based on a given entity object instance</h3>
-	 * <h3 class="zh-CN">根据给定的实体对象实例生成数据映射表</h3>
-	 *
-	 * @param object    <span class="en-US">Entity object instance</span>
-	 *                  <span class="zh-CN">实体对象实例</span>
-	 * @param converter <span class="en-US">Data converter instance</span>
-	 *                  <span class="zh-CN">数据转换器实例对象</span>
-	 * @return <span class="en-US">Generated data mapping table</span>
-	 * <span class="zh-CN">生成的数据映射表</span>
-	 */
-	public static SortedMap<String, Object> dataMap(final Object object, final Converter converter) {
-		final SortedMap<String, Object> parameterMap = new TreeMap<>();
-		Optional.ofNullable(EntityManager.tableConfig(ClassUtils.originalClassName(object.getClass())))
-				.ifPresent(tableConfig ->
-						tableConfig.getColumnConfigs()
-								.forEach(columnConfig ->
-										Optional.ofNullable(retrieveValue(object, columnConfig, converter))
-												.ifPresent(fieldValue ->
-														parameterMap.put(columnConfig.columnName(), fieldValue))));
-		return parameterMap;
-	}
-
-	/**
-	 * <h3 class="en-US">Generate a update data mapping table based on a given entity object instance</h3>
-	 * <h3 class="zh-CN">根据给定的实体对象实例生成更新数据映射表</h3>
-	 *
-	 * @param object    <span class="en-US">Entity object instance</span>
-	 *                  <span class="zh-CN">实体对象实例</span>
-	 * @param converter <span class="en-US">Data converter instance</span>
-	 *                  <span class="zh-CN">数据转换器实例对象</span>
-	 * @return <span class="en-US">Generated update data mapping table</span>
-	 * <span class="zh-CN">生成的更新数据映射表</span>
-	 */
-	public static SortedMap<String, Object> modifiedDataMap(final Object object, final Converter converter) {
-		final TreeMap<String, Object> parameterMap = new TreeMap<>();
-		Optional.ofNullable(EntityManager.tableConfig(ClassUtils.originalClassName(object.getClass())))
-				.ifPresent(tableConfig -> {
-					if (object instanceof BaseObject) {
-						((BaseObject) object).modifiedColumns()
-								.forEach(identifyKey ->
-										Optional.ofNullable(tableConfig.columnConfig(identifyKey))
-												.ifPresent(columnConfig ->
-														parameterMap.put(columnConfig.getColumnInfo().getColumnName(),
-																retrieveValue(object, columnConfig, converter))));
-					} else {
-						tableConfig.getColumnConfigs().stream()
-								.filter(columnConfig -> !columnConfig.isPrimaryKey() && columnConfig.isUpdatable())
-								.forEach(columnConfig ->
-										parameterMap.put(columnConfig.columnName(),
-												retrieveValue(object, columnConfig, converter)));
 					}
 				});
 		return parameterMap;
@@ -611,235 +405,10 @@ public final class DatabaseUtils {
 	}
 
 	/**
-	 * <h3 class="en-US">Calculate query offset value</h3>
-	 * <h3 class="zh-CN">计算查询起始记录数</h3>
-	 *
-	 * @param pageNo    <span class="en-US">Page number</span>
-	 *                  <span class="zh-CN">页数</span>
-	 * @param pageLimit <span class="en-US">Page limit</span>
-	 *                  <span class="zh-CN">每页记录数</span>
-	 * @return <span class="en-US">Calculate result</span>
-	 * <span class="zh-CN">计算结果</span>
-	 */
-	public static int queryOffset(final int pageNo, final int pageLimit) {
-		if (pageNo == Globals.DEFAULT_VALUE_INT) {
-			return Globals.DEFAULT_VALUE_INT;
-		}
-		int currentPage = (pageNo <= 0) ? DatabaseCommons.DEFAULT_PAGE_NO : pageNo;
-		return (currentPage - 1) * queryLimit(pageLimit);
-	}
-
-	/**
-	 * <h3 class="en-US">Calculate query limit value</h3>
-	 * <h3 class="zh-CN">计算查询分页记录数</h3>
-	 *
-	 * @param pageLimit <span class="en-US">Page limit</span>
-	 *                  <span class="zh-CN">每页记录数</span>
-	 * @return <span class="en-US">Calculate result</span>
-	 * <span class="zh-CN">计算结果</span>
-	 */
-	public static int queryLimit(final int pageLimit) {
-		return pageLimit <= 0 ? DatabaseCommons.DEFAULT_PAGE_LIMIT : pageLimit;
-	}
-
-	/**
 	 * <h3 class="en-US">Private construction methods defined by database basic tools</h3>
 	 * <h3 class="zh-CN">数据库基本工具定义的私有构造方法</h3>
 	 */
 	private DatabaseUtils() {
-	}
-
-	/**
-	 * <h3 class="en-US">Merge matching result sets</h3>
-	 * <h3 class="zh-CN">合并匹配的结果集</h3>
-	 *
-	 * @param recordMap  <span class="en-US">Driver table record map</span>
-	 *                   <span class="zh-CN">驱动表记录</span>
-	 * @param recordList <span class="en-US">Join result list</span>
-	 *                   <span class="zh-CN">关联信息列表</span>
-	 * @return <span class="en-US">Merged result set</span>
-	 * <span class="zh-CN">合并后的结果集</span>
-	 */
-	private static List<Map<String, Object>> mergeRecords(@Nonnull final Map<String, Object> recordMap,
-	                                                      @Nonnull final List<Map<String, Object>> recordList) {
-		List<Map<String, Object>> mergeRecords = new ArrayList<>();
-		if (recordList.isEmpty()) {
-			mergeRecords.add(recordMap);
-		} else {
-			recordList.forEach(filterRecord -> {
-				Map<String, Object> dataMap = new HashMap<>(recordMap);
-				dataMap.putAll(filterRecord);
-				mergeRecords.add(dataMap);
-			});
-		}
-		return mergeRecords;
-	}
-
-	/**
-	 * <h2 class="en-US">Recordset sorter</h2>
-	 * <h2 class="zh-CN">记录集排序器</h2>
-	 *
-	 * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
-	 * @version $Revision: 1.0.0 $ $Date: Feb 27, 2021 14:28:19 $
-	 */
-	private static final class RecordComparator implements Comparator<Map<String, Object>> {
-
-		/**
-		 * <span class="en-US">Query order by columns list</span>
-		 * <span class="zh-CN">查询排序数据列列表</span>
-		 */
-		private final List<OrderBy> orderByList;
-
-		/**
-		 * <h3 class="en-US">Private construction methods for recordset sorter</h3>
-		 * <h3 class="zh-CN">记录集排序器的私有构造方法</h3>
-		 *
-		 * @param orderByList <span class="en-US">Query order by columns list</span>
-		 *                    <span class="zh-CN">查询排序数据列列表</span>
-		 */
-		private RecordComparator(final List<OrderBy> orderByList) {
-			this.orderByList = (orderByList == null) ? new ArrayList<>() : orderByList;
-		}
-
-		@Override
-		@SuppressWarnings({"unchecked", "rawtypes"})
-		public int compare(final Map<String, Object> o1, final Map<String, Object> o2) {
-			if (!this.orderByList.isEmpty()) {
-				for (OrderBy orderBy : orderByList) {
-					Object data1 = o1.get(orderBy.getIdentifyKey());
-					Object data2 = o2.get(orderBy.getIdentifyKey());
-					if (data1 instanceof Comparable) {
-						int compare = ((Comparable) data1).compareTo(data2);
-						if (compare != 0) {
-							return OrderType.DESC.equals(orderBy.getOrderType()) ? compare * -1 : compare;
-						}
-					}
-				}
-			}
-			return Globals.INITIALIZE_INT_VALUE;
-		}
-	}
-
-	/**
-	 * <h3 class="en-US">Filter the result set based on the given information</h3>
-	 * <h3 class="zh-CN">根据给定的信息过滤结果集</h3>
-	 *
-	 * @param joinType    <span class="en-US">Table join type</span>
-	 *                    <span class="zh-CN">数据表关联类型</span>
-	 * @param recordMap   <span class="en-US">Driver table record map</span>
-	 *                    <span class="zh-CN">驱动表记录</span>
-	 * @param recordList  <span class="en-US">Join result list</span>
-	 *                    <span class="zh-CN">关联信息列表</span>
-	 * @param joinInfos   <span class="en-US">Join columns list</span>
-	 *                    <span class="zh-CN">关联列信息列表</span>
-	 * @param groupByList <span class="en-US">Query group by columns list</span>
-	 *                    <span class="zh-CN">查询分组数据列列表</span>
-	 * @param orderByList <span class="en-US">Query order by columns list</span>
-	 *                    <span class="zh-CN">查询排序数据列列表</span>
-	 * @return <span class="en-US">Filter the result set</span>
-	 * <span class="zh-CN">过滤结果集</span>
-	 */
-	private static List<Map<String, Object>> filterRecords(final JoinType joinType, final Map<String, Object> recordMap,
-	                                                       final List<Map<String, Object>> recordList,
-	                                                       final List<JoinInfo> joinInfos,
-	                                                       final List<GroupBy> groupByList,
-	                                                       final List<OrderBy> orderByList) {
-		List<Map<String, Object>> matchRecords = new ArrayList<>();
-		recordList.stream()
-				.filter(joinRecord -> matchJoin(joinType, recordMap, joinRecord, joinInfos))
-				.forEach(matchRecords::add);
-
-		matchRecords.sort(new RecordComparator(orderByList));
-
-		List<Map<String, Object>> filterRecords = new ArrayList<>();
-		if (!groupByList.isEmpty()) {
-			matchRecords.forEach(filterRecord -> {
-				if (filterRecords.stream().noneMatch(existRecord ->
-						groupByList.stream().allMatch(groupBy ->
-								ObjectUtils.nullSafeEquals(existRecord.get(groupBy.getIdentifyKey()),
-										filterRecord.get(groupBy.getIdentifyKey()))))) {
-					filterRecords.add(filterRecord);
-				}
-			});
-		} else {
-			filterRecords.addAll(matchRecords);
-		}
-
-		return filterRecords;
-	}
-
-	/**
-	 * <h3 class="en-US">Checks whether two result sets match associated information</h3>
-	 * <h3 class="zh-CN">检查两个结果集是否匹配关联信息</h3>
-	 *
-	 * @param joinType   <span class="en-US">Table join type</span>
-	 *                   <span class="zh-CN">数据表关联类型</span>
-	 * @param mainRecord <span class="en-US">Driver table record map</span>
-	 *                   <span class="zh-CN">驱动表记录</span>
-	 * @param joinRecord <span class="en-US">Reference table record map</span>
-	 *                   <span class="zh-CN">关联表记录</span>
-	 * @param joinInfos  <span class="en-US">Join columns list</span>
-	 *                   <span class="zh-CN">关联列信息列表</span>
-	 * @return <span class="en-US">Check result</span>
-	 * <span class="zh-CN">检查结果</span>
-	 */
-	private static boolean matchJoin(final JoinType joinType, final Map<String, Object> mainRecord,
-	                                 final Map<String, Object> joinRecord, final List<JoinInfo> joinInfos) {
-		Boolean matchResult = null;
-		for (JoinInfo joinInfo : joinInfos) {
-			Object mainObject, joinObject;
-			switch (joinType) {
-				case LEFT:
-				case INNER:
-					mainObject = mainRecord.get(joinInfo.getJoinKey());
-					joinObject = joinRecord.get(joinInfo.getReferenceKey());
-					break;
-				case RIGHT:
-				case FULL:
-					mainObject = mainRecord.get(joinInfo.getReferenceKey());
-					joinObject = joinRecord.get(joinInfo.getJoinKey());
-					break;
-				default:
-					return Boolean.FALSE;
-			}
-			if (matchResult == null) {
-				matchResult = ObjectUtils.nullSafeEquals(mainObject, joinObject);
-			} else {
-				switch (joinInfo.getConnectionCode()) {
-					case AND:
-						matchResult &= ObjectUtils.nullSafeEquals(mainObject, joinObject);
-						break;
-					case OR:
-						matchResult |= ObjectUtils.nullSafeEquals(mainObject, joinObject);
-						break;
-				}
-			}
-		}
-		return Optional.ofNullable(matchResult).orElse(Boolean.FALSE);
-	}
-
-	/**
-	 * <h3 class="en-US">Generate a data mapping table based on the given entity object instance and data column information filter</h3>
-	 * <h3 class="zh-CN">根据给定的实体对象实例和数据列信息过滤器生成数据映射表</h3>
-	 *
-	 * @param object    <span class="en-US">Entity object instance</span>
-	 *                  <span class="zh-CN">实体对象实例</span>
-	 * @param predicate <span class="en-US">Data column information filter</span>
-	 *                  <span class="zh-CN">数据列信息过滤器</span>
-	 * @return <span class="en-US">Generated data mapping table</span>
-	 * <span class="zh-CN">生成的数据映射表</span>
-	 */
-	private static Map<String, Object> fieldDataMap(final Object object, final Predicate<ColumnConfig> predicate) {
-		final Map<String, Object> dataMap = new HashMap<>();
-		Optional.ofNullable(EntityManager.tableConfig(ClassUtils.originalClassName(object.getClass())))
-				.ifPresent(tableConfig ->
-						tableConfig.getColumnConfigs()
-								.stream()
-								.filter(predicate)
-								.forEach(columnConfig ->
-										Optional.ofNullable(ReflectionUtils.getFieldValue(columnConfig.getFieldName(), object))
-												.ifPresent(fieldValue -> dataMap.put(columnConfig.getFieldName(), fieldValue))));
-		return dataMap;
 	}
 
 	/**
@@ -860,74 +429,5 @@ public final class DatabaseUtils {
 		return Optional.ofNullable(ReflectionUtils.findMethod(clazz, methodName))
 				.map(method -> TransactionalConfig.newInstance(method.getAnnotation(Transactional.class)))
 				.orElse(null);
-	}
-
-	/**
-	 * <h3 class="en-US">Fill in the basic information and calculate the identification code</h3>
-	 * <h3 class="zh-CN">填充基本信息并计算识别代码</h3>
-	 *
-	 * @param dataMap        <span class="en-US">Primary key data mapping table</span>
-	 *                       <span class="zh-CN">主键数据映射表</span>
-	 * @param defineClass    <span class="en-US">Entity define class</span>
-	 *                       <span class="zh-CN">实体类定义</span>
-	 * @param dataType       <span class="en-US">Data type enumeration value</span>
-	 *                       <span class="zh-CN">数据类型枚举值</span>
-	 * @param columnIdentify <span class="en-US">Lazy load item identify key</span>
-	 *                       <span class="zh-CN">懒加载项识别代码</span>
-	 * @return <span class="en-US">Generated identification code</span>
-	 * <span class="zh-CN">生成的识别码</span>
-	 */
-	private static String identifyKey(@Nonnull final Map<String, Object> dataMap, @Nonnull final Class<?> defineClass,
-	                                  @Nonnull final DataType dataType, @Nonnull final String columnIdentify) {
-		return Optional.ofNullable(EntityManager.tableConfig(defineClass))
-				.map(tableConfig -> {
-					TreeMap<String, Object> keyMap = new TreeMap<>();
-					keyMap.put(DatabaseCommons.CONTENT_MAP_KEY_DATABASE_NAME.toUpperCase(),
-							tableConfig.getSchemaName());
-					keyMap.put(DatabaseCommons.CONTENT_MAP_KEY_TABLE_NAME.toUpperCase(),
-							tableConfig.getTableName());
-					keyMap.put(DatabaseCommons.CONTENT_MAP_KEY_DATA_TYPE.toUpperCase(), dataType.toString());
-					dataMap.forEach((key, value) ->
-							Optional.ofNullable(tableConfig.columnConfig(key))
-									.ifPresent(columnConfig -> keyMap.put(columnConfig.columnName().toUpperCase(), value)));
-					if (DataType.LAZY_LOAD.equals(dataType)) {
-						ColumnConfig columnConfig = tableConfig.columnConfig(columnIdentify);
-						if (columnConfig == null || !columnConfig.isLazyLoad()) {
-							return Globals.DEFAULT_VALUE_STRING;
-						}
-						keyMap.put(DatabaseCommons.CONTENT_MAP_KEY_ITEM.toUpperCase(),
-								columnConfig.columnName().toUpperCase());
-					}
-					return ConvertUtils.toHex(SecurityUtils.SHA256(keyMap));
-				})
-				.orElse(Globals.DEFAULT_VALUE_STRING);
-	}
-
-	/**
-	 * <h3 class="en-US">Read the value of the corresponding field of the data column from the instance of the entity class object</h3>
-	 * <span class="en-US">If the data converter exists, the data is transformed using the converter</span>
-	 * <h3 class="zh-CN">从实体类对象实例中读取数据列对应字段的值</h3>
-	 * <span class="zh-CN">如果数据转换器存在，则使用转换器对数据进行转换</span>
-	 *
-	 * @param object       <span class="en-US">Entity object instance</span>
-	 *                     <span class="zh-CN">实体对象实例</span>
-	 * @param columnConfig <span class="en-US">Column configure information instance</span>
-	 *                     <span class="zh-CN">数据列配置信息实例对象</span>
-	 * @param converter    <span class="en-US">Data converter instance</span>
-	 *                     <span class="zh-CN">数据转换器实例对象</span>
-	 * @return <span class="en-US">Read value</span>
-	 * <span class="zh-CN">读取的字段值</span>
-	 */
-	private static Object retrieveValue(final Object object, final ColumnConfig columnConfig,
-	                                    final Converter converter) {
-		Object columnValue = ReflectionUtils.getFieldValue(columnConfig.getFieldName(), object);
-		if (columnValue == null || converter == null) {
-			return columnValue;
-		}
-		return converter.convertValue(columnConfig, columnValue);
-	}
-
-	private enum DataType {
-		UNIQUE, UPDATABLE, LAZY_LOAD
 	}
 }

@@ -23,7 +23,7 @@ import java.lang.annotation.*;
  * <h2 class="en-US">The annotation of query result data</h2>
  * <h2 class="zh-CN">查询结果数据的注解</h2>
  *
- * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Nov 15, 2023 15:30:22 $
  */
 @Documented
@@ -38,13 +38,13 @@ public @interface ResultData {
     Class<?> entity();
 
     /**
-     * <span class="en-US">Identify key of the data column</span>
+     * @return <span class="en-US">Identify key of the data column</span>
      * <span class="zh-CN">数据列识别代码</span>
      */
     String identifyKey();
 
     /**
-     * <span class="en-US">Whether to remove duplicates</span>
+     * @return <span class="en-US">Whether to remove duplicates</span>
      * <span class="zh-CN">是否去重</span>
      */
     boolean distinct() default false;

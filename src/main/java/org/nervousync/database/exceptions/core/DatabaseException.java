@@ -23,7 +23,7 @@ import org.nervousync.exceptions.AbstractException;
  * <h2 class="en-US">Database Exception</h2>
  * <h2 class="zh-CN">数据库异常</h2>
  *
- * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Oct 26, 2023 14:20:49 $
  */
 public final class DatabaseException extends AbstractException {

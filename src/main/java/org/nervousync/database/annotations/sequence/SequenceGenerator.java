@@ -24,7 +24,7 @@ import java.lang.annotation.*;
  * <h2 class="en-US">The annotation of sequence generator configure information</h2>
  * <h2 class="zh-CN">序列生成器的配置信息</h2>
  *
- * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Apr 11, 2018 16:12:43 $
  */
 @Target({ElementType.FIELD})

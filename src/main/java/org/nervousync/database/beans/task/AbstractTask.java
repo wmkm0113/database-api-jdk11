@@ -28,7 +28,7 @@ import org.nervousync.database.commons.DatabaseCommons;
  * <h2 class="en-US">Data import and export task information</h2>
  * <h2 class="zh-CN">数据导入导出任务信息</h2>
  *
- * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Mar 23, 2021 05:12:18 $
  */
 @XmlAccessorType(XmlAccessType.NONE)

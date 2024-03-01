@@ -27,18 +27,34 @@ import java.lang.annotation.RetentionPolicy;
  * <h2 class="en-US">The annotation of query join information</h2>
  * <h2 class="zh-CN">关联信息的注解</h2>
  *
- * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Nov 15, 2023 15:21:18 $
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-public @interface JoinConfig {
+public @interface JoinEntities {
 
+	/**
+     * @return <span class="en-US">Join type</span>
+     * <span class="zh-CN">关联类型</span>
+	 */
 	JoinType type();
 
+	/**
+     * @return <span class="en-US">Driver table entity class</span>
+     * <span class="zh-CN">驱动表实体类</span>
+	 */
 	Class<?> mainEntity();
 
+	/**
+     * @return <span class="en-US">Association table entity class</span>
+     * <span class="zh-CN">关联表实体类</span>
+	 */
 	Class<?> referenceEntity();
 
+	/**
+     * @return <span class="en-US">Association information array</span>
+     * <span class="zh-CN">关联信息数组</span>
+	 */
 	JoinKey[] keys();
 }

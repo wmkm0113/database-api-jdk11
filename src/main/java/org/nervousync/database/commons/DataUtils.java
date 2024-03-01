@@ -20,7 +20,7 @@ package org.nervousync.database.commons;
 import jakarta.annotation.Nonnull;
 import org.nervousync.annotations.provider.Provider;
 import org.nervousync.commons.Globals;
-import org.nervousync.commons.io.NervousyncFile;
+import org.nervousync.commons.io.StandardFile;
 import org.nervousync.database.api.DatabaseClient;
 import org.nervousync.database.beans.configs.table.TableConfig;
 import org.nervousync.database.beans.configs.transactional.TransactionalConfig;
@@ -54,7 +54,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * <h2 class="en-US">Data import/export utilities</h2>
  * <h2 class="zh-CN">数据导入导出工具</h2>
  *
- * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Oct 26, 2023 15:04:37 $
  */
 public final class DataUtils {
@@ -588,7 +588,7 @@ public final class DataUtils {
      * <h2 class="en-US">Memory-only task adapter implementation class</h2>
      * <h2 class="zh-CN">仅使用内存的任务适配器实现类</h2>
      *
-     * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
+     * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
      * @version $Revision: 1.0.0 $ $Date: Oct 26, 2023 16:42:18 $
      */
     private static final class MemoryTaskProviderImpl implements TaskProvider {
@@ -906,7 +906,7 @@ public final class DataUtils {
 
     public static final class DataGenerator implements Closeable {
         private final String dataPath;
-        private final NervousyncFile tmpFile;
+        private final StandardFile tmpFile;
         private final List<String> recordTypes;
         private long totalCount = 0L;
 
@@ -916,7 +916,7 @@ public final class DataUtils {
             if (FileUtils.isExists(tmpPath)) {
                 FileUtils.removeFile(tmpPath);
             }
-            this.tmpFile = new NervousyncFile(tmpPath, Boolean.TRUE);
+            this.tmpFile = new StandardFile(tmpPath, Boolean.TRUE);
             this.recordTypes = new ArrayList<>();
         }
 
@@ -973,7 +973,7 @@ public final class DataUtils {
         public void close() throws IOException {
             this.tmpFile.close();
             String tmpFilePath = this.dataPath + DatabaseCommons.DATA_TMP_FILE_EXTENSION_NAME;
-            try (NervousyncFile dataFile = new NervousyncFile(this.dataPath, Boolean.TRUE);
+            try (StandardFile dataFile = new StandardFile(this.dataPath, Boolean.TRUE);
                  FileInputStream fileInputStream = new FileInputStream(tmpFilePath)) {
                 byte[] buffer = new byte[8];
                 RawUtils.writeLong(buffer, ByteOrder.LITTLE_ENDIAN, this.totalCount);
@@ -1001,7 +1001,7 @@ public final class DataUtils {
     private static final class DataParser implements Closeable {
         private final boolean transactional;
         private final int timeout;
-        private final NervousyncFile dataFile;
+        private final StandardFile dataFile;
         private final List<String> recordTypes;
         private final long totalCount;
         private final long endPosition;
@@ -1020,15 +1020,15 @@ public final class DataUtils {
             this.timeout = timeout;
             this.errorLog = new StringBuilder();
             if (StringUtils.isEmpty(dataPath)) {
-                throw new DataParseException(0x00DB00000007L);
+                throw new DataParseException(0x00DB00000006L);
             }
 
             try {
-                this.dataFile = new NervousyncFile(dataPath);
+                this.dataFile = new StandardFile(dataPath);
                 this.endPosition = FileUtils.fileSize(dataPath);
             } catch (FileNotFoundException e) {
                 this.errorLog.append(e.getMessage()).append(FileUtils.CRLF);
-                throw new DataParseException(0x00DB00000007L, e);
+                throw new DataParseException(0x00DB00000006L, e);
             }
 
             try {
@@ -1037,7 +1037,7 @@ public final class DataUtils {
                     this.position += 8;
                     this.totalCount = RawUtils.readLong(longBuffer, ByteOrder.LITTLE_ENDIAN);
                 } else {
-                    throw new DataParseException(0x00DB00000006L);
+                    throw new DataParseException(0x00DB00000005L);
                 }
 
                 byte[] intBuffer = new byte[4];
@@ -1046,7 +1046,7 @@ public final class DataUtils {
                     this.position += 4;
                     headerCount = RawUtils.readInt(intBuffer, ByteOrder.LITTLE_ENDIAN);
                 } else {
-                    throw new DataParseException(0x00DB00000006L);
+                    throw new DataParseException(0x00DB00000005L);
                 }
 
                 this.recordTypes = new ArrayList<>();
@@ -1056,14 +1056,14 @@ public final class DataUtils {
                     if (this.dataFile.read(readBuffer) == TYPE_LENGTH) {
                         this.recordTypes.add(RawUtils.readString(readBuffer));
                     } else {
-                        throw new DataParseException(0x00DB00000006L);
+                        throw new DataParseException(0x00DB00000005L);
                     }
                     this.position += TYPE_LENGTH;
                     headerCount--;
                 } while (headerCount > 0);
             } catch (IOException | DataInvalidException e) {
                 this.errorLog.append(e.getMessage()).append(FileUtils.CRLF);
-                throw new DataParseException(0x00DB00000008L, e);
+                throw new DataParseException(0x00DB00000007L, e);
             }
         }
 
@@ -1104,7 +1104,7 @@ public final class DataUtils {
                     }
                     this.position += dataLength;
                 } else {
-                    throw new DataParseException(0x00DB00000009L, this.position);
+                    throw new DataParseException(0x00DB00000008L, this.position);
                 }
                 if (success) {
                     this.successCount++;

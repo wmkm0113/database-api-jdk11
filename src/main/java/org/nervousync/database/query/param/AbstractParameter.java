@@ -29,12 +29,13 @@ import org.nervousync.database.query.data.RangesData;
 import org.nervousync.database.query.core.AbstractItem;
 import org.nervousync.database.query.core.SortedItem;
 import org.nervousync.database.query.param.impl.*;
+import org.nervousync.exceptions.builder.BuilderException;
 
 /**
  * <h2 class="en-US">Abstract class for parameter information define</h2>
  * <h2 class="zh-CN">参数信息定义抽象类</h2>
  *
- * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Oct 9, 2020 11:42:46 $
  */
 @XmlTransient
@@ -166,8 +167,11 @@ public abstract class AbstractParameter<T> extends SortedItem {
      *
      * @return <span class="en-US">Generated object instance</span>
      * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
      */
-    public static ColumnParameter column(final Class<?> entityClass, final String identifyKey, final String aliasName) {
+    public static ColumnParameter column(final Class<?> entityClass, final String identifyKey, final String aliasName)
+            throws BuilderException {
         return column(entityClass, identifyKey, aliasName, Globals.DEFAULT_VALUE_INT);
     }
 
@@ -185,9 +189,11 @@ public abstract class AbstractParameter<T> extends SortedItem {
      *                    <span class="zh-CN">排序代码</span>
      * @return <span class="en-US">Generated object instance</span>
      * <span class="zh-CN">生成的对象实例</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
      */
     public static ColumnParameter column(final Class<?> entityClass, final String identifyKey,
-                                         final String aliasName, final int sortCode) {
+                                         final String aliasName, final int sortCode) throws BuilderException {
         ColumnParameter columnParameter = new ColumnParameter();
         columnParameter.setItemValue(AbstractItem.column(entityClass, identifyKey, aliasName));
         columnParameter.setSortCode(sortCode);

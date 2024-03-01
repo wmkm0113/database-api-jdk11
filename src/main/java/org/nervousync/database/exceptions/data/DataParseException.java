@@ -6,7 +6,7 @@ import org.nervousync.exceptions.AbstractException;
  * <h2 class="en-US">Data parse Exception</h2>
  * <h2 class="zh-CN">数据解析异常</h2>
  *
- * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Jul 24, 2018 12:46:26 $
  */
 public final class DataParseException extends AbstractException {

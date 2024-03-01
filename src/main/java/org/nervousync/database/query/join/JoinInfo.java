@@ -29,7 +29,7 @@ import org.nervousync.utils.StringUtils;
  * <h2 class="en-US">Join column define</h2>
  * <h2 class="zh-CN">关联列信息定义</h2>
  *
- * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Feb 17, 2021 16:35:51 $
  */
 @XmlType(name = "join_info", namespace = "https://nervousync.org/schemas/query")
@@ -73,7 +73,7 @@ public final class JoinInfo extends BeanObject {
 	 *
 	 * @param connectionCode <span class="en-US">Query connection code</span>
 	 *                       <span class="zh-CN">查询条件连接代码</span>
-	 * @param joinKey        <span class="en-US">Join column identify code</span>
+	 * @param mainKey        <span class="en-US">Join column identify code</span>
 	 *                       <span class="zh-CN">关联列识别代码</span>
 	 * @param referenceKey   <span class="en-US">Reference column identify code</span>
 	 *                       <span class="zh-CN">目标列识别代码</span>
@@ -85,12 +85,12 @@ public final class JoinInfo extends BeanObject {
 	 * <span class="zh-CN">生成的关联列信息实例对象，如果数据列识别代码不能找到对应的数据列定义则返回<code>null</code></span>
 	 */
 	public static JoinInfo newInstance(final ConnectionCode connectionCode,
-	                                   final String joinKey, final String referenceKey) {
+	                                   final String mainKey, final String referenceKey) {
 		JoinInfo joinInfo = null;
 		if (StringUtils.notBlank(referenceKey)) {
 			joinInfo = new JoinInfo();
 			joinInfo.setConnectionCode(connectionCode);
-			joinInfo.setJoinKey(joinKey);
+			joinInfo.setJoinKey(mainKey);
 			joinInfo.setReferenceKey(referenceKey);
 		}
 		return joinInfo;

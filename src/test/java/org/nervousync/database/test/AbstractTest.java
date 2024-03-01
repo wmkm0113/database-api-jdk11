@@ -55,6 +55,8 @@ public abstract class AbstractTest {
 
     @AfterAll
     public static void clear() {
+        EntityManager.removeTable(DistributeReference.class, TestDistribute.class,
+                RelationalReference.class, TestRelational.class);
         Optional.ofNullable(ConfigureManager.getInstance())
                 .ifPresent(configureManager -> configureManager.removeConfigure(SecureFactory.class));
         FileUtils.removeDir(BASE_PATH + Globals.DEFAULT_PAGE_SEPARATOR + "Configs");

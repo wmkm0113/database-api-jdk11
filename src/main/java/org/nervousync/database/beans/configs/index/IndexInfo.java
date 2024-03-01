@@ -33,7 +33,7 @@ import java.util.List;
  * <h2 class="en-US">Column index configure information</h2>
  * <h2 class="zh-CN">列索引配置信息</h2>
  *
- * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Nov 4, 2020 16:33:28 $
  */
 @XmlType(name = "index_info")

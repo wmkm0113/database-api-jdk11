@@ -23,7 +23,7 @@ import org.nervousync.database.beans.configs.transactional.TransactionalConfig;
  * <h2 class="en-US">The interface of database manager</h2>
  * <h2 class="zh-CN">数据库管理器的接口</h2>
  *
- * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Mar 30, 2021 14:18:46 $
  */
 public interface DatabaseManager {

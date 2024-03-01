@@ -21,6 +21,7 @@ import jakarta.annotation.Nonnull;
 import net.bytebuddy.asm.Advice;
 import org.nervousync.commons.Globals;
 import org.nervousync.database.api.DatabaseClient;
+import org.nervousync.database.beans.configs.reference.JoinConfig;
 import org.nervousync.database.beans.configs.reference.ReferenceConfig;
 import org.nervousync.database.commons.DatabaseUtils;
 import org.nervousync.database.entity.EntityManager;
@@ -99,13 +100,11 @@ public final class LazyLoadInterceptor {
 			Class<T> entityClass = referenceConfig.getReferenceClass();
 			if (referenceConfig.isReturnArray()) {
 				List<Condition> conditionList = new ArrayList<>();
-				referenceConfig.getJoinColumnList()
-						.stream()
-						.map(joinConfig ->
-								Condition.equalTo(Globals.DEFAULT_VALUE_INT, ConnectionCode.AND,
-										entityClass, joinConfig.getReferenceField(),
-										ReflectionUtils.getFieldValue(joinConfig.getCurrentField(), record)))
-						.forEach(conditionList::add);
+				for (JoinConfig joinConfig : referenceConfig.getJoinColumnList()) {
+					conditionList.add(Condition.equalTo(Globals.DEFAULT_VALUE_INT, ConnectionCode.AND,
+							entityClass, joinConfig.getReferenceField(),
+							ReflectionUtils.getFieldValue(joinConfig.getCurrentField(), record)));
+				}
 				QueryResult queryResult =
 						databaseClient.queryList(QueryBuilder.newQuery(entityClass, forUpdate, conditionList));
 				if (returnArray) {
@@ -122,6 +121,10 @@ public final class LazyLoadInterceptor {
 				return databaseClient.retrieve(queryMap, entityClass, forUpdate);
 			}
 		} catch (RetrieveException | BuilderException | QueryException e) {
+			LOGGER.error("Lazy_Load_Data_Error");
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("Stack_Message_Error", e);
+			}
 			return null;
 		}
 	}

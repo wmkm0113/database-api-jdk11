@@ -26,7 +26,7 @@ import org.nervousync.database.annotations.sequence.SequenceGenerator;
  * <h2 class="en-US">Sequence configure information</h2>
  * <h2 class="zh-CN">序列生成器配置信息</h2>
  *
- * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: May 15, 2012 17:54:44 $
  */
 @XmlType(name = "sequence_config")

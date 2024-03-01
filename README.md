@@ -7,6 +7,7 @@
 
 English
 [简体中文](README_zh_CN.md)
+[繁體中文](README_zh_TW.md)
 
 An interface toolkit created for the data processing platform, 
 which provides query input and output formats of the unified data platform, 
@@ -83,7 +84,7 @@ call the initialize static method of org.nervousync.database.commons.DatabaseUti
 The parameter passed in is the identification code of the database manager implementation class that needs to be used 
 the parameter "name" of the annotation org.nervousync.annotations.provider.Provider, 
 the toolkit will automatically generate a database manager implementation class object and call the manager's initialize method to perform the initialization operation. 
-If an exception occurs during the initialization process, an exception message with the exception code 0x00DB00000005 will be thrown.
+If an exception occurs during the initialization process, an exception message with the exception code 0x00DB00000004 will be thrown.
 
 ### 4.Get the database client instance and operate records
 **Obtain the read-only client instance:**   
@@ -195,8 +196,8 @@ Call the config method of org.nervousync.database.commons.DataUtils to update co
 ## Contributions and feedback
 Friends are welcome to translate the prompt information, error messages, 
 etc. in this document and project into more languages to help more users better understand and use this toolkit.   
-If you find problems during use or need to improve or add related functions, 
-please submit an issue to this project or send an email to [wmkm0113\@gmail.com](mailto:wmkm0113@gmail.com?subject=bugs_and_features)   
+If you find problems during use or need to improve or add related functions, please submit an issue to this project
+or send email to [wmkm0113\@gmail.com](mailto:wmkm0113@gmail.com?subject=bugs_and_features)   
 For better communication, please include the following information when submitting an issue or sending an email:
 1. The purpose is: discover bugs/function improvements/add new features   
 2. Please paste the following information (if it exists): incoming data, expected results, error stack information   

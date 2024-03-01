@@ -44,7 +44,7 @@ import java.util.*;
  * <h2 class="en-US">Table configure information</h2>
  * <h2 class="zh-CN">数据表配置信息</h2>
  *
- * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Mar 23, 2010 10:13:02 $
  */
 @XmlType(name = "table_config")

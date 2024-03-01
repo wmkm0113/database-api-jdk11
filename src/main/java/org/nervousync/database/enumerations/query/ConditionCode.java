@@ -20,7 +20,7 @@ package org.nervousync.database.enumerations.query;
  * <h2 class="en-US">Enumeration value of query condition code</h2>
  * <h2 class="zh-CN">查询中运算代码的枚举值</h2>
  *
- * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Oct 6, 2020 18:47:52 $
  */
 public enum ConditionCode {

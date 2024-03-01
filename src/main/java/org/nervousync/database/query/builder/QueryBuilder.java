@@ -21,7 +21,7 @@ import jakarta.annotation.Nonnull;
 import org.nervousync.builder.Builder;
 import org.nervousync.commons.Globals;
 import org.nervousync.database.annotations.query.ResultSet;
-import org.nervousync.database.annotations.query.join.JoinConfig;
+import org.nervousync.database.annotations.query.join.JoinEntities;
 import org.nervousync.database.beans.configs.column.ColumnConfig;
 import org.nervousync.database.beans.configs.table.TableConfig;
 import org.nervousync.database.commons.DatabaseUtils;
@@ -44,13 +44,14 @@ import org.nervousync.utils.ObjectUtils;
 import org.nervousync.utils.ReflectionUtils;
 import org.nervousync.utils.StringUtils;
 
+import java.lang.reflect.Field;
 import java.util.*;
 
 /**
  * <h2 class="en-US">Query information builder</h2>
  * <h2 class="zh-CN">查询信息构建器</h2>
  *
- * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Jul 30, 2023 15:37:53 $
  */
 public final class QueryBuilder implements Builder<QueryInfo> {
@@ -195,17 +196,17 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 			ResultSet resultSet = entityClass.getAnnotation(ResultSet.class);
 			queryBuilder = newBuilder(resultSet.mainEntity());
 
-			for (JoinConfig joinConfig : resultSet.joinConfigs()) {
+			for (JoinEntities joinEntities : resultSet.joinConfigs()) {
 				List<JoinInfo> joinInfos = new ArrayList<>();
-				Arrays.stream(joinConfig.keys()).map(JoinInfo::newInstance).forEach(joinInfos::add);
-				queryBuilder.joinTable(joinConfig.mainEntity(), joinConfig.type(),
-						joinConfig.referenceEntity(), joinInfos);
+				Arrays.stream(joinEntities.keys()).map(JoinInfo::newInstance).forEach(joinInfos::add);
+				queryBuilder.joinTable(joinEntities.mainEntity(), joinEntities.type(),
+						joinEntities.referenceEntity(), joinInfos);
 			}
 
-			ReflectionUtils.getAllDeclaredFields(entityClass, Boolean.TRUE, DatabaseUtils::resultDataMember)
-					.stream()
-					.map(AbstractItem::column)
-					.forEach(queryBuilder::addItem);
+			for (Field field :
+					ReflectionUtils.getAllDeclaredFields(entityClass, Boolean.TRUE, DatabaseUtils::resultDataMember)) {
+				queryBuilder.addItem(AbstractItem.column(field));
+			}
 			queryBuilder.identifyName(resultSet.name());
 			if (forUpdate) {
 				queryBuilder.useCache(Boolean.FALSE);
@@ -226,10 +227,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 									groupColumn.sortCode()));
 		} else {
 			queryBuilder = newBuilder(entityClass);
-			columnConfigs(entityClass)
-					.stream()
-					.filter(columnConfig -> !columnConfig.isLazyLoad())
-					.forEach(columnConfig -> queryBuilder.addItem(AbstractItem.column(entityClass, columnConfig)));
+			for (ColumnConfig columnConfig : columnConfigs(entityClass)) {
+				if (!columnConfig.isLazyLoad()) {
+					queryBuilder.addItem(AbstractItem.column(entityClass, columnConfig));
+				}
+			}
 			queryBuilder.forUpdate(forUpdate);
 			Optional.ofNullable(EntityManager.tableConfig(entityClass))
 					.map(TableConfig::getLockOption)
@@ -246,8 +248,9 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 		QueryInfo queryInfo = new QueryInfo();
 
 		if (this.itemList.isEmpty()) {
-			columnConfigs(this.mainEntity).forEach(columnConfig ->
-					this.addColumn(this.mainEntity, columnConfig.columnName(), columnConfig.getFieldName()));
+			for (ColumnConfig columnConfig : columnConfigs(this.mainEntity)) {
+				this.addColumn(this.mainEntity, columnConfig.columnName(), columnConfig.getFieldName());
+			}
 		}
 
 		queryInfo.setIdentifyName(this.identifyName);
@@ -285,8 +288,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                    <span class="zh-CN">识别代码</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
-	public QueryBuilder addColumn(@Nonnull final Class<?> entityClass, final String identifyKey) {
+	public QueryBuilder addColumn(@Nonnull final Class<?> entityClass, final String identifyKey)
+			throws BuilderException {
 		return this.addColumn(entityClass, identifyKey, Globals.DEFAULT_VALUE_STRING);
 	}
 
@@ -302,9 +308,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                    <span class="zh-CN">查询项别名</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder addColumn(@Nonnull final Class<?> entityClass, final String identifyKey,
-	                              final String aliasName) {
+	                              final String aliasName) throws BuilderException {
 		return this.addColumn(entityClass, identifyKey, Boolean.FALSE, aliasName);
 	}
 
@@ -322,9 +330,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                    <span class="zh-CN">查询项别名</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder addColumn(@Nonnull final Class<?> entityClass, final String identifyKey,
-	                              final boolean distinct, final String aliasName) {
+	                              final boolean distinct, final String aliasName) throws BuilderException {
 		return this.addColumn(entityClass, identifyKey, distinct, aliasName, Globals.DEFAULT_VALUE_INT);
 	}
 
@@ -344,9 +354,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                    <span class="zh-CN">排序代码</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder addColumn(@Nonnull final Class<?> entityClass, final String identifyKey,
-	                              final boolean distinct, final String aliasName, final int sortCode) {
+	                              final boolean distinct, final String aliasName, final int sortCode)
+			throws BuilderException {
 		this.addItem(AbstractItem.column(entityClass, identifyKey, distinct, aliasName, sortCode));
 		return this;
 	}
@@ -551,8 +564,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                    <span class="zh-CN">匹配值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
-	public QueryBuilder greater(final Class<?> entityClass, final String identifyKey, final Object matchValue) {
+	public QueryBuilder greater(final Class<?> entityClass, final String identifyKey, final Object matchValue)
+			throws BuilderException {
 		return this.greater(ConnectionCode.AND, entityClass, identifyKey, matchValue);
 	}
 
@@ -570,9 +586,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">函数参数值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder greater(final Class<?> entityClass, final String identifyKey,
-	                            final String sqlFunction, final AbstractParameter<?>... functionParams) {
+	                            final String sqlFunction, final AbstractParameter<?>... functionParams)
+			throws BuilderException {
 		return this.greater(ConnectionCode.AND, entityClass, identifyKey, sqlFunction, functionParams);
 	}
 
@@ -588,8 +607,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                    <span class="zh-CN">子查询实例对象</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
-	public QueryBuilder greater(final Class<?> entityClass, final String identifyKey, final QueryInfo subQuery) {
+	public QueryBuilder greater(final Class<?> entityClass, final String identifyKey, final QueryInfo subQuery)
+			throws BuilderException {
 		return this.greater(ConnectionCode.AND, entityClass, identifyKey, subQuery);
 	}
 
@@ -607,9 +629,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                    <span class="zh-CN">目标数据列识别名称</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder greater(final Class<?> entityClass, final String identifyKey,
-	                            final Class<?> matchEntity, final String columnKey) {
+	                            final Class<?> matchEntity, final String columnKey) throws BuilderException {
 		return this.greater(ConnectionCode.AND, entityClass, identifyKey, matchEntity, columnKey);
 	}
 
@@ -625,8 +649,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                    <span class="zh-CN">匹配值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
-	public QueryBuilder greaterEqual(final Class<?> entityClass, final String identifyKey, final Object matchValue) {
+	public QueryBuilder greaterEqual(final Class<?> entityClass, final String identifyKey, final Object matchValue)
+			throws BuilderException {
 		return this.greaterEqual(ConnectionCode.AND, entityClass, identifyKey, matchValue);
 	}
 
@@ -644,9 +671,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">函数参数值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder greaterEqual(final Class<?> entityClass, final String identifyKey,
-	                                 final String sqlFunction, final AbstractParameter<?>... functionParams) {
+	                                 final String sqlFunction, final AbstractParameter<?>... functionParams)
+			throws BuilderException {
 		return this.greaterEqual(ConnectionCode.AND, entityClass, identifyKey, sqlFunction, functionParams);
 	}
 
@@ -662,8 +692,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                    <span class="zh-CN">子查询实例对象</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
-	public QueryBuilder greaterEqual(final Class<?> entityClass, final String identifyKey, final QueryInfo subQuery) {
+	public QueryBuilder greaterEqual(final Class<?> entityClass, final String identifyKey, final QueryInfo subQuery)
+			throws BuilderException {
 		return this.greaterEqual(ConnectionCode.AND, entityClass, identifyKey, subQuery);
 	}
 
@@ -681,9 +714,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                    <span class="zh-CN">目标数据列识别名称</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder greaterEqual(final Class<?> entityClass, final String identifyKey,
-	                                 final Class<?> matchEntity, final String columnKey) {
+	                                 final Class<?> matchEntity, final String columnKey) throws BuilderException {
 		return this.greaterEqual(ConnectionCode.AND, entityClass, identifyKey, matchEntity, columnKey);
 	}
 
@@ -699,8 +734,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                    <span class="zh-CN">匹配值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
-	public QueryBuilder less(final Class<?> entityClass, final String identifyKey, final Object matchValue) {
+	public QueryBuilder less(final Class<?> entityClass, final String identifyKey, final Object matchValue)
+			throws BuilderException {
 		return this.less(ConnectionCode.AND, entityClass, identifyKey, matchValue);
 	}
 
@@ -718,9 +756,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">函数参数值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder less(final Class<?> entityClass, final String identifyKey,
-	                         final String sqlFunction, final AbstractParameter<?>... functionParams) {
+	                         final String sqlFunction, final AbstractParameter<?>... functionParams)
+			throws BuilderException {
 		return this.less(ConnectionCode.AND, entityClass, identifyKey, sqlFunction, functionParams);
 	}
 
@@ -736,8 +777,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                    <span class="zh-CN">子查询实例对象</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
-	public QueryBuilder less(final Class<?> entityClass, final String identifyKey, final QueryInfo subQuery) {
+	public QueryBuilder less(final Class<?> entityClass, final String identifyKey, final QueryInfo subQuery)
+			throws BuilderException {
 		return this.less(ConnectionCode.AND, entityClass, identifyKey, subQuery);
 	}
 
@@ -755,9 +799,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                    <span class="zh-CN">目标数据列识别名称</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder less(final Class<?> entityClass, final String identifyKey,
-	                         final Class<?> matchEntity, final String columnKey) {
+	                         final Class<?> matchEntity, final String columnKey) throws BuilderException {
 		return this.less(ConnectionCode.AND, entityClass, identifyKey, matchEntity, columnKey);
 	}
 
@@ -773,8 +819,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                    <span class="zh-CN">匹配值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
-	public QueryBuilder lessEqual(final Class<?> entityClass, final String identifyKey, final Object matchValue) {
+	public QueryBuilder lessEqual(final Class<?> entityClass, final String identifyKey, final Object matchValue)
+			throws BuilderException {
 		return this.lessEqual(ConnectionCode.AND, entityClass, identifyKey, matchValue);
 	}
 
@@ -792,9 +841,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">函数参数值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder lessEqual(final Class<?> entityClass, final String identifyKey,
-	                              final String sqlFunction, final AbstractParameter<?>... functionParams) {
+	                              final String sqlFunction, final AbstractParameter<?>... functionParams)
+			throws BuilderException {
 		return this.lessEqual(ConnectionCode.AND, entityClass, identifyKey, sqlFunction, functionParams);
 	}
 
@@ -810,8 +862,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                    <span class="zh-CN">子查询实例对象</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
-	public QueryBuilder lessEqual(final Class<?> entityClass, final String identifyKey, final QueryInfo subQuery) {
+	public QueryBuilder lessEqual(final Class<?> entityClass, final String identifyKey, final QueryInfo subQuery)
+			throws BuilderException {
 		return this.lessEqual(ConnectionCode.AND, entityClass, identifyKey, subQuery);
 	}
 
@@ -829,9 +884,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                    <span class="zh-CN">目标数据列识别名称</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder lessEqual(final Class<?> entityClass, final String identifyKey,
-	                              final Class<?> matchEntity, final String columnKey) {
+	                              final Class<?> matchEntity, final String columnKey) throws BuilderException {
 		return this.lessEqual(ConnectionCode.AND, entityClass, identifyKey, matchEntity, columnKey);
 	}
 
@@ -847,8 +904,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                    <span class="zh-CN">匹配值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
-	public QueryBuilder equalTo(final Class<?> entityClass, final String identifyKey, final Object matchValue) {
+	public QueryBuilder equalTo(final Class<?> entityClass, final String identifyKey, final Object matchValue)
+			throws BuilderException {
 		return this.equalTo(ConnectionCode.AND, entityClass, identifyKey, matchValue);
 	}
 
@@ -866,9 +926,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">函数参数值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder equalTo(final Class<?> entityClass, final String identifyKey,
-	                            final String sqlFunction, final AbstractParameter<?>... functionParams) {
+	                            final String sqlFunction, final AbstractParameter<?>... functionParams)
+			throws BuilderException {
 		return this.equalTo(ConnectionCode.AND, entityClass, identifyKey, sqlFunction, functionParams);
 	}
 
@@ -884,8 +947,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                    <span class="zh-CN">子查询实例对象</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
-	public QueryBuilder equalTo(final Class<?> entityClass, final String identifyKey, final QueryInfo subQuery) {
+	public QueryBuilder equalTo(final Class<?> entityClass, final String identifyKey, final QueryInfo subQuery)
+			throws BuilderException {
 		return this.equalTo(ConnectionCode.AND, entityClass, identifyKey, subQuery);
 	}
 
@@ -903,9 +969,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                    <span class="zh-CN">目标数据列识别名称</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder equalTo(final Class<?> entityClass, final String identifyKey,
-	                            final Class<?> matchEntity, final String columnKey) {
+	                            final Class<?> matchEntity, final String columnKey) throws BuilderException {
 		return this.equalTo(ConnectionCode.AND, entityClass, identifyKey, matchEntity, columnKey);
 	}
 
@@ -921,8 +989,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                    <span class="zh-CN">匹配值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
-	public QueryBuilder notEqual(final Class<?> entityClass, final String identifyKey, final Object matchValue) {
+	public QueryBuilder notEqual(final Class<?> entityClass, final String identifyKey, final Object matchValue)
+			throws BuilderException {
 		return this.notEqual(ConnectionCode.AND, entityClass, identifyKey, matchValue);
 	}
 
@@ -932,15 +1003,20 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *
 	 * @param entityClass    <span class="en-US">Entity class</span>
 	 *                       <span class="zh-CN">实体类</span>
+	 * @param identifyKey    <span class="en-US">Identify key</span>
+	 *                       <span class="zh-CN">识别代码</span>
 	 * @param sqlFunction    <span class="en-US">Function name</span>
 	 *                       <span class="zh-CN">函数名称</span>
 	 * @param functionParams <span class="en-US">Function parameter values</span>
 	 *                       <span class="zh-CN">函数参数值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder notEqual(final Class<?> entityClass, final String identifyKey,
-	                             final String sqlFunction, final AbstractParameter<?>... functionParams) {
+	                             final String sqlFunction, final AbstractParameter<?>... functionParams)
+			throws BuilderException {
 		return this.notEqual(ConnectionCode.AND, entityClass, identifyKey, sqlFunction, functionParams);
 	}
 
@@ -956,8 +1032,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                    <span class="zh-CN">子查询实例对象</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
-	public QueryBuilder notEqual(final Class<?> entityClass, final String identifyKey, final QueryInfo subQuery) {
+	public QueryBuilder notEqual(final Class<?> entityClass, final String identifyKey, final QueryInfo subQuery)
+			throws BuilderException {
 		return this.notEqual(ConnectionCode.AND, entityClass, identifyKey, subQuery);
 	}
 
@@ -975,9 +1054,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                    <span class="zh-CN">目标数据列识别名称</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder notEqual(final Class<?> entityClass, final String identifyKey,
-	                             final Class<?> matchEntity, final String columnKey) {
+	                             final Class<?> matchEntity, final String columnKey) throws BuilderException {
 		return this.notEqual(ConnectionCode.AND, entityClass, identifyKey, matchEntity, columnKey);
 	}
 
@@ -995,9 +1076,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                    <span class="zh-CN">区间终止值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder betweenAnd(final Class<?> entityClass, final String identifyKey,
-	                               final Object beginValue, final Object endValue) {
+	                               final Object beginValue, final Object endValue) throws BuilderException {
 		return this.betweenAnd(ConnectionCode.AND, entityClass, identifyKey, beginValue, endValue);
 	}
 
@@ -1015,9 +1098,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                    <span class="zh-CN">区间终止值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder notBetweenAnd(final Class<?> entityClass, final String identifyKey,
-	                                  final Object beginValue, final Object endValue) {
+	                                  final Object beginValue, final Object endValue) throws BuilderException {
 		return this.notBetweenAnd(ConnectionCode.AND, entityClass, identifyKey, beginValue, endValue);
 	}
 
@@ -1033,8 +1118,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                    <span class="zh-CN">匹配规则字符串</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
-	public QueryBuilder like(final Class<?> entityClass, final String identifyKey, final String matchRule) {
+	public QueryBuilder like(final Class<?> entityClass, final String identifyKey, final String matchRule)
+			throws BuilderException {
 		return this.like(ConnectionCode.AND, entityClass, identifyKey, matchRule);
 	}
 
@@ -1050,8 +1138,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                    <span class="zh-CN">匹配规则字符串</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
-	public QueryBuilder notLike(final Class<?> entityClass, final String identifyKey, final String matchRule) {
+	public QueryBuilder notLike(final Class<?> entityClass, final String identifyKey, final String matchRule)
+			throws BuilderException {
 		return this.notLike(ConnectionCode.AND, entityClass, identifyKey, matchRule);
 	}
 
@@ -1065,8 +1156,10 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                    <span class="zh-CN">识别代码</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
-	public QueryBuilder matchNull(final Class<?> entityClass, final String identifyKey) {
+	public QueryBuilder matchNull(final Class<?> entityClass, final String identifyKey) throws BuilderException {
 		return this.matchNull(ConnectionCode.AND, entityClass, identifyKey);
 	}
 
@@ -1080,8 +1173,10 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                    <span class="zh-CN">识别代码</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
-	public QueryBuilder notNull(final Class<?> entityClass, final String identifyKey) {
+	public QueryBuilder notNull(final Class<?> entityClass, final String identifyKey) throws BuilderException {
 		return this.notNull(ConnectionCode.AND, entityClass, identifyKey);
 	}
 
@@ -1097,8 +1192,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                     <span class="zh-CN">匹配数据集数组</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
-	public QueryBuilder in(final Class<?> entityClass, final String identifyKey, final Object... matchObjects) {
+	public QueryBuilder in(final Class<?> entityClass, final String identifyKey, final Object... matchObjects)
+			throws BuilderException {
 		return this.in(ConnectionCode.AND, entityClass, identifyKey, matchObjects);
 	}
 
@@ -1114,8 +1212,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                    <span class="zh-CN">子查询实例对象</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
-	public QueryBuilder in(final Class<?> entityClass, final String identifyKey, final QueryInfo subQuery) {
+	public QueryBuilder in(final Class<?> entityClass, final String identifyKey, final QueryInfo subQuery)
+			throws BuilderException {
 		return this.in(ConnectionCode.AND, entityClass, identifyKey, subQuery);
 	}
 
@@ -1133,9 +1234,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                    <span class="zh-CN">结果集识别代码</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder in(final Class<?> entityClass, final String identifyKey,
-	                       final long queryCode, final String resultKey) {
+	                       final long queryCode, final String resultKey) throws BuilderException {
 		return this.in(ConnectionCode.AND, entityClass, identifyKey, queryCode, resultKey);
 	}
 
@@ -1151,8 +1254,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                     <span class="zh-CN">匹配数据集数组</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
-	public QueryBuilder notIn(final Class<?> entityClass, final String identifyKey, final Object... matchObjects) {
+	public QueryBuilder notIn(final Class<?> entityClass, final String identifyKey, final Object... matchObjects)
+			throws BuilderException {
 		return this.notIn(ConnectionCode.AND, entityClass, identifyKey, matchObjects);
 	}
 
@@ -1168,8 +1274,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                    <span class="zh-CN">子查询实例对象</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
-	public QueryBuilder notIn(final Class<?> entityClass, final String identifyKey, final QueryInfo subQuery) {
+	public QueryBuilder notIn(final Class<?> entityClass, final String identifyKey, final QueryInfo subQuery)
+			throws BuilderException {
 		return this.notIn(ConnectionCode.AND, entityClass, identifyKey, subQuery);
 	}
 
@@ -1187,9 +1296,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                    <span class="zh-CN">结果集识别代码</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder notIn(final Class<?> entityClass, final String identifyKey,
-	                          final long queryCode, final String resultKey) {
+	                          final long queryCode, final String resultKey) throws BuilderException {
 		return this.notIn(ConnectionCode.AND, entityClass, identifyKey, queryCode, resultKey);
 	}
 
@@ -1220,9 +1331,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">匹配值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder greater(final ConnectionCode connectionCode, final Class<?> entityClass,
-	                            final String identifyKey, final Object matchValue) {
+	                            final String identifyKey, final Object matchValue) throws BuilderException {
 		return this.greater(Globals.DEFAULT_VALUE_INT, connectionCode, entityClass, identifyKey, matchValue);
 	}
 
@@ -1240,9 +1353,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">子查询实例对象</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder greater(final ConnectionCode connectionCode, final Class<?> entityClass,
-	                            final String identifyKey, final QueryInfo subQuery) {
+	                            final String identifyKey, final QueryInfo subQuery) throws BuilderException {
 		return this.greater(Globals.DEFAULT_VALUE_INT, connectionCode, entityClass, identifyKey, subQuery);
 	}
 
@@ -1254,16 +1369,20 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">连接类型代码</span>
 	 * @param entityClass    <span class="en-US">Entity class</span>
 	 *                       <span class="zh-CN">实体类</span>
+	 * @param identifyKey    <span class="en-US">Identify key</span>
+	 *                       <span class="zh-CN">识别代码</span>
 	 * @param sqlFunction    <span class="en-US">Function name</span>
 	 *                       <span class="zh-CN">函数名称</span>
 	 * @param functionParams <span class="en-US">Function parameter values</span>
 	 *                       <span class="zh-CN">函数参数值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder greater(final ConnectionCode connectionCode, final Class<?> entityClass,
 	                            final String identifyKey, final String sqlFunction,
-	                            final AbstractParameter<?>... functionParams) {
+	                            final AbstractParameter<?>... functionParams) throws BuilderException {
 		return this.greater(Globals.DEFAULT_VALUE_INT, connectionCode, entityClass, identifyKey,
 				sqlFunction, functionParams);
 	}
@@ -1284,9 +1403,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">目标数据列识别名称</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder greater(final ConnectionCode connectionCode, final Class<?> entityClass,
-	                            final String identifyKey, final Class<?> matchEntity, final String columnKey) {
+	                            final String identifyKey, final Class<?> matchEntity, final String columnKey)
+			throws BuilderException {
 		return this.greater(Globals.DEFAULT_VALUE_INT, connectionCode, entityClass, identifyKey,
 				matchEntity, columnKey);
 	}
@@ -1305,9 +1427,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">匹配值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder greaterEqual(final ConnectionCode connectionCode, final Class<?> entityClass,
-	                                 final String identifyKey, final Object matchValue) {
+	                                 final String identifyKey, final Object matchValue) throws BuilderException {
 		return this.greaterEqual(Globals.DEFAULT_VALUE_INT, connectionCode, entityClass, identifyKey, matchValue);
 	}
 
@@ -1325,9 +1449,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">子查询实例对象</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder greaterEqual(final ConnectionCode connectionCode, final Class<?> entityClass,
-	                                 final String identifyKey, final QueryInfo subQuery) {
+	                                 final String identifyKey, final QueryInfo subQuery) throws BuilderException {
 		return this.greaterEqual(Globals.DEFAULT_VALUE_INT, connectionCode, entityClass, identifyKey, subQuery);
 	}
 
@@ -1347,9 +1473,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">目标数据列识别名称</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder greaterEqual(final ConnectionCode connectionCode, final Class<?> entityClass,
-	                                 final String identifyKey, final Class<?> matchEntity, final String columnKey) {
+	                                 final String identifyKey, final Class<?> matchEntity, final String columnKey)
+			throws BuilderException {
 		return this.greaterEqual(Globals.DEFAULT_VALUE_INT, connectionCode,
 				entityClass, identifyKey, matchEntity, columnKey);
 	}
@@ -1370,10 +1499,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">函数参数值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder greaterEqual(final ConnectionCode connectionCode, final Class<?> entityClass,
 	                                 final String identifyKey, final String sqlFunction,
-	                                 final AbstractParameter<?>... functionParams) {
+	                                 final AbstractParameter<?>... functionParams) throws BuilderException {
 		return this.greaterEqual(Globals.DEFAULT_VALUE_INT, connectionCode,
 				entityClass, identifyKey, sqlFunction, functionParams);
 	}
@@ -1392,9 +1523,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">匹配值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder less(final ConnectionCode connectionCode, final Class<?> entityClass,
-	                         final String identifyKey, final Object matchValue) {
+	                         final String identifyKey, final Object matchValue) throws BuilderException {
 		return this.less(Globals.DEFAULT_VALUE_INT, connectionCode, entityClass, identifyKey, matchValue);
 	}
 
@@ -1414,9 +1547,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">函数参数值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder less(final ConnectionCode connectionCode, final Class<?> entityClass, final String identifyKey,
-	                         final String sqlFunction, final AbstractParameter<?>... functionParams) {
+	                         final String sqlFunction, final AbstractParameter<?>... functionParams)
+			throws BuilderException {
 		return this.less(Globals.DEFAULT_VALUE_INT, connectionCode,
 				entityClass, identifyKey, sqlFunction, functionParams);
 	}
@@ -1435,9 +1571,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">子查询实例对象</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder less(final ConnectionCode connectionCode, final Class<?> entityClass,
-	                         final String identifyKey, final QueryInfo subQuery) {
+	                         final String identifyKey, final QueryInfo subQuery) throws BuilderException {
 		return this.less(Globals.DEFAULT_VALUE_INT, connectionCode, entityClass, identifyKey, subQuery);
 	}
 
@@ -1457,9 +1595,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">目标数据列识别名称</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder less(final ConnectionCode connectionCode, final Class<?> entityClass, final String identifyKey,
-	                         final Class<?> matchEntity, final String columnKey) {
+	                         final Class<?> matchEntity, final String columnKey) throws BuilderException {
 		return this.less(Globals.DEFAULT_VALUE_INT, connectionCode,
 				entityClass, identifyKey, matchEntity, columnKey);
 	}
@@ -1478,9 +1618,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">匹配值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder lessEqual(final ConnectionCode connectionCode, final Class<?> entityClass,
-	                              final String identifyKey, final Object matchValue) {
+	                              final String identifyKey, final Object matchValue) throws BuilderException {
 		return this.lessEqual(Globals.DEFAULT_VALUE_INT, connectionCode, entityClass, identifyKey, matchValue);
 	}
 
@@ -1500,10 +1642,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">函数参数值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder lessEqual(final ConnectionCode connectionCode, final Class<?> entityClass,
 	                              final String identifyKey, final String sqlFunction,
-	                              final AbstractParameter<?>... functionParams) {
+	                              final AbstractParameter<?>... functionParams) throws BuilderException {
 		return this.lessEqual(Globals.DEFAULT_VALUE_INT, connectionCode,
 				entityClass, identifyKey, sqlFunction, functionParams);
 	}
@@ -1522,9 +1666,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">子查询实例对象</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder lessEqual(final ConnectionCode connectionCode, final Class<?> entityClass,
-	                              final String identifyKey, final QueryInfo subQuery) {
+	                              final String identifyKey, final QueryInfo subQuery) throws BuilderException {
 		return this.lessEqual(Globals.DEFAULT_VALUE_INT, connectionCode, entityClass, identifyKey, subQuery);
 	}
 
@@ -1544,9 +1690,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">目标数据列识别名称</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder lessEqual(final ConnectionCode connectionCode, final Class<?> entityClass,
-	                              final String identifyKey, final Class<?> matchEntity, final String columnKey) {
+	                              final String identifyKey, final Class<?> matchEntity, final String columnKey)
+			throws BuilderException {
 		return this.lessEqual(Globals.DEFAULT_VALUE_INT, connectionCode,
 				entityClass, identifyKey, matchEntity, columnKey);
 	}
@@ -1565,9 +1714,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">匹配值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder equalTo(final ConnectionCode connectionCode, final Class<?> entityClass,
-	                            final String identifyKey, final Object matchValue) {
+	                            final String identifyKey, final Object matchValue) throws BuilderException {
 		return this.equalTo(Globals.DEFAULT_VALUE_INT, connectionCode, entityClass, identifyKey, matchValue);
 	}
 
@@ -1587,10 +1738,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">函数参数值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder equalTo(final ConnectionCode connectionCode, final Class<?> entityClass,
 	                            final String identifyKey, final String sqlFunction,
-	                            final AbstractParameter<?>... functionParams) {
+	                            final AbstractParameter<?>... functionParams) throws BuilderException {
 		return this.equalTo(Globals.DEFAULT_VALUE_INT, connectionCode,
 				entityClass, identifyKey, sqlFunction, functionParams);
 	}
@@ -1609,9 +1762,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">子查询实例对象</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder equalTo(final ConnectionCode connectionCode, final Class<?> entityClass,
-	                            final String identifyKey, final QueryInfo subQuery) {
+	                            final String identifyKey, final QueryInfo subQuery) throws BuilderException {
 		return this.equalTo(Globals.DEFAULT_VALUE_INT, connectionCode, entityClass, identifyKey, subQuery);
 	}
 
@@ -1631,9 +1786,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">目标数据列识别名称</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder equalTo(final ConnectionCode connectionCode, final Class<?> entityClass,
-	                            final String identifyKey, final Class<?> matchEntity, final String columnKey) {
+	                            final String identifyKey, final Class<?> matchEntity, final String columnKey)
+			throws BuilderException {
 		return this.equalTo(Globals.DEFAULT_VALUE_INT, connectionCode,
 				entityClass, identifyKey, matchEntity, columnKey);
 	}
@@ -1652,9 +1810,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">匹配值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder notEqual(final ConnectionCode connectionCode, final Class<?> entityClass,
-	                             final String identifyKey, final Object matchValue) {
+	                             final String identifyKey, final Object matchValue) throws BuilderException {
 		return this.notEqual(Globals.DEFAULT_VALUE_INT, connectionCode, entityClass, identifyKey, matchValue);
 	}
 
@@ -1674,10 +1834,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">函数参数值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder notEqual(final ConnectionCode connectionCode, final Class<?> entityClass,
 	                             final String identifyKey, final String sqlFunction,
-	                             final AbstractParameter<?>... functionParams) {
+	                             final AbstractParameter<?>... functionParams) throws BuilderException {
 		return this.notEqual(Globals.DEFAULT_VALUE_INT, connectionCode,
 				entityClass, identifyKey, sqlFunction, functionParams);
 	}
@@ -1696,9 +1858,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">子查询实例对象</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder notEqual(final ConnectionCode connectionCode, final Class<?> entityClass,
-	                             final String identifyKey, final QueryInfo subQuery) {
+	                             final String identifyKey, final QueryInfo subQuery) throws BuilderException {
 		return this.notEqual(Globals.DEFAULT_VALUE_INT, connectionCode, entityClass, identifyKey, subQuery);
 	}
 
@@ -1718,9 +1882,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">目标数据列识别名称</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder notEqual(final ConnectionCode connectionCode, final Class<?> entityClass,
-	                             final String identifyKey, final Class<?> matchEntity, final String columnKey) {
+	                             final String identifyKey, final Class<?> matchEntity, final String columnKey)
+			throws BuilderException {
 		return this.notEqual(Globals.DEFAULT_VALUE_INT, connectionCode,
 				entityClass, identifyKey, matchEntity, columnKey);
 	}
@@ -1741,9 +1908,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">区间终止值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder betweenAnd(final ConnectionCode connectionCode, final Class<?> entityClass,
-	                               final String identifyKey, final Object beginValue, final Object endValue) {
+	                               final String identifyKey, final Object beginValue, final Object endValue)
+			throws BuilderException {
 		return this.betweenAnd(Globals.DEFAULT_VALUE_INT, connectionCode,
 				entityClass, identifyKey, beginValue, endValue);
 	}
@@ -1764,9 +1934,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">区间终止值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder notBetweenAnd(final ConnectionCode connectionCode, final Class<?> entityClass,
-	                                  final String identifyKey, final Object beginValue, final Object endValue) {
+	                                  final String identifyKey, final Object beginValue, final Object endValue)
+			throws BuilderException {
 		return this.notBetweenAnd(Globals.DEFAULT_VALUE_INT, connectionCode,
 				entityClass, identifyKey, beginValue, endValue);
 	}
@@ -1785,9 +1958,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">匹配规则字符串</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder like(final ConnectionCode connectionCode, final Class<?> entityClass,
-	                         final String identifyKey, final String matchRule) {
+	                         final String identifyKey, final String matchRule) throws BuilderException {
 		return this.like(Globals.DEFAULT_VALUE_INT, connectionCode, entityClass, identifyKey, matchRule);
 	}
 
@@ -1805,9 +1980,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">匹配规则字符串</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder notLike(final ConnectionCode connectionCode, final Class<?> entityClass,
-	                            final String identifyKey, final String matchRule) {
+	                            final String identifyKey, final String matchRule) throws BuilderException {
 		return this.notLike(Globals.DEFAULT_VALUE_INT, connectionCode, entityClass, identifyKey, matchRule);
 	}
 
@@ -1823,9 +2000,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">识别代码</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder matchNull(final ConnectionCode connectionCode, final Class<?> entityClass,
-	                              final String identifyKey) {
+	                              final String identifyKey) throws BuilderException {
 		return this.matchNull(Globals.DEFAULT_VALUE_INT, connectionCode, entityClass, identifyKey);
 	}
 
@@ -1841,9 +2020,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">识别代码</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder notNull(final ConnectionCode connectionCode, final Class<?> entityClass,
-	                            final String identifyKey) {
+	                            final String identifyKey) throws BuilderException {
 		return this.notNull(Globals.DEFAULT_VALUE_INT, connectionCode, entityClass, identifyKey);
 	}
 
@@ -1861,9 +2042,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">匹配数据集数组</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder in(final ConnectionCode connectionCode, final Class<?> entityClass,
-	                       final String identifyKey, final Object... matchObjects) {
+	                       final String identifyKey, final Object... matchObjects) throws BuilderException {
 		return this.in(Globals.DEFAULT_VALUE_INT, connectionCode, entityClass, identifyKey, matchObjects);
 	}
 
@@ -1881,9 +2064,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">子查询实例对象</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder in(final ConnectionCode connectionCode, final Class<?> entityClass,
-	                       final String identifyKey, final QueryInfo subQuery) {
+	                       final String identifyKey, final QueryInfo subQuery) throws BuilderException {
 		return this.in(Globals.DEFAULT_VALUE_INT, connectionCode, entityClass, identifyKey, subQuery);
 	}
 
@@ -1903,9 +2088,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">结果集识别代码</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder in(final ConnectionCode connectionCode, final Class<?> entityClass, final String identifyKey,
-	                       final long queryCode, final String resultKey) {
+	                       final long queryCode, final String resultKey) throws BuilderException {
 		return this.in(Globals.DEFAULT_VALUE_INT, connectionCode, entityClass, identifyKey, queryCode, resultKey);
 	}
 
@@ -1923,9 +2110,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">匹配数据集数组</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder notIn(final ConnectionCode connectionCode, final Class<?> entityClass,
-	                          final String identifyKey, final Object... matchObjects) {
+	                          final String identifyKey, final Object... matchObjects) throws BuilderException {
 		return this.notIn(Globals.DEFAULT_VALUE_INT, connectionCode, entityClass, identifyKey, matchObjects);
 	}
 
@@ -1943,9 +2132,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">子查询实例对象</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder notIn(final ConnectionCode connectionCode, final Class<?> entityClass,
-	                          final String identifyKey, final QueryInfo subQuery) {
+	                          final String identifyKey, final QueryInfo subQuery) throws BuilderException {
 		return this.notIn(Globals.DEFAULT_VALUE_INT, connectionCode, entityClass, identifyKey, subQuery);
 	}
 
@@ -1965,9 +2156,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">结果集识别代码</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder notIn(final ConnectionCode connectionCode, final Class<?> entityClass,
-	                          final String identifyKey, final long queryCode, final String resultKey) {
+	                          final String identifyKey, final long queryCode, final String resultKey)
+			throws BuilderException {
 		return this.notIn(Globals.DEFAULT_VALUE_INT, connectionCode, entityClass, identifyKey, queryCode, resultKey);
 	}
 
@@ -2002,10 +2196,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">匹配值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder greater(final int sortCode, final ConnectionCode connectionCode,
 	                            final Class<?> entityClass, final String identifyKey,
-	                            final Object matchValue) {
+	                            final Object matchValue) throws BuilderException {
 		this.addCondition(Condition.greater(sortCode, connectionCode, entityClass, identifyKey, matchValue));
 		return this;
 	}
@@ -2028,10 +2224,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">目标数据列识别名称</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder greater(final int sortCode, final ConnectionCode connectionCode,
 	                            final Class<?> entityClass, final String identifyKey,
-	                            final Class<?> matchEntity, final String columnKey) {
+	                            final Class<?> matchEntity, final String columnKey) throws BuilderException {
 		this.addCondition(Condition.greater(sortCode, connectionCode, entityClass, identifyKey, matchEntity, columnKey));
 		return this;
 	}
@@ -2054,10 +2252,13 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">函数参数值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder greater(final int sortCode, final ConnectionCode connectionCode,
 	                            final Class<?> entityClass, final String identifyKey,
-	                            final String sqlFunction, final AbstractParameter<?>... functionParams) {
+	                            final String sqlFunction, final AbstractParameter<?>... functionParams)
+			throws BuilderException {
 		this.addCondition(Condition.greater(sortCode, connectionCode, entityClass, identifyKey, sqlFunction, functionParams));
 		return this;
 	}
@@ -2078,9 +2279,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">子查询实例对象</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder greater(final int sortCode, final ConnectionCode connectionCode, final Class<?> entityClass,
-	                            final String identifyKey, final QueryInfo subQuery) {
+	                            final String identifyKey, final QueryInfo subQuery) throws BuilderException {
 		this.addCondition(Condition.greater(sortCode, connectionCode, entityClass, identifyKey, subQuery));
 		return this;
 	}
@@ -2101,10 +2304,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">匹配值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder greaterEqual(final int sortCode, final ConnectionCode connectionCode,
 	                                 final Class<?> entityClass, final String identifyKey,
-	                                 final Object matchValue) {
+	                                 final Object matchValue) throws BuilderException {
 		this.addCondition(Condition.greaterEqual(sortCode, connectionCode, entityClass, identifyKey, matchValue));
 		return this;
 	}
@@ -2127,10 +2332,13 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">函数参数值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder greaterEqual(final int sortCode, final ConnectionCode connectionCode,
 	                                 final Class<?> entityClass, final String identifyKey,
-	                                 final String sqlFunction, final AbstractParameter<?>... functionParams) {
+	                                 final String sqlFunction, final AbstractParameter<?>... functionParams)
+			throws BuilderException {
 		this.addCondition(
 				Condition.greaterEqual(sortCode, connectionCode, entityClass, identifyKey, sqlFunction, functionParams));
 		return this;
@@ -2154,10 +2362,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">目标数据列识别名称</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder greaterEqual(final int sortCode, final ConnectionCode connectionCode,
 	                                 final Class<?> entityClass, final String identifyKey,
-	                                 final Class<?> matchEntity, final String columnKey) {
+	                                 final Class<?> matchEntity, final String columnKey) throws BuilderException {
 		this.addCondition(
 				Condition.greaterEqual(sortCode, connectionCode, entityClass, identifyKey, matchEntity, columnKey));
 		return this;
@@ -2179,10 +2389,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">子查询实例对象</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder greaterEqual(final int sortCode, final ConnectionCode connectionCode,
 	                                 final Class<?> entityClass, final String identifyKey,
-	                                 final QueryInfo subQuery) {
+	                                 final QueryInfo subQuery) throws BuilderException {
 		this.addCondition(Condition.greaterEqual(sortCode, connectionCode, entityClass, identifyKey, subQuery));
 		return this;
 	}
@@ -2203,9 +2415,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">匹配值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder less(final int sortCode, final ConnectionCode connectionCode,
-	                         final Class<?> entityClass, final String identifyKey, final Object matchValue) {
+	                         final Class<?> entityClass, final String identifyKey, final Object matchValue)
+			throws BuilderException {
 		this.addCondition(Condition.less(sortCode, connectionCode, entityClass, identifyKey, matchValue));
 		return this;
 	}
@@ -2228,10 +2443,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">目标数据列识别名称</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder less(final int sortCode, final ConnectionCode connectionCode,
 	                         final Class<?> entityClass, final String identifyKey,
-	                         final Class<?> matchEntity, final String columnKey) {
+	                         final Class<?> matchEntity, final String columnKey) throws BuilderException {
 		this.addCondition(Condition.less(sortCode, connectionCode, entityClass, identifyKey, matchEntity, columnKey));
 		return this;
 	}
@@ -2254,10 +2471,13 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">函数参数值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder less(final int sortCode, final ConnectionCode connectionCode,
 	                         final Class<?> entityClass, final String identifyKey,
-	                         final String sqlFunction, final AbstractParameter<?>... functionParams) {
+	                         final String sqlFunction, final AbstractParameter<?>... functionParams)
+			throws BuilderException {
 		this.addCondition(Condition.less(sortCode, connectionCode, entityClass, identifyKey, sqlFunction, functionParams));
 		return this;
 	}
@@ -2278,10 +2498,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">子查询实例对象</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder less(final int sortCode, final ConnectionCode connectionCode,
 	                         final Class<?> entityClass, final String identifyKey,
-	                         final QueryInfo subQuery) {
+	                         final QueryInfo subQuery) throws BuilderException {
 		this.addCondition(Condition.less(sortCode, connectionCode, entityClass, identifyKey, subQuery));
 		return this;
 	}
@@ -2302,10 +2524,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">匹配值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder lessEqual(final int sortCode, final ConnectionCode connectionCode,
 	                              final Class<?> entityClass, final String identifyKey,
-	                              final Object matchValue) {
+	                              final Object matchValue) throws BuilderException {
 		this.addCondition(Condition.lessEqual(sortCode, connectionCode, entityClass, identifyKey, matchValue));
 		return this;
 	}
@@ -2328,10 +2552,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">目标数据列识别名称</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder lessEqual(final int sortCode, final ConnectionCode connectionCode,
 	                              final Class<?> entityClass, final String identifyKey,
-	                              final Class<?> matchEntity, final String columnKey) {
+	                              final Class<?> matchEntity, final String columnKey) throws BuilderException {
 		this.addCondition(Condition.lessEqual(sortCode, connectionCode, entityClass, identifyKey, matchEntity, columnKey));
 		return this;
 	}
@@ -2354,10 +2580,13 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">函数参数值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder lessEqual(final int sortCode, final ConnectionCode connectionCode,
 	                              final Class<?> entityClass, final String identifyKey,
-	                              final String sqlFunction, final AbstractParameter<?>... functionParams) {
+	                              final String sqlFunction, final AbstractParameter<?>... functionParams)
+			throws BuilderException {
 		this.addCondition(
 				Condition.lessEqual(sortCode, connectionCode, entityClass, identifyKey, sqlFunction, functionParams));
 		return this;
@@ -2379,10 +2608,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">子查询实例对象</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder lessEqual(final int sortCode, final ConnectionCode connectionCode,
 	                              final Class<?> entityClass, final String identifyKey,
-	                              final QueryInfo subQuery) {
+	                              final QueryInfo subQuery) throws BuilderException {
 		this.addCondition(Condition.lessEqual(sortCode, connectionCode, entityClass, identifyKey, subQuery));
 		return this;
 	}
@@ -2403,9 +2634,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">匹配值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder equalTo(final int sortCode, final ConnectionCode connectionCode,
-	                            final Class<?> entityClass, final String identifyKey, final Object matchValue) {
+	                            final Class<?> entityClass, final String identifyKey, final Object matchValue)
+			throws BuilderException {
 		this.addCondition(Condition.equalTo(sortCode, connectionCode, entityClass, identifyKey, matchValue));
 		return this;
 	}
@@ -2428,12 +2662,13 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">目标数据列识别名称</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder equalTo(final int sortCode, final ConnectionCode connectionCode,
 	                            final Class<?> entityClass, final String identifyKey,
-	                            final Class<?> matchEntity, final String columnKey) {
-		this.addCondition(
-				Condition.equalTo(sortCode, connectionCode, entityClass, identifyKey, matchEntity, columnKey));
+	                            final Class<?> matchEntity, final String columnKey) throws BuilderException {
+		this.addCondition(Condition.equalTo(sortCode, connectionCode, entityClass, identifyKey, matchEntity, columnKey));
 		return this;
 	}
 
@@ -2455,10 +2690,13 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">函数参数值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder equalTo(final int sortCode, final ConnectionCode connectionCode,
 	                            final Class<?> entityClass, final String identifyKey,
-	                            final String sqlFunction, final AbstractParameter<?>... functionParams) {
+	                            final String sqlFunction, final AbstractParameter<?>... functionParams)
+			throws BuilderException {
 		this.addCondition(
 				Condition.equalTo(sortCode, connectionCode, entityClass, identifyKey, sqlFunction, functionParams));
 		return this;
@@ -2480,10 +2718,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">子查询实例对象</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder equalTo(final int sortCode, final ConnectionCode connectionCode,
 	                            final Class<?> entityClass, final String identifyKey,
-	                            final QueryInfo subQuery) {
+	                            final QueryInfo subQuery) throws BuilderException {
 		this.addCondition(Condition.equalTo(sortCode, connectionCode, entityClass, identifyKey, subQuery));
 		return this;
 	}
@@ -2504,10 +2744,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">匹配值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder notEqual(final int sortCode, final ConnectionCode connectionCode,
 	                             final Class<?> entityClass, final String identifyKey,
-	                             final Object matchValue) {
+	                             final Object matchValue) throws BuilderException {
 		this.addCondition(Condition.notEqual(sortCode, connectionCode, entityClass, identifyKey, matchValue));
 		return this;
 	}
@@ -2530,10 +2772,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">目标数据列识别名称</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder notEqual(final int sortCode, final ConnectionCode connectionCode,
 	                             final Class<?> entityClass, final String identifyKey,
-	                             final Class<?> matchEntity, final String columnKey) {
+	                             final Class<?> matchEntity, final String columnKey) throws BuilderException {
 		this.addCondition(Condition.notEqual(sortCode, connectionCode, entityClass, identifyKey, matchEntity, columnKey));
 		return this;
 	}
@@ -2556,10 +2800,13 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">函数参数值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder notEqual(final int sortCode, final ConnectionCode connectionCode,
 	                             final Class<?> entityClass, final String identifyKey,
-	                             final String sqlFunction, final AbstractParameter<?>... functionParams) {
+	                             final String sqlFunction, final AbstractParameter<?>... functionParams)
+			throws BuilderException {
 		this.addCondition(Condition.notEqual(sortCode, connectionCode, entityClass, identifyKey, sqlFunction, functionParams));
 		return this;
 	}
@@ -2580,10 +2827,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">子查询实例对象</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder notEqual(final int sortCode, final ConnectionCode connectionCode,
 	                             final Class<?> entityClass, final String identifyKey,
-	                             final QueryInfo subQuery) {
+	                             final QueryInfo subQuery) throws BuilderException {
 		this.addCondition(Condition.notEqual(sortCode, connectionCode, entityClass, identifyKey, subQuery));
 		return this;
 	}
@@ -2606,10 +2855,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">区间终止值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder betweenAnd(final int sortCode, final ConnectionCode connectionCode,
 	                               final Class<?> entityClass, final String identifyKey,
-	                               final Object beginValue, final Object endValue) {
+	                               final Object beginValue, final Object endValue) throws BuilderException {
 		this.addCondition(Condition.inRanges(sortCode, connectionCode, entityClass, identifyKey, beginValue, endValue));
 		return this;
 	}
@@ -2632,10 +2883,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">区间终止值</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder notBetweenAnd(final int sortCode, final ConnectionCode connectionCode,
 	                                  final Class<?> entityClass, final String identifyKey,
-	                                  final Object beginValue, final Object endValue) {
+	                                  final Object beginValue, final Object endValue) throws BuilderException {
 		this.addCondition(Condition.notInRanges(sortCode, connectionCode, entityClass, identifyKey, beginValue, endValue));
 		return this;
 	}
@@ -2656,9 +2909,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">匹配规则字符串</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder like(final int sortCode, final ConnectionCode connectionCode,
-	                         final Class<?> entityClass, final String identifyKey, final String matchRule) {
+	                         final Class<?> entityClass, final String identifyKey, final String matchRule)
+			throws BuilderException {
 		this.addCondition(Condition.like(sortCode, connectionCode, entityClass, identifyKey, matchRule));
 		return this;
 	}
@@ -2679,9 +2935,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">匹配规则字符串</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder notLike(final int sortCode, final ConnectionCode connectionCode,
-	                            final Class<?> entityClass, final String identifyKey, final String matchRule) {
+	                            final Class<?> entityClass, final String identifyKey, final String matchRule)
+			throws BuilderException {
 		this.addCondition(Condition.notLike(sortCode, connectionCode, entityClass, identifyKey, matchRule));
 		return this;
 	}
@@ -2700,9 +2959,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">识别代码</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder matchNull(final int sortCode, final ConnectionCode connectionCode,
-	                              final Class<?> entityClass, final String identifyKey) {
+	                              final Class<?> entityClass, final String identifyKey) throws BuilderException {
 		this.addCondition(Condition.matchNull(sortCode, connectionCode, entityClass, identifyKey));
 		return this;
 	}
@@ -2721,9 +2982,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">识别代码</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder notNull(final int sortCode, final ConnectionCode connectionCode,
-	                            final Class<?> entityClass, final String identifyKey) {
+	                            final Class<?> entityClass, final String identifyKey) throws BuilderException {
 		this.addCondition(Condition.notNull(sortCode, connectionCode, entityClass, identifyKey));
 		return this;
 	}
@@ -2744,9 +3007,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">匹配数据集数组</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder in(final int sortCode, final ConnectionCode connectionCode, final Class<?> entityClass,
-	                       final String identifyKey, final Object... matchObjects) {
+	                       final String identifyKey, final Object... matchObjects) throws BuilderException {
 		this.addCondition(Condition.in(sortCode, connectionCode, entityClass, identifyKey, matchObjects));
 		return this;
 	}
@@ -2767,9 +3032,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">子查询实例对象</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder in(final int sortCode, final ConnectionCode connectionCode,
-	                       final Class<?> entityClass, final String identifyKey, final QueryInfo subQuery) {
+	                       final Class<?> entityClass, final String identifyKey, final QueryInfo subQuery)
+			throws BuilderException {
 		this.addCondition(Condition.in(sortCode, connectionCode, entityClass, identifyKey, subQuery));
 		return this;
 	}
@@ -2792,10 +3060,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">结果集识别代码</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder in(final int sortCode, final ConnectionCode connectionCode,
 	                       final Class<?> entityClass, final String identifyKey,
-	                       final long queryCode, final String resultKey) {
+	                       final long queryCode, final String resultKey) throws BuilderException {
 		this.addCondition(Condition.in(sortCode, connectionCode, entityClass, identifyKey, queryCode, resultKey));
 		return this;
 	}
@@ -2816,10 +3086,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">匹配数据集数组</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder notIn(final int sortCode, final ConnectionCode connectionCode,
 	                          final Class<?> entityClass, final String identifyKey,
-	                          final Object... matchObjects) {
+	                          final Object... matchObjects) throws BuilderException {
 		this.addCondition(Condition.notIn(sortCode, connectionCode, entityClass, identifyKey, matchObjects));
 		return this;
 	}
@@ -2842,10 +3114,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">结果集识别代码</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder notIn(final int sortCode, final ConnectionCode connectionCode,
 	                          final Class<?> entityClass, final String identifyKey,
-	                          final long queryCode, final String resultKey) {
+	                          final long queryCode, final String resultKey) throws BuilderException {
 		this.addCondition(Condition.notIn(sortCode, connectionCode, entityClass, identifyKey, queryCode, resultKey));
 		return this;
 	}
@@ -2866,9 +3140,12 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 	 *                       <span class="zh-CN">子查询实例对象</span>
 	 * @return <span class="en-US">Current builder instance</span>
 	 * <span class="zh-CN">当前构建器实例对象</span>
+	 * @throws BuilderException <span class="en-US">If the driver table entity class is not registered or column not found</span>
+	 *                          <span class="zh-CN">如果驱动表实体类未注册或数据列未找到</span>
 	 */
 	public QueryBuilder notIn(final int sortCode, final ConnectionCode connectionCode,
-	                          final Class<?> entityClass, final String identifyKey, final QueryInfo subQuery) {
+	                          final Class<?> entityClass, final String identifyKey, final QueryInfo subQuery)
+			throws BuilderException {
 		this.addCondition(Condition.notIn(sortCode, connectionCode, entityClass, identifyKey, subQuery));
 		return this;
 	}

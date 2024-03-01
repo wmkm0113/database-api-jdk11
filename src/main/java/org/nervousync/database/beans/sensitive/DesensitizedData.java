@@ -30,7 +30,7 @@ import java.util.Optional;
  * <h2 class="en-US">Desensitized data definition</h2>
  * <h2 class="zh-CN">脱敏数据定义</h2>
  *
- * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Sep 13, 2023 12:35:12 $
  */
 public final class DesensitizedData {

@@ -45,7 +45,7 @@ import java.util.*;
  * <h2 class="en-US">Entity Class Manager</h2>
  * <h2 class="zh-CN">实体类管理器</h2>
  *
- * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Jan 9, 2021 14:57:46 $
  */
 public final class EntityManager {
@@ -183,6 +183,23 @@ public final class EntityManager {
             return Boolean.FALSE;
         }
         return REGISTERED_CONFIGS.containsKey(ClassUtils.originalClassName(defineClass));
+    }
+
+    /**
+     * <h3 class="en-US">Check if it is exist to the given identification code of data column and entity class</h3>
+     * <h3 class="zh-CN">根据给定的识别代码检查数据列是否存在</h3>
+     *
+     * @param defineClass <span class="en-US">Entity class</span>
+     *                    <span class="zh-CN">实体类</span>
+     * @param identifyKey <span class="en-US">The identification code of data column</span>
+     *                    <span class="zh-CN">数据列识别代码</span>
+     * @return <span class="en-US">Registered returns <code>true</code>, unregistered returns <code>false</code></span>
+     * <span class="zh-CN">已注册返回 <code>true</code>，未注册返回 <code>false</code></span>
+     */
+    public static boolean columnExists(final Class<?> defineClass, final String identifyKey) {
+        return Optional.ofNullable(tableConfig(defineClass))
+                .map(tableConfig -> tableConfig.isColumn(identifyKey))
+                .orElse(Boolean.FALSE);
     }
 
     /**

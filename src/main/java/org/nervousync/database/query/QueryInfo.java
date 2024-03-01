@@ -42,7 +42,7 @@ import java.util.List;
  * <h2 class="en-US">Query information define</h2>
  * <h2 class="zh-CN">查询信息定义</h2>
  *
- * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Oct 28, 2020 11:46:08 $
  */
 @XmlType(name = "query_info", namespace = "https://nervousync.org/schemas/query")

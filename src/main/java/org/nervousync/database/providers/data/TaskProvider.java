@@ -25,7 +25,7 @@ import java.util.List;
  * <h2 class="en-US">Data import and export storage adapter</h2>
  * <h2 class="zh-CN">数据导入导出存储适配器</h2>
  *
- * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Jun 20, 2019 14:09 $
  */
 public interface TaskProvider {

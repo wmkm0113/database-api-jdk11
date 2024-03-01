@@ -26,7 +26,7 @@ import org.nervousync.database.query.param.AbstractParameter;
  * <h2 class="en-US">Function parameter information define</h2>
  * <h2 class="zh-CN">函数参数定义</h2>
  *
- * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Oct 9, 2020 11:44:57 $
  */
 @XmlType(name = "function_parameter", namespace = "https://nervousync.org/schemas/query")

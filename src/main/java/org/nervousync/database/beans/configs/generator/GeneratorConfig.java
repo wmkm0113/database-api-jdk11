@@ -28,7 +28,7 @@ import org.nervousync.database.enumerations.table.GenerationType;
  * <h2 class="en-US">Column data generator configure information</h2>
  * <h2 class="zh-CN">列数据生成器配置信息</h2>
  *
- * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Nov 4, 2020 15:49:52 $
  */
 @XmlType(name = "generator_config")

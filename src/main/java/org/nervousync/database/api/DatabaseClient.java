@@ -30,7 +30,7 @@ import java.util.Map;
  * <h2 class="en-US">The interface of database client</h2>
  * <h2 class="zh-CN">数据操作客户端的接口</h2>
  *
- * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
  * @version $Revision: 1.0.0 $ $Date: Mar 30, 2021 13:57:28 $
  */
 public interface DatabaseClient {

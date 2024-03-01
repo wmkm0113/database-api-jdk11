@@ -29,7 +29,7 @@ import java.util.Date;
 /**
  * The type Test entity.
  *
- * @author Steven Wee	<a href="mailto:wmkm0113@Hotmail.com">wmkm0113@Hotmail.com</a>
+ * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
  * @version $Revision: 1.0 $ $Date: 11/30/2020 1:05 PM $
  */
 @XmlRootElement(name = "test_distribute")
