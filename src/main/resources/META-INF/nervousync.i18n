@@ -93,6 +93,10 @@
           "content": "Register table configure information, entity class: {0}, table name: {1}"
         },
         {
+          "key": "Table_Initialize_Warning",
+          "content": "Can't found initialized database manager instance. "
+        },
+        {
           "key": "Lazy_Load_Data_Error",
           "content": "Error querying lazy loading information"
         },
@@ -173,6 +177,10 @@
         {
           "key": "Table_Config_Info",
           "content": "注册数据表配置信息，实体类：{0}，数据表：{1}，配置信息：{2}"
+        },
+        {
+          "key": "Table_Initialize_Warning",
+          "content": "未找到初始化的数据库管理器。"
         },
         {
           "key": "Lazy_Load_Data_Error",

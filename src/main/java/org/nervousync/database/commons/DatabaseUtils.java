@@ -7,6 +7,7 @@ import org.nervousync.database.annotations.transactional.Transactional;
 import org.nervousync.database.api.DatabaseClient;
 import org.nervousync.database.api.DatabaseManager;
 import org.nervousync.database.beans.configs.column.ColumnConfig;
+import org.nervousync.database.beans.configs.table.TableConfig;
 import org.nervousync.database.beans.configs.transactional.TransactionalConfig;
 import org.nervousync.database.entity.EntityManager;
 import org.nervousync.database.enumerations.lock.LockOption;
@@ -19,7 +20,6 @@ import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.sql.Types;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * <h2 class="en-US">Database utilities define</h2>
@@ -128,22 +128,16 @@ public final class DatabaseUtils {
 	 *
 	 * @param entityClasses <span class="en-US">Entity class array</span>
 	 *                      <span class="zh-CN">实体类数组</span>
-	 * @return <span class="en-US">Process success count</span>
-	 * <span class="zh-CN">操作成功计数</span>
+	 * @throws DatabaseException <span class="en-US">If an error occurs when initializing the data table in the database</span>
+	 *                           <span class="zh-CN">如果在数据库初始化数据表时出错</span>
 	 */
-	public static int registerTable(final Class<?>... entityClasses) {
-		AtomicInteger successCount = new AtomicInteger(Globals.INITIALIZE_INT_VALUE);
-		Optional.ofNullable(DATABASE_MANAGER)
-				.ifPresent(databaseManager ->
-						EntityManager.registerTable(entityClasses).forEach(tableConfig -> {
-							if (databaseManager.initTable(tableConfig)) {
-								successCount.incrementAndGet();
-							} else {
-								//  Remove register if initialize table error
-								EntityManager.removeTable(tableConfig.getDefineClass());
-							}
-						}));
-		return successCount.get();
+	public static void registerTable(final Class<?>... entityClasses) throws DatabaseException {
+		List<TableConfig> tableConfigs = EntityManager.registerTable(entityClasses);
+		if (DATABASE_MANAGER == null) {
+			LOGGER.warn("Table_Initialize_Warning");
+			return;
+		}
+		DATABASE_MANAGER.initTable(tableConfigs);
 	}
 
 	/**
@@ -164,19 +158,16 @@ public final class DatabaseUtils {
 	 *
 	 * @param entityClasses <span class="en-US">Entity class array</span>
 	 *                      <span class="zh-CN">实体类数组</span>
-	 * @return <span class="en-US">Process success count</span>
-	 * <span class="zh-CN">操作成功计数</span>
+	 * @throws DatabaseException <span class="en-US">If an error occurs when initializing the data table in the database</span>
+	 *                           <span class="zh-CN">如果在数据库初始化数据表时出错</span>
 	 */
-	public static int dropTable(final Class<?>... entityClasses) {
-		AtomicInteger successCount = new AtomicInteger(Globals.INITIALIZE_INT_VALUE);
-		Optional.ofNullable(DATABASE_MANAGER)
-				.ifPresent(databaseManager ->
-						EntityManager.removeTable(entityClasses).forEach(tableConfig -> {
-							if (databaseManager.dropTable(tableConfig)) {
-								successCount.incrementAndGet();
-							}
-						}));
-		return successCount.get();
+	public static void dropTable(final Class<?>... entityClasses) throws DatabaseException {
+		List<TableConfig> tableConfigs = EntityManager.removeTable(entityClasses);
+		if (DATABASE_MANAGER == null) {
+			LOGGER.warn("Table_Initialize_Warning");
+			return;
+		}
+		DATABASE_MANAGER.dropTable(tableConfigs);
 	}
 
 	/**

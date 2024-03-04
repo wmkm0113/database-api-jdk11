@@ -18,6 +18,9 @@ package org.nervousync.database.api;
 
 import org.nervousync.database.beans.configs.table.TableConfig;
 import org.nervousync.database.beans.configs.transactional.TransactionalConfig;
+import org.nervousync.database.exceptions.core.DatabaseException;
+
+import java.util.List;
 
 /**
  * <h2 class="en-US">The interface of database manager</h2>
@@ -40,12 +43,12 @@ public interface DatabaseManager {
      * <h3 class="en-US">Initialize the data table according to the given data table configuration information</h3>
      * <h3 class="zh-CN">根据给定的数据表配置信息初始化数据表</h3>
      *
-     * @param tableConfig <span class="en-US">Table configure information</span>
-     *                    <span class="zh-CN">数据表配置信息</span>
-     * @return <span class="en-US">Initialize result</span>
-     * <span class="zh-CN">初始化结果</span>
-     */
-    boolean initTable(final TableConfig tableConfig);
+	 * @param tableConfigs <span class="en-US">Table configure information</span>
+	 *                     <span class="zh-CN">数据表配置信息列表</span>
+	 * @throws DatabaseException <span class="en-US">If an error occurs when initializing the data table in the database</span>
+	 *                           <span class="zh-CN">如果在数据库初始化数据表时出错</span>
+	 */
+	void initTable(final List<TableConfig> tableConfigs) throws DatabaseException;
 
     /**
      * <h3 class="en-US">Truncate entity class array</h3>
@@ -60,12 +63,12 @@ public interface DatabaseManager {
      * <h3 class="en-US">Drop the data table according to the given data table configuration information</h3>
      * <h3 class="zh-CN">根据给定的数据表配置信息删除数据表</h3>
      *
-     * @param tableConfig <span class="en-US">Table configure information</span>
-     *                    <span class="zh-CN">数据表配置信息</span>
-     * @return <span class="en-US">Initialize result</span>
-     * <span class="zh-CN">初始化结果</span>
-     */
-    boolean dropTable(final TableConfig tableConfig);
+	 * @param tableConfigs <span class="en-US">Table configure information</span>
+	 *                     <span class="zh-CN">数据表配置信息列表</span>
+	 * @throws DatabaseException <span class="en-US">If an error occurs when initializing the data table in the database</span>
+	 *                           <span class="zh-CN">如果在数据库初始化数据表时出错</span>
+	 */
+	void dropTable(final List<TableConfig> tableConfigs) throws DatabaseException;
 
     /**
      * <h3 class="en-US">Generate database client in data restore mode</h3>
