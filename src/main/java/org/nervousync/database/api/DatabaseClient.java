@@ -23,7 +23,6 @@ import org.nervousync.database.exceptions.query.QueryException;
 import org.nervousync.database.query.QueryResult;
 import org.nervousync.database.query.QueryInfo;
 
-import java.io.Serializable;
 import java.util.Map;
 
 /**
@@ -124,7 +123,7 @@ public interface DatabaseClient {
 	 * @throws RetrieveException <span class="en-US">If an error occurs when query record from database</span>
 	 *                           <span class="zh-CN">如果从数据库中查询记录出现异常</span>
 	 */
-	<T> T retrieve(final Serializable primaryKey, final Class<T> entityClass, final boolean forUpdate)
+	<T> T retrieve(final Object primaryKey, final Class<T> entityClass, final boolean forUpdate)
 			throws RetrieveException;
 
 	/**

@@ -6,14 +6,20 @@
     <artifactId>database-api-jdk11</artifactId>
     <version>1.0.2</version>
     <packaging>jar</packaging>
-    <name>Nervousync Database API Package</name>
-    <description>Nervousync Abstract Database API Module</description>
-    <url>https://nervousync.org/projects/database/api/index.shtml</url>
+    <name>Database Commons API</name>
+    <description>
+        An interface toolkit created for the data processing platform,
+        which provides query input and output formats of the unified data platform,
+        data import and export tools, lazy loading of data columns or associated data, and other functions.
+        It can also automatically encrypt/decrypt and query sensitive data based on annotations.
+        Conditional splitting and other operations.
+    </description>
+    <url>https://nervousync.org/projects/database/api-jdk11/index.shtml</url>
     <scm>
-        <tag>v1.0</tag>
-        <url>https://github.com/wmkm0113/database-api</url>
-        <connection>scm:git:https://github.com/wmkm0113/database-api.git</connection>
-        <developerConnection>scm:git:https://github.com/wmkm0113/database-api.git</developerConnection>
+        <tag>v1.0.0</tag>
+        <url>https://github.com/wmkm0113/database-api-jdk11</url>
+        <connection>scm:git:https://github.com/wmkm0113/database-api-jdk11.git</connection>
+        <developerConnection>scm:git:https://github.com/wmkm0113/database-api-jdk11.git</developerConnection>
     </scm>
     <licenses>
         <license>

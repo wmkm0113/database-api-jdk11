@@ -13,7 +13,7 @@ An interface toolkit created for the data processing platform,
 which provides query input and output formats of the unified data platform, 
 data import and export tools, lazy loading of data columns or associated data, and other functions. 
 It can also automatically encrypt/decrypt and query sensitive data based on annotations. 
-Conditional splitting and other operations,
+Conditional splitting and other operations.
 
 ## Table of contents
 * [JDK Version](#JDK-Version)

@@ -16,7 +16,6 @@
  */
 package org.nervousync.database.query.filter;
 
-import jakarta.annotation.Nonnull;
 import jakarta.xml.bind.annotation.*;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.nervousync.beans.transfer.basic.ClassAdapter;
@@ -72,6 +71,7 @@ public final class GroupBy extends SortedItem {
 	 *                    <span class="zh-CN">排序代码</span>
 	 */
 	public GroupBy(final Class<?> entityClass, final String identifyKey, final int sortCode) {
+		this();
 		this.entityClass = entityClass;
 		this.identifyKey = identifyKey;
 		super.setSortCode(sortCode);
@@ -135,18 +135,5 @@ public final class GroupBy extends SortedItem {
 	public boolean match(final Class<?> entityClass, final String identifyKey) {
 		return ObjectUtils.nullSafeEquals(entityClass, this.entityClass)
 				&& ObjectUtils.nullSafeEquals(identifyKey, this.identifyKey);
-	}
-
-	/**
-	 * <h3 class="en-US">Checks whether the given parameter value matches the current information</h3>
-	 * <h3 class="zh-CN">检查给定的参数值是否与当前信息匹配</h3>
-	 *
-	 * @param groupBy <span class="en-US">Group by information</span>
-	 *                <span class="zh-CN">分组信息</span>
-	 * @return <span class="en-US">Match result</span>
-	 * <span class="zh-CN">匹配结果</span>
-	 */
-	public boolean match(@Nonnull final GroupBy groupBy) {
-		return this.match(groupBy.getEntityClass(), groupBy.getIdentifyKey());
 	}
 }

@@ -93,10 +93,11 @@ public final class QueryJoin extends SortedItem {
 	 */
 	public QueryJoin(@Nonnull final Class<?> mainEntity, @Nonnull final Class<?> joinEntity,
 	                 @Nonnull final JoinType joinType, @Nonnull final List<JoinInfo> joinInfos) {
+		this();
 		this.mainEntity = mainEntity;
 		this.joinEntity = joinEntity;
 		this.joinType = joinType;
-		this.joinInfos = joinInfos;
+		this.joinInfos.addAll(joinInfos);
 	}
 
 	/**

@@ -595,13 +595,9 @@ public final class DataUtils {
 	 * @author Steven Wee	<a href="mailto:wmkm0113@gmail.com">wmkm0113@gmail.com</a>
 	 * @version $Revision: 1.0.0 $ $Date: Oct 26, 2023 16:42:18 $
 	 */
+	@Provider(name = "MemoryTaskProvider", titleKey = "memory.name.task.provider")
 	private static final class MemoryTaskProviderImpl implements TaskProvider {
 
-		/**
-		 * <span class="en-US">Multilingual agent object instance</span>
-		 * <span class="zh-CN">国际化代理实例对象</span>
-		 */
-		private final MultilingualUtils.Agent multiAgent = MultilingualUtils.newAgent(this.getClass());
 		/**
 		 * <span class="en-US">List of currently stored task information</span>
 		 * <span class="zh-CN">当前存储的任务信息列表</span>
@@ -622,15 +618,6 @@ public final class DataUtils {
 		 */
 		@Override
 		public void initialize() {
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * @see org.nervousync.database.providers.data.TaskProvider#name(java.lang.String)
-		 */
-		@Override
-		public String name(String languageCode) {
-			return this.multiAgent.findMessage("memory.name.task.provider");
 		}
 
 		/*
@@ -1208,7 +1195,7 @@ public final class DataUtils {
 		 * <span class="en-US">Total record count</span>
 		 * <span class="zh-CN">总记录数</span>
 		 */
-		private long totalCount = 0L;
+		private final long totalCount;
 		/**
 		 * <span class="en-US">End position</span>
 		 * <span class="zh-CN">结尾地址</span>

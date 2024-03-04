@@ -524,6 +524,11 @@
     <xsd:element name="query_result">
         <xsd:complexType>
             <xsd:sequence>
+                <xsd:element name="encoding" type="xsd:string" default="UTF-8">
+                    <xsd:annotation>
+                        <xsd:documentation>Character encoding for record information</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
                 <xsd:element name="record_list">
                     <xsd:annotation>
                         <xsd:documentation>Result record list</xsd:documentation>

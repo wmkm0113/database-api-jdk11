@@ -169,17 +169,4 @@ public final class OrderBy extends SortedItem {
 		return ObjectUtils.nullSafeEquals(entityClass, this.entityClass)
 				&& ObjectUtils.nullSafeEquals(identifyKey, this.identifyKey);
 	}
-
-	/**
-	 * <h3 class="en-US">Checks whether the given parameter value matches the current information</h3>
-	 * <h3 class="zh-CN">检查给定的参数值是否与当前信息匹配</h3>
-	 *
-	 * @param orderBy <span class="en-US">Order by information</span>
-	 *                <span class="zh-CN">排序信息</span>
-	 * @return <span class="en-US">Match result</span>
-	 * <span class="zh-CN">匹配结果</span>
-	 */
-	public boolean match(final OrderBy orderBy) {
-		return this.match(orderBy.getEntityClass(), orderBy.getIdentifyKey());
-	}
 }

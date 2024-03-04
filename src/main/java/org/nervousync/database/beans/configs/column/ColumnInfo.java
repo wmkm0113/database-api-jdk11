@@ -129,6 +129,7 @@ public final class ColumnInfo extends BeanObject {
      */
     private ColumnInfo(final String columnName, final int jdbcType, final boolean nullable,
                        final int length, final int precision, final int scale, final Object defaultValue) {
+        this();
         this.columnName = columnName;
         this.jdbcType = jdbcType;
         this.nullable = nullable;

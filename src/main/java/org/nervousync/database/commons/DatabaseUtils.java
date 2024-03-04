@@ -3,7 +3,6 @@ package org.nervousync.database.commons;
 import jakarta.persistence.*;
 import org.nervousync.annotations.provider.Provider;
 import org.nervousync.commons.Globals;
-import org.nervousync.database.annotations.query.ResultData;
 import org.nervousync.database.annotations.transactional.Transactional;
 import org.nervousync.database.api.DatabaseClient;
 import org.nervousync.database.api.DatabaseManager;
@@ -389,26 +388,6 @@ public final class DatabaseUtils {
 			return (method.isAnnotationPresent(OneToMany.class) || method.isAnnotationPresent(ManyToOne.class))
 					&& (method.isAnnotationPresent(JoinColumns.class) || method.isAnnotationPresent(JoinColumn.class))
 					&& (method.getName().startsWith("get") || method.getName().startsWith("is"));
-		}
-		return Boolean.FALSE;
-	}
-
-	/**
-	 * <h3 class="en-US">Check the given member instance is contains annotation</h3>
-	 * <h3 class="zh-CN">检查给定的成员对象实例包含标注信息</h3>
-	 *
-	 * @param member <span class="en-US">Member instance</span>
-	 *               <span class="zh-CN">成员对象实例</span>
-	 * @return <span class="en-US">Check result</span>
-	 * <span class="zh-CN">检查结果</span>
-	 */
-	public static boolean resultDataMember(final Member member) {
-		if (member == null) {
-			return Boolean.FALSE;
-		}
-		if (member instanceof Field) {
-			Field field = (Field) member;
-			return field.isAnnotationPresent(ResultData.class);
 		}
 		return Boolean.FALSE;
 	}

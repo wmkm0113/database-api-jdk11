@@ -68,6 +68,7 @@ public final class RangesData extends BeanObject {
      *                   <span class="zh-CN">终止值</span>
      */
     public RangesData(@Nonnull final Object beginValue, @Nonnull final Object endValue) {
+        this();
         this.beginValue = beginValue;
         this.endValue = endValue;
     }

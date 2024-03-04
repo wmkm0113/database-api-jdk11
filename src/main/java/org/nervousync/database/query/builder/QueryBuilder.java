@@ -20,11 +20,11 @@ package org.nervousync.database.query.builder;
 import jakarta.annotation.Nonnull;
 import org.nervousync.builder.Builder;
 import org.nervousync.commons.Globals;
+import org.nervousync.database.annotations.query.ResultData;
 import org.nervousync.database.annotations.query.ResultSet;
 import org.nervousync.database.annotations.query.join.JoinEntities;
 import org.nervousync.database.beans.configs.column.ColumnConfig;
 import org.nervousync.database.beans.configs.table.TableConfig;
-import org.nervousync.database.commons.DatabaseUtils;
 import org.nervousync.database.entity.EntityManager;
 import org.nervousync.database.enumerations.join.JoinType;
 import org.nervousync.database.enumerations.lock.LockOption;
@@ -331,9 +331,11 @@ public final class QueryBuilder implements Builder<QueryInfo> {
 						joinEntities.referenceEntity(), joinInfos);
 			}
 
-			for (Field field :
-					ReflectionUtils.getAllDeclaredFields(targetClass, Boolean.TRUE, DatabaseUtils::resultDataMember)) {
-				queryBuilder.addItem(AbstractItem.column(field));
+			for (Field field : ReflectionUtils.getAllDeclaredFields(targetClass, Boolean.TRUE)) {
+				ResultData resultData = field.getAnnotation(ResultData.class);
+				if (resultData != null && EntityManager.columnExists(resultData.entity(), resultData.identifyKey())) {
+					queryBuilder.addItem(AbstractItem.column(field));
+				}
 			}
 			queryBuilder.identifyName(resultSet.name());
 			if (forUpdate) {

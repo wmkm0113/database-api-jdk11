@@ -50,6 +50,12 @@ public final class QueryResult extends BeanObject {
 	private static final String RECORD_SPLIT_CHARACTER = "|";
 
 	/**
+	 * <span class="en-US">Character encoding for record information</span>
+	 * <span class="zh-CN">数据记录使用的编码集</span>
+	 */
+	@XmlElement
+	private String encoding = Globals.DEFAULT_ENCODING;
+	/**
 	 * <span class="en-US">Record list</span>
 	 * <span class="zh-CN">数据记录列表</span>
 	 */
@@ -68,6 +74,30 @@ public final class QueryResult extends BeanObject {
 	 * <h3 class="zh-CN">查询结果部分集合定义的默认构造方法</h3>
 	 */
 	public QueryResult() {
+	}
+
+	/**
+	 * <h3 class="en-US">Getter method for character encoding for record information</h3>
+	 * <h3 class="zh-CN">数据记录使用的编码集的Getter方法</h3>
+	 *
+	 * @return
+	 * <span class="en-US">Character encoding for record information</span>
+	 * <span class="zh-CN">数据记录使用的编码集</span>
+	 */
+	public String getEncoding() {
+		return this.encoding;
+	}
+
+	/**
+	 * <h3 class="en-US">Setter method for character encoding for record information</h3>
+	 * <h3 class="zh-CN">数据记录使用的编码集的Setter方法</h3>
+	 *
+	 * @param encoding
+	 * <span class="en-US">Character encoding for record information</span>
+	 * <span class="zh-CN">数据记录使用的编码集</span>
+	 */
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
 	}
 
 	/**
@@ -188,7 +218,9 @@ public final class QueryResult extends BeanObject {
 	private String marshalRecord(@Nonnull final BaseObject recordObject) {
 		return Optional.of(StringUtils.objectToString(recordObject, StringUtils.StringType.JSON, Boolean.FALSE))
 				.filter(StringUtils::notBlank)
-				.map(string -> StringUtils.base64Encode(ConvertUtils.toByteArray(string)))
+				.map(string -> ConvertUtils.toByteArray(string, this.encoding))
+				.filter(dataBytes -> dataBytes.length > 0)
+				.map(StringUtils::base64Encode)
 				.orElse(Globals.DEFAULT_VALUE_STRING);
 	}
 
@@ -211,7 +243,7 @@ public final class QueryResult extends BeanObject {
 		}
 		return Optional.of(StringUtils.base64Decode(string))
 				.filter(dataBytes -> dataBytes.length > 0)
-				.map(ConvertUtils::toString)
+				.map(dataBytes -> ConvertUtils.toString(dataBytes, this.encoding))
 				.map(content -> StringUtils.dataToMap(content, StringUtils.StringType.JSON))
 				.map(resultMap -> {
 					T record = ObjectUtils.newInstance(targetClass);

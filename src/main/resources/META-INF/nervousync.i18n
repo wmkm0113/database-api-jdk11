@@ -115,6 +115,10 @@
         {
           "key": "Data_Utils_Config",
           "content": "Data import and export tool configuration information: Maximum number of threads: {0}, expiration time: {1}"
+        },
+        {
+          "key": "memory.name.task.provider",
+          "content": "Task storage provider which using local memory"
         }
       ]
     },
@@ -193,6 +197,10 @@
         {
           "key": "Data_Utils_Config",
           "content": "数据导入导出工具配置信息：最大线程数：{0}，过期时间：{1}"
+        },
+        {
+          "key": "memory.name.task.provider",
+          "content": "使用本地内存的任务存储适配器"
         }
       ]
     }

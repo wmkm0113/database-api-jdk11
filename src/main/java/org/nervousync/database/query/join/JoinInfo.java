@@ -22,7 +22,6 @@ import org.nervousync.beans.core.BeanObject;
 import org.nervousync.database.annotations.query.join.JoinKey;
 import org.nervousync.database.beans.configs.reference.JoinConfig;
 import org.nervousync.enumerations.core.ConnectionCode;
-import org.nervousync.utils.ObjectUtils;
 import org.nervousync.utils.StringUtils;
 
 /**
@@ -202,22 +201,5 @@ public final class JoinInfo extends BeanObject {
 	 */
 	public void setReferenceKey(String referenceKey) {
 		this.referenceKey = referenceKey;
-	}
-
-	/**
-	 * <h3 class="en-US">Match the given join information instance is same as current information</h3>
-	 * <h3 class="zh-CN">检查给定的关联列信息是否与当前信息一致</h3>
-	 *
-	 * @param joinInfo <span class="en-US">join information instance</span>
-	 *                 <span class="zh-CN">关联列信息</span>
-	 * @return <span class="en-US">Match result</span>
-	 * <span class="zh-CN">匹配结果</span>
-	 */
-	public boolean match(final JoinInfo joinInfo) {
-		if (joinInfo == null) {
-			return Boolean.FALSE;
-		}
-		return ObjectUtils.nullSafeEquals(this.joinKey, joinInfo.getJoinKey())
-				&& ObjectUtils.nullSafeEquals(this.referenceKey, joinInfo.getReferenceKey());
 	}
 }
